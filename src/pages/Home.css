@@ -360,40 +360,6 @@
   color: var(--dim);
 }
 
-/* ---- testimonials ---- */
-
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 36px;
-}
-.testimonial-quote {
-  font: 400 14px/1.8 var(--font-body);
-  color: var(--ink);
-  margin: 16px 0 22px;
-}
-.testimonial-person {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.testimonial-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: linear-gradient(160deg, rgba(139, 255, 192, 0.5), rgba(79, 232, 154, 0.15));
-}
-.testimonial-name {
-  font: 600 13px/1.2 var(--font-heading);
-  color: var(--ink);
-}
-.testimonial-role {
-  font: 400 11.5px/1.2 var(--font-body);
-  color: var(--dim);
-  margin-top: 5px;
-}
-
 .glass-cta__glow {
   position: absolute;
   left: 50%;
@@ -426,8 +392,7 @@
   .home-services__row {
     grid-template-columns: 1fr;
   }
-  .stats-grid,
-  .testimonial-grid {
+  .stats-grid {
     grid-template-columns: 1fr;
   }
   .process-grid {

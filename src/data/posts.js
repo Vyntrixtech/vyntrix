@@ -16,7 +16,7 @@ export const posts = [
     title: "Why your website is losing enquiries (and it's rarely the design)",
     category: "Web Development",
     date: "12 March 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "6 min",
     excerpt:
       "Most 'the website isn't working' problems trace back to three unglamorous causes — none of which is how it looks.",
@@ -42,7 +42,7 @@ export const posts = [
     title: "Native or cross-platform: how we actually decide",
     category: "Mobile Apps",
     date: "2 March 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "5 min",
     excerpt:
       "The honest version of this decision has almost nothing to do with technology preference and everything to do with what the app needs to do.",
@@ -66,7 +66,7 @@ export const posts = [
     title: "Domains, hosting and business email — a plain-English guide",
     category: "Business Technology",
     date: "22 February 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "7 min",
     excerpt:
       "Three separate things get bundled into one confusing conversation. Here's what each one actually is, and who should own it.",
@@ -90,7 +90,7 @@ export const posts = [
     title: "Logo refresh or full rebrand? A five-minute test",
     category: "Branding",
     date: "10 February 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "4 min",
     excerpt: "Most businesses need a tidy-up, not a reinvention. Here's how to tell which one you actually need.",
     intro:
@@ -113,7 +113,7 @@ export const posts = [
     title: "Five checkout changes that reduce cart abandonment",
     category: "E-commerce",
     date: "28 January 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "6 min",
     excerpt: "Small, unglamorous checkout fixes that consistently move the needle more than a full redesign.",
     intro:
@@ -136,7 +136,7 @@ export const posts = [
     title: "How to actually measure your website's return on investment",
     category: "Digital Growth",
     date: "14 January 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "5 min",
     excerpt: "Traffic and page views are not business results. Here's what to track instead.",
     intro:
@@ -159,7 +159,7 @@ export const posts = [
     title: "When print still beats digital for small business marketing",
     category: "Graphic Design",
     date: "3 January 2026",
-    author: "VTech Team",
+    author: "Vyntrix Technologies Team",
     readTime: "4 min",
     excerpt: "Digital isn't always the answer. A few situations where a well-designed printed piece still wins.",
     intro:

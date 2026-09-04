@@ -26,7 +26,7 @@ export default function Header() {
             setOpen(false);
           }}
         >
-          <img src={logo} alt="VTech" height={32} />
+          <img src={logo} alt="Vyntrix Technologies" height={32} />
         </div>
 
         <nav className="site-header__nav">

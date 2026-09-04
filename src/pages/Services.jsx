@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import ServiceIllustration from "../components/ServiceIllustration";
 import { services } from "../data/services";
-import { ArrowRightIcon, BadgeIcon } from "../components/Icons";
+import { BadgeIcon } from "../components/Icons";
 import { serviceIconMap as iconMap } from "../data/serviceIcons";
 import "./Services.css";
 
@@ -37,9 +37,6 @@ export default function Services() {
                   <h3>{s.name}</h3>
                 </div>
                 <p>{s.short}</p>
-                <span className="service-link">
-                  View service <ArrowRightIcon size={14} />
-                </span>
               </Link>
             );
           })}

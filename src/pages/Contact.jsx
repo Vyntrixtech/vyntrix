@@ -134,7 +134,7 @@ export default function Contact() {
                   onChange={(e) => update("consent", e.target.checked)}
                 />
                 <span>
-                  I agree to VTech contacting me about this enquiry. See our <a href="#">Privacy Policy</a>.
+                  I agree to Vyntrix Technologies contacting me about this enquiry. See our <a href="#">Privacy Policy</a>.
                 </span>
               </label>
 
@@ -165,7 +165,7 @@ export default function Contact() {
               </div>
               <div>
                 <div className="contact-details__label">TELEPHONE</div>
-                <a href="tel:+447397636955">+44 7397636955</a>
+                <a href="tel:0207877897">0207877897</a>
               </div>
             </div>
             <div className="contact-details__row">
@@ -174,9 +174,9 @@ export default function Contact() {
               </div>
               <div>
                 <div className="contact-details__label">ADDRESS</div>
-                Address line one
+                Business centre 246-250 Romford Road
                 <br />
-                City, Postcode, UK
+                London, England, E7 9HZ
               </div>
             </div>
             <div className="contact-details__row">

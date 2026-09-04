@@ -57,7 +57,7 @@ export default function AdminDashboard() {
     <div className="admin">
       <aside className="admin__sidebar">
         <div className="admin__brand">
-          <img src={logo} alt="VTech" height={26} />
+          <img src={logo} alt="Vyntrix Technologies" height={26} />
           <span className="admin__brand-tag">ADMIN</span>
         </div>
         <nav className="admin__nav">

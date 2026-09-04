@@ -41,7 +41,7 @@ export default function About() {
         blobs={[{ right: "-10%", top: "-50%", width: "65%", height: "150%", color: "rgba(79,232,154,.32)", duration: "20s" }]}
       >
         <div className="container about-hero">
-          <div className="eyebrow">About VTech</div>
+          <div className="eyebrow">About Vyntrix Technologies</div>
           <h1 className="about-hero__title">
             Technology. Creativity. <span className="gradient-text">Business growth.</span>
           </h1>

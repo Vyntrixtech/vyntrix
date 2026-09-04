@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import ServiceIllustration from "../components/ServiceIllustration";
 import { services } from "../data/services";
-import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon, QuoteIcon } from "../components/Icons";
+import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon } from "../components/Icons";
 import "./Home.css";
 
 const stats = [
@@ -19,7 +19,6 @@ const process = [
   { n: "05", title: "Launch & Support", body: "Go live, then ongoing support." },
 ];
 
-const testimonials = [1, 2, 3];
 
 export default function Home() {
   const homeServices = services.slice(0, 6);
@@ -61,7 +60,7 @@ export default function Home() {
                   <span className="dot" style={{ background: "#ff5f57" }} />
                   <span className="dot" style={{ background: "#febc2e" }} />
                   <span className="dot" style={{ background: "#28c840" }} />
-                  <div className="hero__mock-url">vtech.co.uk / build</div>
+                  <div className="hero__mock-url">vyntrixtechnologies.co.uk / build</div>
                 </div>
                 <div className="hero__mock-grid">
                   <div className="hero__mock-code">
@@ -196,31 +195,6 @@ export default function Home() {
                 <div className={"process-card__num" + (i === 0 ? " is-first" : "")}>{step.n}</div>
                 <h4>{step.title}</h4>
                 <p>{step.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="section section--end">
-          <div className="section-head">
-            <div className="eyebrow">Testimonials</div>
-            <h2>What our clients say</h2>
-          </div>
-          <div className="testimonial-grid">
-            {testimonials.map((i) => (
-              <div className={"card" + (i === 1 ? " card--accent" : "")} key={i}>
-                <QuoteIcon size={26} />
-                <p className="testimonial-quote">
-                  Placeholder review — testimonial copy is managed from the admin area and replaced with real client
-                  words before launch.
-                </p>
-                <div className="testimonial-person">
-                  <div className="testimonial-avatar" />
-                  <div>
-                    <div className="testimonial-name">Client Name</div>
-                    <div className="testimonial-role">Company · Industry</div>
-                  </div>
-                </div>
               </div>
             ))}
           </div>
