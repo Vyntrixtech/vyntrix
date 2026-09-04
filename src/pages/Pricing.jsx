@@ -25,7 +25,7 @@ const tiers = [
       "Social media integration",
       "SSL / security setup",
     ],
-    cta: "Book A Call Now!",
+    cta: "Request a Quote",
     variant: "plain",
   },
   {
@@ -40,7 +40,7 @@ const tiers = [
       "Analytics & advanced SEO setup",
       "Business email assistance",
     ],
-    cta: "Book A Call Now!",
+    cta: "Request a Quote",
     variant: "accent",
   },
   {
@@ -104,9 +104,6 @@ export default function Pricing() {
               {t.popular && <div className="pricing-card__badge">MOST POPULAR</div>}
               <h3>{t.name}</h3>
               <p className="pricing-card__body">{t.body}</p>
-              <div className={"pricing-card__price" + (t.variant === "accent" ? " is-accent" : "")}>
-                Request a quote
-              </div>
               <div className="pricing-card__features">
                 {t.lead && <div className="pricing-card__lead">{t.lead}</div>}
                 {t.features.map((f) => (
