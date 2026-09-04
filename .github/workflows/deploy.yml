@@ -30,7 +30,11 @@ jobs:
 
       - run: npm run build
 
+      # enablement lets the first run turn Pages on itself, so no manual
+      # Settings → Pages step is needed.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
