@@ -15,12 +15,10 @@
   max-width: 56ch;
   margin: 18px auto 0;
 }
-/* One custom-pricing card: centred and width-capped so it doesn't stretch
-   across the full container on wide screens, full-width on mobile. */
 .pricing-grid {
   display: grid;
-  grid-template-columns: minmax(0, 460px);
-  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   align-items: start;
 }
 .pricing-card {
@@ -33,23 +31,50 @@
   background: radial-gradient(130% 130% at 50% 0%, rgba(79, 232, 154, 0.22), rgba(255, 255, 255, 0.02) 60%);
   box-shadow: 0 30px 90px rgba(79, 232, 154, 0.12);
 }
+.pricing-card__badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: var(--gradient-brand);
+  color: var(--acd);
+  font: 700 10px/1 var(--font-heading);
+  letter-spacing: 0.08em;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
 .pricing-card h3 {
-  font: 400 34px/1.15 var(--font-display);
-  letter-spacing: -0.004em;
+  font: 600 21px/1.25 var(--font-heading);
+  letter-spacing: -0.012em;
   color: var(--ink);
 }
 .pricing-card__body {
-  font: 400 13.5px/1.8 var(--font-body);
+  font: 400 13px/1.8 var(--font-body);
   color: var(--mid);
-  margin: 12px 0 22px;
+  margin: 9px 0 22px;
+}
+.pricing-card__price {
+  font: 400 45px/1.04 var(--font-display);
+  letter-spacing: -0.004em;
+  color: var(--ink);
+}
+.pricing-card__price.is-accent {
+  color: var(--ac2);
+}
+.pricing-card__from {
+  font: 400 13px/1 var(--font-body);
+  color: var(--dim);
 }
 .pricing-card__features {
   display: grid;
   gap: 12px;
-  margin: 4px 0 26px;
+  margin: 24px 0 26px;
   font: 400 13px/1.5 var(--font-body);
   color: var(--mid);
   flex: 1;
+}
+.pricing-card__lead {
+  color: var(--ink);
+  font-weight: 600;
 }
 .pricing-card__feature {
   display: flex;
@@ -132,15 +157,10 @@
   .pricing-hero__title {
     font-size: 40px;
   }
-  .pricing-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+  .pricing-grid,
   .next-steps,
   .pricing-faq {
     grid-template-columns: 1fr;
-  }
-  .pricing-card h3 {
-    font-size: 28px;
   }
   .addons-grid {
     grid-template-columns: 1fr 1fr;

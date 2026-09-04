@@ -13,18 +13,50 @@ import {
 } from "../components/Icons";
 import "./Pricing.css";
 
-const plan = {
-  name: "Custom Pricing",
-  body: "Every project is scoped and quoted individually — websites, applications, e-commerce and bespoke functionality.",
-  features: [
-    "Custom website or application",
-    "Advanced functionality",
-    "E-commerce & payment integration",
-    "Custom UI/UX",
-    "API integration & priority support",
-  ],
-  cta: "Connect with Sales Team",
-};
+const tiers = [
+  {
+    name: "Starter",
+    body: "A professional presence, live quickly.",
+    features: [
+      "Professional website",
+      "Mobile responsive design",
+      "Contact form",
+      "Basic SEO setup",
+      "Social media integration",
+      "SSL / security setup",
+    ],
+    cta: "Book A Call Now!",
+    variant: "plain",
+  },
+  {
+    name: "Business",
+    body: "For companies competing on search and credibility.",
+    popular: true,
+    lead: "Everything in Starter, plus",
+    features: [
+      "Advanced website & custom design",
+      "Additional pages",
+      "Google Business integration",
+      "Analytics & advanced SEO setup",
+      "Business email assistance",
+    ],
+    cta: "Book A Call Now!",
+    variant: "accent",
+  },
+  {
+    name: "Premium",
+    body: "Applications, e-commerce and bespoke functionality.",
+    features: [
+      "Custom website or application",
+      "Advanced functionality",
+      "E-commerce & payment integration",
+      "Custom UI/UX",
+      "API integration & priority support",
+    ],
+    cta: "Connect with Sales Team",
+    variant: "plain",
+  },
+];
 
 const addOns = [
   { icon: ShieldCheckIcon, label: "Website updates" },
@@ -61,27 +93,37 @@ export default function Pricing() {
         <div className="container pricing-hero">
           <div className="eyebrow">Pricing</div>
           <h1 className="pricing-hero__title">Clear scope, clear price</h1>
-          <p className="pricing-hero__lede">No fixed packages — every project is scoped and quoted around what your business actually needs.</p>
+          <p className="pricing-hero__lede">Every package is a starting point. Anything can be added, removed or quoted individually.</p>
         </div>
       </AuroraHero>
 
       <div className="section">
         <div className="pricing-grid">
-          <div className="card pricing-card pricing-card--accent">
-            <h3>{plan.name}</h3>
-            <p className="pricing-card__body">{plan.body}</p>
-            <div className="pricing-card__features">
-              {plan.features.map((f) => (
-                <div className="pricing-card__feature" key={f}>
-                  <CheckIcon size={15} color="#8bffc0" />
-                  {f}
-                </div>
-              ))}
+          {tiers.map((t) => (
+            <div className={"card pricing-card" + (t.variant === "accent" ? " pricing-card--accent" : "")} key={t.name}>
+              {t.popular && <div className="pricing-card__badge">MOST POPULAR</div>}
+              <h3>{t.name}</h3>
+              <p className="pricing-card__body">{t.body}</p>
+              <div className={"pricing-card__price" + (t.variant === "accent" ? " is-accent" : "")}>
+                Request a quote
+              </div>
+              <div className="pricing-card__features">
+                {t.lead && <div className="pricing-card__lead">{t.lead}</div>}
+                {t.features.map((f) => (
+                  <div className="pricing-card__feature" key={f}>
+                    <CheckIcon size={15} color={t.variant === "accent" ? "#8bffc0" : "#4fe89a"} />
+                    {f}
+                  </div>
+                ))}
+              </div>
+              <Link
+                to="/contact"
+                className={"btn btn-block " + (t.variant === "accent" ? "btn-primary" : "btn-secondary")}
+              >
+                {t.cta}
+              </Link>
             </div>
-            <Link to="/contact" className="btn btn-block btn-primary">
-              {plan.cta}
-            </Link>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -105,8 +147,8 @@ export default function Pricing() {
 
       <div className="section section--end">
         <div className="glass-cta">
-          <h2>Not sure what your project needs?</h2>
-          <p style={{ maxWidth: "42ch" }}>Book a free demo and we'll scope the smallest build that does the job properly.</p>
+          <h2>Not sure which package fits?</h2>
+          <p style={{ maxWidth: "42ch" }}>Book a free demo and we'll recommend the smallest package that does the job properly.</p>
           <div className="actions">
             <Link to="/contact" className="btn btn-primary">
               Book a Consultation
