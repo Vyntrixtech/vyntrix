@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics=""><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+<style>
+html,body{margin:0;background:#050907}
+body{font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#4fe89a;text-decoration:none}a:hover{color:#8bffc0}
+*{box-sizing:border-box}
+@keyframes vt-dash{to{stroke-dashoffset:-1000}}
+@keyframes vt-dash2{to{stroke-dashoffset:-400}}
+@keyframes vt-pulse{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes vt-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes vt-float2{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes vt-blink{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+@keyframes vt-type{0%{width:0}60%,100%{width:var(--w,60%)}}
+@keyframes vt-orbit{to{transform:rotate(360deg)}}
+@keyframes vt-scan{0%{transform:translateY(-10%)}100%{transform:translateY(110%)}}
+@keyframes vt-breathe{0%,100%{opacity:.45}50%{opacity:.9}}
+@keyframes vt-slide{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+@keyframes vt-spark{0%,100%{opacity:0;transform:scale(.6)}40%{opacity:1;transform:scale(1.2)}}
+@keyframes vt-flicker{0%,100%{opacity:.9}42%{opacity:.35}46%{opacity:1}52%{opacity:.2}58%{opacity:.85}}
+@keyframes vt-drift{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(3%,-4%,0)}100%{transform:translate3d(0,0,0)}}
+@keyframes vt-marquee{to{transform:translateX(-50%)}}
+@keyframes vt-flow{0%{transform:translateY(0);opacity:0}14%{opacity:1}86%{opacity:1}100%{transform:translateY(166px);opacity:0}}
+</style></helmet>
+
+<div style="--bg:#050907;--ink:#eefff6;--mid:#a9c4b8;--dim:#7c9689;--ac:#4fe89a;--ac2:#8bffc0;--acd:#04140c;--cd:rgba(255,255,255,.035);--cb:rgba(255,255,255,.09);--h:'Plus Jakarta Sans';--f:'DM Sans';--d:'Instrument Serif';background:#050907;min-height:100vh;overflow-x:hidden">
+
+<div style="position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(5,9,7,.72);border-bottom:1px solid var(--cb)">
+<div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 28px">
+<div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;cursor:pointer">
+<img src="assets/vtech-logo.png" alt="VTech" style="height:32px;width:auto;display:block">
+</div>
+<div style="display:flex;gap:4px;padding:6px;background:rgba(255,255,255,.05);border:1px solid var(--cb);border-radius:999px;font:500 13px/1 var(--f)">
+<div onClick="{{ goHome }}" style="padding:10px 15px;border-radius:999px;color:#a9c4b8;cursor:pointer">Home<sc-if value="{{ onHome }}" hint-placeholder-val="{{ false }}"><div style="height:2px;border-radius:2px;background:var(--ac);margin-top:5px"></div></sc-if></div>
+<div onClick="{{ goAbout }}" style="padding:10px 15px;border-radius:999px;color:#a9c4b8;cursor:pointer">About<sc-if value="{{ onAbout }}" hint-placeholder-val="{{ false }}"><div style="height:2px;border-radius:2px;background:var(--ac);margin-top:5px"></div></sc-if></div>
+<div onClick="{{ goServices }}" style="padding:10px 15px;border-radius:999px;color:#a9c4b8;cursor:pointer">Services<sc-if value="{{ onServices }}" hint-placeholder-val="{{ false }}"><div style="height:2px;border-radius:2px;background:var(--ac);margin-top:5px"></div></sc-if></div>
+<div onClick="{{ goPackages }}" style="padding:10px 15px;border-radius:999px;color:#a9c4b8;cursor:pointer">Pricing<sc-if value="{{ onPackages }}" hint-placeholder-val="{{ false }}"><div style="height:2px;border-radius:2px;background:var(--ac);margin-top:5px"></div></sc-if></div>
+</div>
+<div onClick="{{ goContact }}" style="display:flex;align-items:center;gap:9px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13px/1 var(--h);padding:14px 20px;border-radius:999px;cursor:pointer;box-shadow:0 8px 30px rgba(79,232,154,.28)">Book a Call
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#04140c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</div>
+</div>
+</div>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+<div style="position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(130% 100% at 50% -20%,#0f5236 0%,#082018 45%,#050907 80%)"></div>
+<div style="position:absolute;left:-10%;top:-45%;width:70%;height:140%;background:radial-gradient(closest-side,rgba(79,232,154,.40),transparent 70%);filter:blur(80px);animation:vt-drift 18s ease-in-out infinite"></div>
+<div style="position:absolute;right:-14%;top:-55%;width:70%;height:150%;background:radial-gradient(closest-side,rgba(38,190,255,.20),transparent 70%);filter:blur(90px);animation:vt-drift 24s ease-in-out infinite reverse"></div>
+
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:104px 28px 84px;text-align:center">
+<div style="display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 7px;border:1px solid rgba(79,232,154,.35);background:rgba(79,232,154,.10);border-radius:999px;font:500 12.5px/1 var(--f);color:var(--ac2)">
+<span style="background:var(--ac);color:var(--acd);font:700 10.5px/1 var(--h);padding:6px 10px;border-radius:999px">UK</span>Digital solutions partner · working globally
+</div>
+<h1 style="font:400 80px/1.04 var(--d);letter-spacing:-.004em;color:var(--ink);margin:28px auto 0;max-width:19ch;text-wrap:pretty">Turning ideas into <span style="background:linear-gradient(120deg,#8bffc0,#4fe89a 60%,#26beff);-webkit-background-clip:text;background-clip:text;color:transparent">powerful digital</span> solutions</h1>
+<p style="font:400 17px/1.8 var(--f);color:var(--mid);max-width:62ch;margin:22px auto 0">We design and develop websites, mobile applications and digital experiences that help businesses stand out, attract customers and grow.</p>
+<div style="display:flex;gap:12px;justify-content:center;margin-top:34px;flex-wrap:wrap">
+<div onClick="{{ goContact }}" style="display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 14px/1 var(--h);padding:18px 26px;border-radius:999px;cursor:pointer;box-shadow:0 14px 44px rgba(79,232,154,.30)">Get a Free Quote
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#04140c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div>
+<div onClick="{{ goServices }}" style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 14px/1 var(--h);padding:17px 24px;border-radius:999px;cursor:pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#eefff6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Explore Services</div>
+</div>
+
+
+<div style="position:relative;margin:64px auto 0;max-width:1000px">
+<div style="position:absolute;inset:-8% -4% -14%;background:radial-gradient(closest-side,rgba(79,232,154,.28),transparent 70%);filter:blur(50px)"></div>
+<div style="position:relative;border:1px solid var(--cb);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));padding:12px;box-shadow:0 40px 120px rgba(0,0,0,.6)">
+<div style="border-radius:18px;overflow:hidden;background:#060d0a;border:1px solid rgba(255,255,255,.06)">
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03)">
+<div style="width:10px;height:10px;border-radius:999px;background:#ff5f57"></div><div style="width:10px;height:10px;border-radius:999px;background:#febc2e"></div><div style="width:10px;height:10px;border-radius:999px;background:#28c840"></div>
+<div style="margin-left:12px;flex:1;height:24px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 12px;font:400 10.5px/1 var(--f);color:var(--dim)">vtech.co.uk / build</div>
+</div>
+<div style="display:grid;grid-template-columns:1.15fr 1fr;gap:0">
+<div style="padding:26px 24px;border-right:1px solid rgba(255,255,255,.06)">
+<div style="display:flex;align-items:center;gap:9px;font:600 10.5px/1 var(--f);letter-spacing:.14em;color:var(--ac)"><span style="width:7px;height:7px;border-radius:999px;background:var(--ac);animation:vt-pulse 2.2s ease-in-out infinite"></span>BUILD PIPELINE</div>
+<div style="display:grid;gap:11px;margin-top:20px">
+<div style="height:9px;width:78%;border-radius:999px;background:linear-gradient(90deg,rgba(79,232,154,.75),rgba(79,232,154,.12));animation:vt-type 2.4s ease-out both;--w:78%"></div>
+<div style="height:9px;width:54%;border-radius:999px;background:rgba(255,255,255,.10);animation:vt-type 2.8s .2s ease-out both;--w:54%"></div>
+<div style="height:9px;width:88%;border-radius:999px;background:rgba(255,255,255,.10);animation:vt-type 3.2s .35s ease-out both;--w:88%"></div>
+<div style="height:9px;width:40%;border-radius:999px;background:linear-gradient(90deg,rgba(139,255,192,.7),rgba(139,255,192,.1));animation:vt-type 2.6s .5s ease-out both;--w:40%"></div>
+<div style="height:9px;width:66%;border-radius:999px;background:rgba(255,255,255,.10);animation:vt-type 3s .65s ease-out both;--w:66%"></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:4px"><div style="height:9px;width:22%;border-radius:999px;background:rgba(255,255,255,.10)"></div><div style="width:8px;height:14px;background:var(--ac);animation:vt-blink 1.1s steps(1,end) infinite"></div></div>
+</div>
+<div style="display:flex;gap:8px;margin-top:26px;flex-wrap:wrap">
+<span style="font:600 10.5px/1 var(--f);color:var(--ac2);background:rgba(79,232,154,.12);border:1px solid rgba(79,232,154,.24);border-radius:999px;padding:8px 11px">design</span>
+<span style="font:600 10.5px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.05);border:1px solid var(--cb);border-radius:999px;padding:8px 11px">build</span>
+<span style="font:600 10.5px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.05);border:1px solid var(--cb);border-radius:999px;padding:8px 11px">test</span>
+<span style="font:600 10.5px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.05);border:1px solid var(--cb);border-radius:999px;padding:8px 11px">launch</span>
+</div>
+</div>
+<div style="position:relative;padding:26px 24px;overflow:hidden">
+<div style="display:grid;gap:0;position:relative">
+<div style="position:absolute;left:10px;top:14px;bottom:18px;width:1px;background:linear-gradient(180deg,rgba(79,232,154,.45),rgba(255,255,255,.08))"></div>
+<div style="position:absolute;left:6px;top:14px;width:9px;height:9px;border-radius:999px;background:#8bffc0;box-shadow:0 0 12px rgba(139,255,192,.8);animation:vt-flow 7s cubic-bezier(.45,0,.55,1) infinite"></div>
+<div style="display:flex;align-items:center;gap:16px;padding:8px 0"><div style="width:9px;height:9px;flex:none;margin-left:6px;border-radius:999px;background:#4fe89a"></div><div style="flex:1;border:1px solid rgba(79,232,154,.28);border-radius:12px;background:rgba(79,232,154,.08);padding:11px 13px"><div style="font:600 11.5px/1 var(--h);color:var(--ink)">Discovery &amp; scope</div><div style="font:400 10px/1.4 var(--f);color:var(--dim);margin-top:5px">Requirements, sitemap, fixed quotation</div></div></div>
+<div style="display:flex;align-items:center;gap:16px;padding:8px 0"><div style="width:9px;height:9px;flex:none;margin-left:6px;border-radius:999px;background:rgba(255,255,255,.22)"></div><div style="flex:1;border:1px solid var(--cb);border-radius:12px;background:rgba(255,255,255,.035);padding:11px 13px"><div style="font:600 11.5px/1 var(--h);color:var(--ink)">Design &amp; prototype</div><div style="font:400 10px/1.4 var(--f);color:var(--dim);margin-top:5px">Wireframes, UI, client review</div></div></div>
+<div style="display:flex;align-items:center;gap:16px;padding:8px 0"><div style="width:9px;height:9px;flex:none;margin-left:6px;border-radius:999px;background:rgba(255,255,255,.22)"></div><div style="flex:1;border:1px solid var(--cb);border-radius:12px;background:rgba(255,255,255,.035);padding:11px 13px"><div style="font:600 11.5px/1 var(--h);color:var(--ink)">Build &amp; integrate</div><div style="font:400 10px/1.4 var(--f);color:var(--dim);margin-top:5px">Development, CMS, payments, testing</div></div></div>
+<div style="display:flex;align-items:center;gap:16px;padding:8px 0"><div style="width:9px;height:9px;flex:none;margin-left:6px;border-radius:999px;background:rgba(58,160,255,.75)"></div><div style="flex:1;border:1px solid rgba(58,160,255,.28);border-radius:12px;background:rgba(58,160,255,.08);padding:11px 13px"><div style="font:600 11.5px/1 var(--h);color:var(--ink)">Launch &amp; support</div><div style="font:400 10px/1.4 var(--f);color:var(--dim);margin-top:5px">Go live, monitoring, monthly plan</div></div></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid var(--cb);border-bottom:1px solid var(--cb);background:rgba(255,255,255,.02);overflow:hidden">
+
+</div>
+</div>
+
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Services</div><h2 style="font:400 48px/1.12 var(--d);letter-spacing:-.004em;color:var(--ink);margin:16px auto 0;max-width:24ch">Everything your business needs to succeed online</h2><p style="font:400 15.5px/1.8 var(--f);color:var(--mid);max-width:58ch;margin:16px auto 0">Six service lines, one team, and a single point of contact from discovery to launch.</p></div>
+
+<div style="display:grid;grid-template-columns:1.35fr 1fr;gap:20px;margin-top:44px">
+<div style="position:relative;overflow:hidden;border:1px solid var(--cb);border-radius:26px;background:linear-gradient(160deg,rgba(79,232,154,.14),rgba(255,255,255,.02) 55%);padding:32px;display:flex;flex-direction:column">
+<div style="position:relative;flex:1;min-height:230px;border-radius:18px;overflow:hidden;background:radial-gradient(120% 120% at 20% 0%,rgba(79,232,154,.20),rgba(255,255,255,.02) 60%);border:1px solid rgba(255,255,255,.07)">
+<svg viewBox="0 0 520 230" style="position:absolute;inset:0;width:100%;height:100%">
+<rect x="40" y="30" width="440" height="170" rx="14" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)"></rect>
+<rect x="40" y="30" width="440" height="30" rx="14" fill="rgba(255,255,255,.04)"></rect>
+<circle cx="62" cy="45" r="4" fill="#4fe89a" opacity=".8"></circle><circle cx="76" cy="45" r="4" fill="rgba(255,255,255,.2)"></circle><circle cx="90" cy="45" r="4" fill="rgba(255,255,255,.2)"></circle>
+<g fill="rgba(255,255,255,.14)"><rect x="62" y="80" width="120" height="9" rx="4.5"></rect><rect x="62" y="100" width="86" height="9" rx="4.5"></rect><rect x="62" y="120" width="140" height="9" rx="4.5"></rect><rect x="62" y="140" width="70" height="9" rx="4.5"></rect></g>
+<rect x="62" y="80" width="120" height="9" rx="4.5" fill="#4fe89a" opacity=".85" style="animation:vt-breathe 3.4s ease-in-out infinite"></rect>
+<rect x="230" y="80" width="220" height="100" rx="10" fill="rgba(79,232,154,.08)" stroke="rgba(79,232,154,.28)"></rect>
+<g stroke="#4fe89a" fill="none" stroke-width="1.4"><path d="M245 155 285 120 320 138 360 100 400 118 435 96" stroke-dasharray="240" stroke-dashoffset="240" style="animation:vt-dash 6s linear infinite"></path></g>
+<g fill="#8bffc0"><circle cx="285" cy="120" r="3.4" style="animation:vt-pulse 2.4s ease-in-out infinite"></circle><circle cx="360" cy="100" r="3.4" style="animation:vt-pulse 2.4s .5s ease-in-out infinite"></circle><circle cx="435" cy="96" r="3.4" style="animation:vt-pulse 2.4s 1s ease-in-out infinite"></circle></g>
+<rect x="62" y="165" width="8" height="14" fill="#4fe89a" style="animation:vt-blink 1.1s steps(1,end) infinite"></rect>
+</svg>
+</div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:26px">
+<div style="width:40px;height:40px;border-radius:14px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 18v3"></path><path d="m7 9 2 2-2 2"></path><path d="M12 13h4"></path></svg></div>
+<h3 style="font:600 24px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">Website Design &amp; Development</h3>
+</div>
+<p style="font:400 14px/1.8 var(--f);color:var(--mid);margin:14px 0 0;max-width:54ch">Business websites, e-commerce, landing pages, custom builds, redesigns, WordPress and ongoing maintenance — fast, responsive and built to be found.</p>
+<div onClick="{{ goService }}" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;font:600 13px/1 var(--h);color:var(--ac);cursor:pointer">Explore service <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div>
+</div>
+<div style="display:grid;gap:20px">
+<div onClick="{{ goService }}" style="position:relative;overflow:hidden;border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:26px;cursor:pointer">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:18px">
+<div>
+<div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><path d="M11 19h2"></path></svg></div>
+<h3 style="font:700 18px/1.3 var(--h);color:var(--ink);margin:16px 0 8px">Mobile App Development</h3>
+<p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:0;max-width:34ch">iOS, Android, cross-platform, customer portals and MVP builds.</p>
+</div>
+<svg viewBox="0 0 90 120" style="width:78px;flex:none">
+<rect x="14" y="8" width="62" height="104" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(79,232,154,.3)"></rect>
+<g><rect x="24" y="26" width="42" height="14" rx="5" fill="rgba(79,232,154,.30)" style="animation:vt-slide 5s ease-in-out infinite"></rect>
+<rect x="24" y="48" width="42" height="14" rx="5" fill="rgba(255,255,255,.10)" style="animation:vt-slide 5s .3s ease-in-out infinite"></rect>
+<rect x="24" y="70" width="42" height="14" rx="5" fill="rgba(255,255,255,.10)" style="animation:vt-slide 5s .6s ease-in-out infinite"></rect></g>
+<rect x="34" y="98" width="22" height="4" rx="2" fill="rgba(255,255,255,.25)"></rect>
+</svg>
+</div>
+</div>
+<div onClick="{{ goService }}" style="position:relative;overflow:hidden;border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:26px;cursor:pointer">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:18px">
+<div>
+<div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h9M3 17h13"></path><circle cx="18" cy="15" r="3"></circle></svg></div>
+<h3 style="font:700 18px/1.3 var(--h);color:var(--ink);margin:16px 0 8px">UI/UX Design</h3>
+<p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:0;max-width:34ch">Interfaces, wireframes, prototypes and experience design.</p>
+</div>
+<svg viewBox="0 0 110 120" style="width:92px;flex:none">
+<rect x="10" y="22" width="66" height="76" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.12)"></rect>
+<rect x="32" y="10" width="66" height="76" rx="10" fill="rgba(79,232,154,.08)" stroke="rgba(79,232,154,.32)" style="animation:vt-float 6s ease-in-out infinite"></rect>
+<g fill="rgba(139,255,192,.55)"><circle cx="32" cy="10" r="3.6"></circle><circle cx="98" cy="10" r="3.6"></circle><circle cx="32" cy="86" r="3.6"></circle><circle cx="98" cy="86" r="3.6"></circle></g>
+<rect x="44" y="30" width="42" height="7" rx="3.5" fill="rgba(255,255,255,.20)"></rect><rect x="44" y="44" width="28" height="7" rx="3.5" fill="rgba(79,232,154,.5)"></rect>
+</svg>
+</div>
+</div>
+<div onClick="{{ goService }}" style="position:relative;overflow:hidden;border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:26px;cursor:pointer">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:18px">
+<div>
+<div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.96A6 6 0 0 0 6.2 9.2 4 4 0 0 0 7 19z"></path></svg></div>
+<h3 style="font:700 18px/1.3 var(--h);color:var(--ink);margin:16px 0 8px">IT &amp; Digital Solutions</h3>
+<p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:0;max-width:34ch">Business email, domains, hosting, cloud and consultancy.</p>
+</div>
+<svg viewBox="0 0 110 120" style="width:92px;flex:none">
+<g style="transform-origin:55px 60px;animation:vt-orbit 26s linear infinite">
+<circle cx="55" cy="60" r="38" fill="none" stroke="rgba(79,232,154,.22)"></circle>
+<circle cx="93" cy="60" r="4" fill="#4fe89a"></circle><circle cx="17" cy="60" r="3" fill="#8bffc0"></circle>
+</g>
+<circle cx="55" cy="60" r="22" fill="rgba(79,232,154,.10)" stroke="rgba(79,232,154,.35)"></circle>
+<circle cx="55" cy="60" r="9" fill="#4fe89a" opacity=".8" style="animation:vt-pulse 3s ease-in-out infinite"></circle>
+</svg>
+</div>
+</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px">
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:26px;cursor:pointer">
+<div style="height:120px;border-radius:16px;overflow:hidden;background:radial-gradient(120% 120% at 30% 0%,rgba(79,232,154,.14),rgba(255,255,255,.02) 60%);border:1px solid rgba(255,255,255,.06);position:relative">
+<svg viewBox="0 0 300 120" style="position:absolute;inset:0;width:100%;height:100%">
+<g style="transform-origin:150px 60px;animation:vt-orbit 30s linear infinite">
+<rect x="120" y="30" width="60" height="60" rx="16" fill="none" stroke="rgba(139,255,192,.45)"></rect>
+<rect x="120" y="30" width="60" height="60" rx="16" fill="none" stroke="rgba(79,232,154,.25)" transform="rotate(45 150 60)"></rect>
+</g>
+<circle cx="150" cy="60" r="12" fill="rgba(79,232,154,.5)" style="animation:vt-breathe 3.6s ease-in-out infinite"></circle>
+</svg>
+</div>
+<div style="display:flex;align-items:center;gap:11px;margin-top:20px"><div style="width:34px;height:34px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="19" cy="13" r="2.5"></circle><circle cx="6" cy="12" r="3"></circle><path d="M12 22a9 9 0 0 1 0-18"></path></svg></div><h3 style="font:700 17px/1.3 var(--h);color:var(--ink);margin:0">Graphic Design &amp; Branding</h3></div>
+<p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:12px 0 0">Logos, brand identity, print, menus, social and marketing material.</p>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:26px;cursor:pointer">
+<div style="height:120px;border-radius:16px;overflow:hidden;background:radial-gradient(120% 120% at 30% 0%,rgba(79,232,154,.14),rgba(255,255,255,.02) 60%);border:1px solid rgba(255,255,255,.06);position:relative">
+<svg viewBox="0 0 300 120" style="position:absolute;inset:0;width:100%;height:100%">
+<rect x="60" y="26" width="80" height="66" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" style="animation:vt-float2 7s ease-in-out infinite"></rect>
+<rect x="160" y="26" width="80" height="66" rx="12" fill="rgba(79,232,154,.08)" stroke="rgba(79,232,154,.3)" style="animation:vt-float 7s ease-in-out infinite"></rect>
+<path d="M140 59h20" stroke="rgba(79,232,154,.6)" stroke-width="1.4" style="animation:vt-dash2 8s linear infinite"></path>
+<circle cx="150" cy="59" r="4" fill="#8bffc0" style="animation:vt-pulse 2.4s ease-in-out infinite"></circle>
+<g fill="rgba(255,255,255,.18)"><rect x="74" y="44" width="52" height="6" rx="3"></rect><rect x="74" y="58" width="36" height="6" rx="3"></rect></g>
+<g fill="rgba(139,255,192,.45)"><rect x="174" y="44" width="52" height="6" rx="3"></rect><rect x="174" y="58" width="36" height="6" rx="3"></rect></g>
+</svg>
+</div>
+<div style="display:flex;align-items:center;gap:11px;margin-top:20px"><div style="width:34px;height:34px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h2l2.2 10.4A2 2 0 0 0 9.2 17H18"></path><circle cx="10" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle><path d="M7 8h13l-1.6 6.2H8.3"></path></svg></div><h3 style="font:700 17px/1.3 var(--h);color:var(--ink);margin:0">E-commerce Solutions</h3></div>
+<p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:12px 0 0">Store build, product setup, payments, carts and order management.</p>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:26px;cursor:pointer">
+<div style="height:120px;border-radius:16px;overflow:hidden;background:radial-gradient(120% 120% at 30% 0%,rgba(79,232,154,.14),rgba(255,255,255,.02) 60%);border:1px solid rgba(255,255,255,.06);position:relative">
+<svg viewBox="0 0 300 120" style="position:absolute;inset:0;width:100%;height:100%">
+<g stroke="rgba(79,232,154,.4)" fill="none" stroke-width="1.3">
+<path d="M40 90h50l20-30h40l20 30h60" style="animation:vt-dash2 10s linear infinite"></path>
+<path d="M40 40h70l20 30" style="animation:vt-dash2 14s linear infinite reverse"></path>
+</g>
+<g fill="#4fe89a"><circle cx="90" cy="90" r="4" style="animation:vt-pulse 2.6s ease-in-out infinite"></circle><circle cx="150" cy="60" r="5" style="animation:vt-pulse 2.6s .4s ease-in-out infinite"></circle><circle cx="210" cy="90" r="4" style="animation:vt-pulse 2.6s .8s ease-in-out infinite"></circle></g>
+<rect x="128" y="38" width="44" height="44" rx="12" fill="rgba(79,232,154,.10)" stroke="rgba(139,255,192,.4)"></rect>
+</svg>
+</div>
+<div style="display:flex;align-items:center;gap:11px;margin-top:20px"><div style="width:34px;height:34px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 7.3 12 12 3.5 7.3"></path><path d="M12 12v9"></path><path d="m12 3 8.5 4.3v9.4L12 21l-8.5-4.3V7.3z"></path></svg></div><h3 style="font:700 17px/1.3 var(--h);color:var(--ink);margin:0">Maintenance &amp; Support</h3></div>
+<p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:12px 0 0">Updates, security, backups, monitoring and technical support.</p>
+</div>
+</div>
+</div>
+
+<div style="position:relative;overflow:hidden;margin-top:88px">
+<div style="position:absolute;left:50%;top:-70%;width:110%;height:180%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(79,232,154,.20),transparent 70%);filter:blur(80px);animation:vt-drift 20s ease-in-out infinite"></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:76px 28px">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Outcomes</div><h2 style="font:400 43px/1.14 var(--d);letter-spacing:-.004em;color:var(--ink);margin:16px auto 0;max-width:26ch">Digital work measured in business results</h2></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px">
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"></path><path d="M17 7h4v4"></path></svg></div><div style="font:400 45px/1.04 var(--d);letter-spacing:-.004em;color:var(--ac2)">+38%</div></div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:16px 0 0">Average enquiry lift after a site rebuild — illustrative, replaced with real client figures before launch.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div><div style="font:400 45px/1.04 var(--d);letter-spacing:-.004em;color:var(--ac2)">4 wks</div></div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:16px 0 0">Typical time from discovery to launch on a Starter build, with weekly check-ins.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7z"></path><path d="m9 12 2 2 4-4"></path></svg></div><div style="font:400 45px/1.04 var(--d);letter-spacing:-.004em;color:var(--ac2)">100%</div></div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:16px 0 0">Ownership of domain, hosting, code and store accounts stays with you.</p></div>
+</div>
+</div>
+</div>
+
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 104px">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Our process</div><h2 style="font:400 43px/1.14 var(--d);letter-spacing:-.004em;color:var(--ink);margin:16px auto 0;max-width:22ch">Five steps, no surprises</h2></div>
+<div style="position:relative;margin-top:44px">
+<div style="position:absolute;left:8%;right:8%;top:46px;height:1px;background:rgba(79,232,154,.22)"></div>
+<div style="position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+<div style="border:1px solid rgba(79,232,154,.3);border-radius:22px;background:linear-gradient(180deg,rgba(79,232,154,.12),rgba(255,255,255,.02));padding:24px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.20);color:var(--ac2);display:grid;place-items:center;font:700 13px/1 var(--h)">01</div><h4 style="font:700 16px/1.3 var(--h);color:var(--ink);margin:18px 0 8px">Discovery</h4><p style="font:400 12.5px/1.65 var(--f);color:var(--dim);margin:0">Business, requirements, objectives and ideas.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:24px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 13px/1 var(--h)">02</div><h4 style="font:700 16px/1.3 var(--h);color:var(--ink);margin:18px 0 8px">Planning</h4><p style="font:400 12.5px/1.65 var(--f);color:var(--dim);margin:0">Structure, features, timeline and deliverables.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:24px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 13px/1 var(--h)">03</div><h4 style="font:700 16px/1.3 var(--h);color:var(--ink);margin:18px 0 8px">Design</h4><p style="font:400 12.5px/1.65 var(--f);color:var(--dim);margin:0">Visual direction and user experience.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:24px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 13px/1 var(--h)">04</div><h4 style="font:700 16px/1.3 var(--h);color:var(--ink);margin:18px 0 8px">Development</h4><p style="font:400 12.5px/1.65 var(--f);color:var(--dim);margin:0">Build and test the approved solution.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:24px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 13px/1 var(--h)">05</div><h4 style="font:700 16px/1.3 var(--h);color:var(--ink);margin:18px 0 8px">Launch &amp; Support</h4><p style="font:400 12.5px/1.65 var(--f);color:var(--dim);margin:0">Go live, then ongoing support.</p></div>
+</div>
+</div>
+</div>
+
+
+
+<div style="max-width:1240px;margin:0 auto;padding:0 28px 104px">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Testimonials</div><h2 style="font:400 41px/1.14 var(--d);letter-spacing:-.004em;color:var(--ink);margin:16px auto 0;max-width:24ch">What our clients say</h2></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px">
+<div style="border:1px solid rgba(79,232,154,.26);border-radius:26px;background:radial-gradient(130% 130% at 0% 0%,rgba(79,232,154,.14),rgba(255,255,255,.02) 60%);padding:28px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.6" stroke-linecap="round"><path d="M9 7H6a3 3 0 0 0 0 6h1v4H5"></path><path d="M19 7h-3a3 3 0 0 0 0 6h1v4h-2"></path></svg><p style="font:400 14px/1.8 var(--f);color:var(--ink);margin:16px 0 22px">Placeholder review — testimonial copy is managed from the admin area and replaced with real client words before launch.</p><div style="display:flex;align-items:center;gap:12px"><div style="width:38px;height:38px;border-radius:999px;background:linear-gradient(160deg,rgba(139,255,192,.5),rgba(79,232,154,.15))"></div><div><div style="font:600 13px/1.2 var(--h);color:var(--ink)">Client Name</div><div style="font:400 11.5px/1.2 var(--f);color:var(--dim);margin-top:5px">Company · Industry</div></div></div></div>
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:28px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.6" stroke-linecap="round"><path d="M9 7H6a3 3 0 0 0 0 6h1v4H5"></path><path d="M19 7h-3a3 3 0 0 0 0 6h1v4h-2"></path></svg><p style="font:400 14px/1.8 var(--f);color:var(--ink);margin:16px 0 22px">Placeholder review — testimonial copy is managed from the admin area and replaced with real client words before launch.</p><div style="display:flex;align-items:center;gap:12px"><div style="width:38px;height:38px;border-radius:999px;background:linear-gradient(160deg,rgba(139,255,192,.35),rgba(79,232,154,.10))"></div><div><div style="font:600 13px/1.2 var(--h);color:var(--ink)">Client Name</div><div style="font:400 11.5px/1.2 var(--f);color:var(--dim);margin-top:5px">Company · Industry</div></div></div></div>
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:28px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.6" stroke-linecap="round"><path d="M9 7H6a3 3 0 0 0 0 6h1v4H5"></path><path d="M19 7h-3a3 3 0 0 0 0 6h1v4h-2"></path></svg><p style="font:400 14px/1.8 var(--f);color:var(--ink);margin:16px 0 22px">Placeholder review — testimonial copy is managed from the admin area and replaced with real client words before launch.</p><div style="display:flex;align-items:center;gap:12px"><div style="width:38px;height:38px;border-radius:999px;background:linear-gradient(160deg,rgba(139,255,192,.35),rgba(79,232,154,.10))"></div><div><div style="font:600 13px/1.2 var(--h);color:var(--ink)">Client Name</div><div style="font:400 11.5px/1.2 var(--f);color:var(--dim);margin-top:5px">Company · Industry</div></div></div></div>
+</div>
+</div>
+
+<div style="max-width:1240px;margin:0 auto;padding:0 28px 104px">
+<div style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:30px;background:linear-gradient(135deg,rgba(139,255,192,.16),rgba(58,160,255,.13) 55%,rgba(255,255,255,.05));backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 34px 90px rgba(0,0,0,.45);padding:72px 40px;text-align:center" data-comment-anchor="81e5441afa-div">
+<div style="position:absolute;left:50%;top:-80%;width:90%;height:190%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(139,255,192,.34),transparent 70%);filter:blur(60px);animation:vt-drift 16s ease-in-out infinite"></div>
+
+<div style="position:relative"><h2 style="font:400 54px/1.08 var(--d);letter-spacing:-.004em;color:#f2fff8;margin:0 auto;max-width:20ch">Have an idea? Let's build it.</h2><p style="font:400 16px/1.8 var(--f);color:rgba(238,255,246,.78);max-width:54ch;margin:18px auto 0">Book a free 30-minute demo call. You'll leave with a scope, a timeline and a fixed price, no obligation.</p>
+<div style="display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap"><div onClick="{{ goContact }}" style="display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 14px/1 var(--h);padding:18px 26px;border-radius:999px;cursor:pointer">Book a Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#04140c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></div><div onClick="{{ goContact }}" style="background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.26);color:#f2fff8;font:600 14px/1 var(--h);padding:17px 24px;border-radius:999px;cursor:pointer">Talk to Our Team</div></div></div>
+</div>
+</div>
+</sc-if></div>
+
+
+
+<sc-if value="{{ isNotFound }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;overflow:hidden;min-height:78vh;display:grid;place-items:center">
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 10%,#0c3f2b 0%,#071913 45%,#050907 80%)"></div>
+<div style="position:absolute;left:50%;top:20%;width:70%;height:80%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(79,232,154,.28),transparent 70%);filter:blur(80px);animation:vt-drift 14s ease-in-out infinite"></div>
+<div style="position:relative;max-width:900px;padding:70px 28px;text-align:center">
+<svg viewBox="0 0 720 300" style="width:100%;max-width:640px;height:auto;display:block;margin:0 auto">
+<defs>
+<radialGradient id="vt404g" cx="50%" cy="50%"><stop offset="0" stop-color="#8bffc0" stop-opacity=".95"></stop><stop offset="1" stop-color="#4fe89a" stop-opacity="0"></stop></radialGradient>
+<linearGradient id="vt404w" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4fe89a" stop-opacity=".1"></stop><stop offset=".5" stop-color="#8bffc0" stop-opacity=".9"></stop><stop offset="1" stop-color="#4fe89a" stop-opacity=".1"></stop></linearGradient>
+</defs>
+<g stroke="rgba(255,255,255,.14)" fill="none" stroke-width="3" stroke-linecap="round">
+<path d="M0 120c90 0 120 40 190 40s90-60 150-60"></path>
+<path d="M0 190c80 0 130-30 200-30s70 40 140 40"></path>
+<path d="M720 110c-90 0-120 44-190 44s-90-64-150-64"></path>
+<path d="M720 186c-80 0-130-26-200-26s-70 44-140 44"></path>
+</g>
+<g stroke="url(#vt404w)" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="90 260">
+<path d="M0 120c90 0 120 40 190 40s90-60 150-60" style="animation:vt-dash 6s linear infinite"></path>
+<path d="M720 186c-80 0-130-26-200-26s-70 44-140 44" style="animation:vt-dash 7.5s linear infinite reverse"></path>
+</g>
+<g stroke="rgba(139,255,192,.6)" stroke-width="2.6" stroke-linecap="round" fill="none" style="animation:vt-flicker 3.4s ease-in-out infinite">
+<path d="M340 100 356 118 340 136"></path><path d="M380 100 364 118 380 136"></path>
+</g>
+<circle cx="360" cy="150" r="86" fill="url(#vt404g)" opacity=".55" style="animation:vt-breathe 3.6s ease-in-out infinite"></circle>
+<g fill="#8bffc0">
+<circle cx="330" cy="112" r="3" style="animation:vt-spark 2.2s ease-in-out infinite"></circle>
+<circle cx="392" cy="128" r="2.4" style="animation:vt-spark 2.2s .5s ease-in-out infinite"></circle>
+<circle cx="352" cy="184" r="2.8" style="animation:vt-spark 2.2s 1s ease-in-out infinite"></circle>
+<circle cx="402" cy="176" r="2" style="animation:vt-spark 2.6s 1.4s ease-in-out infinite"></circle>
+</g>
+<g fill="none" stroke="rgba(79,232,154,.5)" stroke-width="1.4">
+<circle cx="360" cy="150" r="120" style="animation:vt-orbit 40s linear infinite;transform-origin:360px 150px"></circle>
+</g>
+</svg>
+<div style="font:400 99px/1.04 var(--d);letter-spacing:-.004em;color:var(--ink);margin-top:12px;text-shadow:0 0 60px rgba(79,232,154,.35)">404</div>
+<h1 style="font:400 37px/1.2 var(--d);letter-spacing:-.004em;color:var(--ink);margin:20px auto 0;max-width:24ch">This wire came loose</h1>
+<p style="font:400 15.5px/1.8 var(--f);color:var(--mid);max-width:52ch;margin:14px auto 0">The page you're after has moved, been renamed, or never existed. The good news: everything else is still plugged in.</p>
+<div style="display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap">
+<div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13.5px/1 var(--h);padding:17px 24px;border-radius:999px;cursor:pointer">Back to Home</div>
+<div onClick="{{ goServices }}" style="background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 13.5px/1 var(--h);padding:16px 22px;border-radius:999px;cursor:pointer">Browse Services</div>
+<div onClick="{{ goContact }}" style="background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 13.5px/1 var(--h);padding:16px 22px;border-radius:999px;cursor:pointer">Book a Call</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% -20%,#0e4a31 0%,#081c15 45%,#050907 80%)"></div>
+<div style="position:absolute;right:-10%;top:-50%;width:65%;height:150%;background:radial-gradient(closest-side,rgba(79,232,154,.32),transparent 70%);filter:blur(80px);animation:vt-drift 20s ease-in-out infinite"></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:104px 28px 84px;text-align:center">
+<div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">About VTech</div>
+<h1 style="font:400 67px/1.06 var(--d);letter-spacing:-.004em;color:var(--ink);margin:20px auto 0;max-width:20ch">Technology. Creativity. <span style="background:linear-gradient(120deg,#8bffc0,#4fe89a 60%,#26beff);-webkit-background-clip:text;background-clip:text;color:transparent">Business growth.</span></h1>
+<p style="font:400 16px/1.8 var(--f);color:var(--mid);max-width:64ch;margin:20px auto 0">We are a UK-based digital solutions company helping businesses turn ideas into professional digital experiences — combining technology, creativity and business understanding on every project.</p>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:0 28px">
+<div style="position:relative;overflow:hidden;border-radius:26px;border:1px solid var(--cb);background:linear-gradient(120deg,rgba(79,232,154,.10),rgba(58,160,255,.09) 60%,rgba(255,255,255,.02));padding:34px 30px">
+<div style="position:absolute;left:12%;top:-40%;width:46%;height:180%;background:radial-gradient(closest-side,rgba(79,232,154,.22),transparent 70%);filter:blur(70px);animation:vt-drift 26s ease-in-out infinite"></div>
+<div style="position:absolute;right:6%;top:-30%;width:42%;height:160%;background:radial-gradient(closest-side,rgba(58,160,255,.18),transparent 70%);filter:blur(70px);animation:vt-drift 32s ease-in-out infinite reverse"></div>
+<div style="position:relative;display:flex;align-items:stretch;gap:18px">
+<div style="flex:1;border:1px solid rgba(79,232,154,.30);border-radius:20px;background:linear-gradient(150deg,rgba(139,255,192,.16),rgba(255,255,255,.03));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 24px 60px rgba(0,0,0,.35);padding:24px;animation:vt-float 14s ease-in-out 0s infinite">
+<div style="width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.10);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 3 12l5 6"></path><path d="m16 6 5 6-5 6"></path></svg></div>
+<div style="font:700 17px/1.3 var(--h);color:var(--ink);margin-top:18px">Technology</div>
+<div style="font:400 12px/1.6 var(--f);color:var(--mid);margin-top:8px;max-width:26ch">Modern, reliable engineering — built to scale with the business.</div>
+</div>
+<div style="flex:1;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:linear-gradient(150deg,rgba(255,255,255,.09),rgba(255,255,255,.02));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 24px 60px rgba(0,0,0,.35);padding:24px;animation:vt-float 14s ease-in-out 1.2s infinite">
+<div style="width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.10);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5l5 5L10 19H5v-5z"></path><path d="m12.5 6.5 5 5"></path></svg></div>
+<div style="font:700 17px/1.3 var(--h);color:var(--ink);margin-top:18px">Creativity</div>
+<div style="font:400 12px/1.6 var(--f);color:var(--mid);margin-top:8px;max-width:26ch">Brand, layout and copy that make the work feel considered.</div>
+</div>
+<div style="flex:1;border:1px solid rgba(58,160,255,.30);border-radius:20px;background:linear-gradient(150deg,rgba(58,160,255,.16),rgba(255,255,255,.03));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 24px 60px rgba(0,0,0,.35);padding:24px;animation:vt-float 14s ease-in-out 2.4s infinite">
+<div style="width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.10);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m8 15 4-5 3 3 4-6"></path></svg></div>
+<div style="font:700 17px/1.3 var(--h);color:var(--ink);margin-top:18px">Business growth</div>
+<div style="font:400 12px/1.6 var(--f);color:var(--mid);margin-top:8px;max-width:26ch">Measured against enquiries, sales and retention — not clicks.</div>
+</div>
+</div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div style="border:1px solid rgba(79,232,154,.26);border-radius:26px;background:radial-gradient(130% 130% at 0% 0%,rgba(79,232,154,.14),rgba(255,255,255,.02) 60%);padding:34px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle></svg></div><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-top:20px">Our mission</div><p style="font:700 24px/1.4 var(--h);color:var(--ink);margin:14px 0 0;max-width:24ch">To make professional digital solutions accessible to businesses of every size.</p></div>
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:34px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></div><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-top:20px">Our vision</div><p style="font:700 24px/1.4 var(--h);color:var(--ink);margin:14px 0 0;max-width:24ch">To become a trusted digital partner for businesses looking to innovate, modernise and grow.</p></div>
+</div>
+
+
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:start">
+<div>
+<div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Our story</div>
+<h2 style="font:400 42px/1.1 var(--d);letter-spacing:-.004em;color:var(--ink);margin:18px 0 0;max-width:24ch">Built for businesses that outgrew their website</h2>
+<p style="font:400 15.5px/1.8 var(--f);color:var(--mid);margin:22px 0 0">Vyntrix Technologies was founded on a simple observation: most small and mid-sized businesses are sold either a template that never fits, or an enterprise project they never needed. Both end the same way — an expensive site nobody maintains.</p>
+<p style="font:400 15.5px/1.8 var(--f);color:var(--mid);margin:18px 0 0">We work the other way round. We start with the commercial question — where enquiries come from, what slows a sale down, what the team can realistically manage — and only then decide what to build. Every engagement ends with a fixed scope, a written quotation and a launch date.</p>
+<p style="font:400 15.5px/1.8 var(--f);color:var(--mid);margin:18px 0 0">The result is a small studio that behaves like an in-house team: one point of contact, plain language, and support that continues long after launch.</p>
+</div>
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:32px;display:grid;gap:22px">
+<div style="display:flex;gap:14px;align-items:flex-start"><div style="width:38px;height:38px;flex:none;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><div style="font:600 14px/1.3 var(--h);color:var(--ink)">United Kingdom, working globally</div><div style="font:400 12.5px/1.7 var(--f);color:var(--dim);margin-top:6px">Remote-first delivery, UK contracts and invoicing.</div></div></div>
+<div style="display:flex;gap:14px;align-items:flex-start"><div style="width:38px;height:38px;flex:none;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m8 15 4-5 3 3 4-6"/></svg></div><div><div style="font:600 14px/1.3 var(--h);color:var(--ink)">Commercially measured</div><div style="font:400 12.5px/1.7 var(--f);color:var(--dim);margin-top:6px">Judged on enquiries, sales and retention — not page views.</div></div></div>
+<div style="display:flex;gap:14px;align-items:flex-start"><div style="width:38px;height:38px;flex:none;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 7.3 12 12 3.5 7.3"/><path d="M12 12v9"/><path d="m12 3 8.5 4.3v9.4L12 21l-8.5-4.3V7.3z"/></svg></div><div><div style="font:600 14px/1.3 var(--h);color:var(--ink)">One team, end to end</div><div style="font:400 12.5px/1.7 var(--f);color:var(--dim);margin-top:6px">Strategy, design, build and maintenance under one roof.</div></div></div>
+</div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">What we value</div><h2 style="font:400 42px/1.1 var(--d);letter-spacing:-.004em;color:var(--ink);margin:18px auto 0;max-width:24ch">Four principles we do not negotiate on</h2></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px">
+<div style="border:1px solid rgba(79,232,154,.26);border-radius:24px;background:radial-gradient(130% 130% at 0% 0%,rgba(79,232,154,.12),rgba(255,255,255,.02) 60%);padding:30px"><h3 style="font:600 19px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:0 0 10px">Clarity</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">Fixed scope, fixed price and plain English. No hourly surprises, no jargon in status calls.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><h3 style="font:600 19px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:0 0 10px">Craft</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">Typography, performance and accessibility are part of the brief, not an upgrade.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><h3 style="font:600 19px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:0 0 10px">Accountability</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">One named contact who owns the project from the first call to launch day.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><h3 style="font:600 19px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:0 0 10px">Longevity</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">Built so your team can run it — and supported by ours when they would rather not.</p></div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Industries</div><h2 style="font:400 42px/1.1 var(--d);letter-spacing:-.004em;color:var(--ink);margin:18px auto 0;max-width:24ch">Sectors we know well enough to be useful on day one</h2></div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px">
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Hospitality</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Retail &amp; E-commerce</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Property</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Professional Services</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Construction</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Healthcare</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Education</span>
+<span style="font:500 13px/1 var(--f);color:var(--mid);background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:999px;padding:15px 20px">Startups</span>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 104px">
+
+<div style="margin-top:44px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:30px;background:linear-gradient(135deg,rgba(139,255,192,.16),rgba(58,160,255,.13) 55%,rgba(255,255,255,.05));backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 34px 90px rgba(0,0,0,.45);padding:56px 40px;text-align:center"><h2 style="font:400 41px/1.12 var(--d);letter-spacing:-.004em;color:#f2fff8;margin:0 auto;max-width:22ch">Talk to our team about your project</h2><div onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13.5px/1 var(--h);padding:17px 25px;border-radius:999px;margin-top:26px;cursor:pointer">Book a Call</div></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% -20%,#0e4a31 0%,#081c15 45%,#050907 80%)"></div>
+<div style="position:absolute;left:-8%;top:-50%;width:60%;height:150%;background:radial-gradient(closest-side,rgba(79,232,154,.30),transparent 70%);filter:blur(80px);animation:vt-drift 22s ease-in-out infinite"></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:104px 28px 84px;text-align:center">
+<div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Services</div>
+<h1 style="font:400 60px/1.08 var(--d);letter-spacing:-.004em;color:var(--ink);margin:20px auto 0;max-width:22ch">Everything your business needs to succeed online</h1>
+<p style="font:400 16px/1.8 var(--f);color:var(--mid);max-width:58ch;margin:18px auto 0">Seven service lines, each with its own page so it can rank independently in search.</p>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+<div onClick="{{ goService }}" style="border:1px solid rgba(79,232,154,.26);border-radius:26px;background:radial-gradient(130% 130% at 0% 0%,rgba(79,232,154,.13),rgba(255,255,255,.02) 60%);padding:30px;cursor:pointer">
+<div style="height:130px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);position:relative"><svg viewBox="0 0 520 130" style="position:absolute;inset:0;width:100%;height:100%"><rect x="30" y="18" width="200" height="94" rx="10" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"></rect><g fill="rgba(255,255,255,.14)"><rect x="46" y="38" width="90" height="8" rx="4"></rect><rect x="46" y="56" width="60" height="8" rx="4"></rect><rect x="46" y="74" width="110" height="8" rx="4"></rect></g><rect x="46" y="38" width="90" height="8" rx="4" fill="#4fe89a" opacity=".8" style="animation:vt-breathe 3s ease-in-out infinite"></rect><rect x="46" y="92" width="7" height="12" fill="#4fe89a" style="animation:vt-blink 1.1s steps(1,end) infinite"></rect><g stroke="rgba(79,232,154,.4)" fill="none"><path d="M240 65h60" style="animation:vt-dash2 8s linear infinite"></path></g><rect x="310" y="18" width="180" height="94" rx="10" fill="rgba(79,232,154,.08)" stroke="rgba(79,232,154,.3)"></rect><path d="M326 96l30-26 26 14 30-30 28 18 30-22" fill="none" stroke="#8bffc0" stroke-width="1.6" stroke-dasharray="200" stroke-dashoffset="200" style="animation:vt-dash 6s linear infinite"></path></svg></div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 18v3"></path></svg></div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">Website Development</h3></div>
+<p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:14px 0 16px">Business websites, e-commerce, landing pages, custom builds, redesigns, WordPress and maintenance.</p>
+<span style="display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--h);color:var(--ac)">View service <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:30px;cursor:pointer">
+<div style="height:130px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);position:relative"><svg viewBox="0 0 520 130" style="position:absolute;inset:0;width:100%;height:100%"><g><rect x="180" y="10" width="70" height="110" rx="12" fill="rgba(79,232,154,.10)" stroke="rgba(79,232,154,.32)" style="animation:vt-float 7s ease-in-out infinite"></rect><rect x="270" y="10" width="70" height="110" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.12)" style="animation:vt-float2 7s ease-in-out infinite"></rect></g><g fill="rgba(139,255,192,.45)"><rect x="192" y="30" width="46" height="12" rx="5" style="animation:vt-slide 5s ease-in-out infinite"></rect><rect x="192" y="50" width="46" height="12" rx="5" style="animation:vt-slide 5s .4s ease-in-out infinite"></rect></g><g fill="rgba(255,255,255,.12)"><rect x="282" y="30" width="46" height="12" rx="5"></rect><rect x="282" y="50" width="46" height="12" rx="5"></rect></g></svg></div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><path d="M11 19h2"></path></svg></div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">Mobile App Development</h3></div>
+<p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:14px 0 16px">iOS, Android and cross-platform apps, business applications, customer portals, MVPs and maintenance.</p>
+<span style="display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--h);color:var(--ac)">View service <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:30px;cursor:pointer">
+<div style="height:130px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);position:relative"><svg viewBox="0 0 520 130" style="position:absolute;inset:0;width:100%;height:100%"><g style="transform-origin:260px 65px;animation:vt-orbit 34s linear infinite"><rect x="220" y="25" width="80" height="80" rx="22" fill="none" stroke="rgba(139,255,192,.42)"></rect><rect x="220" y="25" width="80" height="80" rx="22" fill="none" stroke="rgba(79,232,154,.22)" transform="rotate(45 260 65)"></rect></g><circle cx="260" cy="65" r="14" fill="rgba(79,232,154,.45)" style="animation:vt-breathe 3.4s ease-in-out infinite"></circle></svg></div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="19" cy="13" r="2.5"></circle><circle cx="6" cy="12" r="3"></circle><path d="M12 22a9 9 0 0 1 0-18"></path></svg></div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">Graphic Design &amp; Branding</h3></div>
+<p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:14px 0 16px">Logo design, brand identity, cards, flyers, brochures, menus, social graphics and marketing material.</p>
+<span style="display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--h);color:var(--ac)">View service <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:30px;cursor:pointer">
+<div style="height:130px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);position:relative"><svg viewBox="0 0 520 130" style="position:absolute;inset:0;width:100%;height:100%"><rect x="170" y="24" width="100" height="82" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" style="animation:vt-float2 8s ease-in-out infinite"></rect><rect x="250" y="14" width="100" height="82" rx="12" fill="rgba(79,232,154,.08)" stroke="rgba(79,232,154,.32)" style="animation:vt-float 8s ease-in-out infinite"></rect><g fill="rgba(139,255,192,.5)"><circle cx="250" cy="14" r="4"></circle><circle cx="350" cy="14" r="4"></circle><circle cx="250" cy="96" r="4"></circle><circle cx="350" cy="96" r="4"></circle></g><g fill="rgba(255,255,255,.2)"><rect x="264" y="34" width="60" height="7" rx="3.5"></rect><rect x="264" y="48" width="38" height="7" rx="3.5"></rect></g></svg></div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h9M3 17h13"></path><circle cx="18" cy="15" r="3"></circle></svg></div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">UI/UX Design</h3></div>
+<p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:14px 0 16px">Website and mobile app UI, wireframes, interactive prototypes and user experience design.</p>
+<span style="display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--h);color:var(--ac)">View service <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:30px;cursor:pointer">
+<div style="height:130px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);position:relative"><svg viewBox="0 0 520 130" style="position:absolute;inset:0;width:100%;height:100%"><g fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)"><rect x="150" y="26" width="66" height="78" rx="10"></rect><rect x="226" y="26" width="66" height="78" rx="10"></rect><rect x="302" y="26" width="66" height="78" rx="10"></rect></g><g><rect x="162" y="38" width="42" height="30" rx="6" fill="rgba(79,232,154,.28)" style="animation:vt-float 6s ease-in-out infinite"></rect><rect x="238" y="38" width="42" height="30" rx="6" fill="rgba(79,232,154,.18)" style="animation:vt-float 6s .4s ease-in-out infinite"></rect><rect x="314" y="38" width="42" height="30" rx="6" fill="rgba(79,232,154,.12)" style="animation:vt-float 6s .8s ease-in-out infinite"></rect></g><g fill="rgba(139,255,192,.5)"><rect x="162" y="80" width="26" height="6" rx="3"></rect><rect x="238" y="80" width="26" height="6" rx="3"></rect><rect x="314" y="80" width="26" height="6" rx="3"></rect></g></svg></div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h2l2.2 10.4A2 2 0 0 0 9.2 17H18"></path><circle cx="10" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle><path d="M7 8h13l-1.6 6.2H8.3"></path></svg></div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">E-commerce Development</h3></div>
+<p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:14px 0 16px">Store development, product setup, payment gateways, carts, order management and support.</p>
+<span style="display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--h);color:var(--ac)">View service <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+<div onClick="{{ goService }}" style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:30px;cursor:pointer">
+<div style="height:130px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);position:relative"><svg viewBox="0 0 520 130" style="position:absolute;inset:0;width:100%;height:100%"><g style="transform-origin:260px 65px;animation:vt-orbit 28s linear infinite"><circle cx="260" cy="65" r="46" fill="none" stroke="rgba(79,232,154,.24)"></circle><circle cx="306" cy="65" r="5" fill="#4fe89a"></circle><circle cx="214" cy="65" r="3.6" fill="#8bffc0"></circle></g><circle cx="260" cy="65" r="26" fill="rgba(79,232,154,.10)" stroke="rgba(79,232,154,.35)"></circle><circle cx="260" cy="65" r="11" fill="#4fe89a" opacity=".8" style="animation:vt-pulse 3s ease-in-out infinite"></circle></svg></div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.96A6 6 0 0 0 6.2 9.2 4 4 0 0 0 7 19z"></path></svg></div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">IT &amp; Digital Solutions</h3></div>
+<p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:14px 0 16px">Business email, domain management, hosting, cloud solutions, technical consultancy and setup.</p>
+<span style="display:inline-flex;align-items:center;gap:8px;font:600 12.5px/1 var(--h);color:var(--ac)">View service <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="border:1px solid var(--cb);border-radius:26px;background:linear-gradient(120deg,rgba(79,232,154,.10),rgba(255,255,255,.02) 60%);padding:32px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center">
+<div style="display:flex;gap:16px;align-items:flex-start"><div style="width:40px;height:40px;flex:none;border-radius:14px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 7.3 12 12 3.5 7.3"></path><path d="M12 12v9"></path><path d="m12 3 8.5 4.3v9.4L12 21l-8.5-4.3V7.3z"></path></svg></div><div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0 0 9px">Website &amp; Application Maintenance</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0;max-width:72ch">Updates, security, backups, technical support, content changes, performance monitoring, hosting and domain management — billed as a monthly plan.</p></div></div>
+<div onClick="{{ goPackages }}" style="background:rgba(255,255,255,.08);border:1px solid var(--cb);color:var(--ink);font:600 12.5px/1 var(--h);padding:15px 22px;border-radius:999px;cursor:pointer">See plans</div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 104px"><div style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:30px;background:linear-gradient(135deg,rgba(139,255,192,.16),rgba(58,160,255,.13) 55%,rgba(255,255,255,.05));backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 34px 90px rgba(0,0,0,.45);padding:56px 40px;text-align:center"><h2 style="font:400 41px/1.12 var(--d);letter-spacing:-.004em;color:#f2fff8;margin:0 auto;max-width:22ch">Have a project in mind? Let's talk.</h2><div onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13.5px/1 var(--h);padding:17px 25px;border-radius:999px;margin-top:26px;cursor:pointer">Get a Free Quote</div></div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isService }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 70% -20%,#0e4a31 0%,#081c15 45%,#050907 80%)"></div>
+<div style="position:absolute;right:-10%;top:-50%;width:65%;height:150%;background:radial-gradient(closest-side,rgba(79,232,154,.32),transparent 70%);filter:blur(80px);animation:vt-drift 19s ease-in-out infinite"></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:88px 28px 0;font:400 12px/1 var(--f);color:var(--dim)"><span onClick="{{ goHome }}" style="cursor:pointer">Home</span> / <span onClick="{{ goServices }}" style="cursor:pointer">Services</span> / <span style="color:var(--mid)">Mobile App Development</span></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:88px 28px 104px;display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center">
+<div>
+<div style="display:inline-flex;padding:8px 14px;border:1px solid rgba(79,232,154,.35);background:rgba(79,232,154,.10);border-radius:999px;font:600 11.5px/1 var(--f);color:var(--ac2)">Service 02</div>
+<h1 style="font:400 56px/1.08 var(--d);letter-spacing:-.004em;color:var(--ink);margin:22px 0 0;max-width:16ch">Mobile App Development</h1>
+<p style="font:400 16px/1.8 var(--f);color:var(--mid);max-width:52ch;margin:18px 0 28px">Native and cross-platform applications for businesses that need their service in their customers' pocket — designed, built, tested and maintained by one team.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><div onClick="{{ goContact }}" style="display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 14px/1 var(--h);padding:18px 25px;border-radius:999px;cursor:pointer">Get a Free Quote</div><div style="background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 14px/1 var(--h);padding:17px 23px;border-radius:999px">See App Projects</div></div>
+</div>
+<div style="position:relative">
+<div style="position:absolute;inset:-8%;background:radial-gradient(closest-side,rgba(79,232,154,.26),transparent 70%);filter:blur(45px)"></div>
+<div style="position:relative;height:380px;border-radius:26px;overflow:hidden;border:1px solid var(--cb);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))">
+<svg viewBox="0 0 520 380" style="position:absolute;inset:0;width:100%;height:100%">
+<defs><radialGradient id="vtsg" cx="50%" cy="40%"><stop offset="0" stop-color="#8bffc0" stop-opacity=".5"></stop><stop offset="1" stop-color="#4fe89a" stop-opacity="0"></stop></radialGradient></defs>
+<circle cx="260" cy="170" r="140" fill="url(#vtsg)" style="animation:vt-breathe 5s ease-in-out infinite"></circle>
+<rect x="120" y="70" width="130" height="250" rx="24" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.14)" style="animation:vt-float2 9s ease-in-out infinite"></rect>
+<rect x="270" y="50" width="130" height="250" rx="24" fill="rgba(79,232,154,.08)" stroke="rgba(79,232,154,.34)" style="animation:vt-float 9s ease-in-out infinite"></rect>
+<g fill="rgba(255,255,255,.14)"><rect x="140" y="100" width="90" height="16" rx="7"></rect><rect x="140" y="126" width="60" height="16" rx="7"></rect><rect x="140" y="152" width="80" height="16" rx="7"></rect></g>
+<g fill="rgba(139,255,192,.45)"><rect x="290" y="82" width="90" height="20" rx="8" style="animation:vt-slide 6s ease-in-out infinite"></rect><rect x="290" y="112" width="90" height="20" rx="8" style="animation:vt-slide 6s .4s ease-in-out infinite"></rect><rect x="290" y="142" width="90" height="20" rx="8" style="animation:vt-slide 6s .8s ease-in-out infinite"></rect></g>
+<g stroke="rgba(79,232,154,.45)" fill="none" stroke-width="1.4"><path d="M60 300c60 0 70-70 130-70" style="animation:vt-dash2 10s linear infinite"></path><path d="M460 110c-50 0-60 60-110 60" style="animation:vt-dash2 12s linear infinite reverse"></path></g>
+<g fill="#8bffc0"><circle cx="60" cy="300" r="4" style="animation:vt-pulse 2.6s ease-in-out infinite"></circle><circle cx="460" cy="110" r="4" style="animation:vt-pulse 2.6s .7s ease-in-out infinite"></circle></g>
+<rect x="140" y="182" width="7" height="14" fill="#4fe89a" style="animation:vt-blink 1.1s steps(1,end) infinite"></rect>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">What's included</div><h2 style="font:400 39px/1.16 var(--d);letter-spacing:-.004em;color:var(--ink);margin:16px auto 0;max-width:24ch">Everything an app project needs, in one place</h2></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px">
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><path d="M11 19h2"></path></svg></div><h4 style="font:700 16.5px/1.3 var(--h);color:var(--ink);margin:16px 0 9px">iOS Applications</h4><p style="font:400 12.5px/1.7 var(--f);color:var(--mid);margin:0">Built and submitted to the App Store under your own developer account.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14v9a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"></path><path d="m7 5 1.5 4M17 5l-1.5 4"></path></svg></div><h4 style="font:700 16.5px/1.3 var(--h);color:var(--ink);margin:16px 0 9px">Android Applications</h4><p style="font:400 12.5px/1.7 var(--f);color:var(--mid);margin:0">Play Store release with device testing across screen sizes.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 3 12l5 6"></path><path d="m16 6 5 6-5 6"></path></svg></div><h4 style="font:700 16.5px/1.3 var(--h);color:var(--ink);margin:16px 0 9px">Cross-platform Apps</h4><p style="font:400 12.5px/1.7 var(--f);color:var(--mid);margin:0">One codebase, both stores, lower build and upkeep cost.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 10h18M9 20V10"></path></svg></div><h4 style="font:700 16.5px/1.3 var(--h);color:var(--ink);margin:16px 0 9px">Business Applications</h4><p style="font:400 12.5px/1.7 var(--f);color:var(--mid);margin:0">Internal tools, bookings, stock, staff and ordering systems.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"></circle><path d="M4 20a8 8 0 0 1 16 0"></path></svg></div><h4 style="font:700 16.5px/1.3 var(--h);color:var(--ink);margin:16px 0 9px">Customer Portals</h4><p style="font:400 12.5px/1.7 var(--f);color:var(--mid);margin:0">Accounts, orders, documents and support in one place.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.14);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg></div><h4 style="font:700 16.5px/1.3 var(--h);color:var(--ink);margin:16px 0 9px">MVP Development</h4><p style="font:400 12.5px/1.7 var(--f);color:var(--mid);margin:0">A first version scoped to prove the idea quickly.</p></div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:32px"><h2 style="font:600 23px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0 0 22px">How an app project runs</h2><div style="display:grid;gap:16px">
+<div style="display:grid;grid-template-columns:36px 1fr;gap:14px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(79,232,154,.16);color:var(--ac2);display:grid;place-items:center;font:700 12.5px/1 var(--h)">01</div><div><div style="font:600 14.5px/1.3 var(--h);color:var(--ink)">Discovery</div><div style="font:400 13px/1.8 var(--f);color:var(--mid);margin-top:5px">Objectives, users and platform choice.</div></div></div>
+<div style="display:grid;grid-template-columns:36px 1fr;gap:14px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 12.5px/1 var(--h)">02</div><div><div style="font:600 14.5px/1.3 var(--h);color:var(--ink)">Planning</div><div style="font:400 13px/1.8 var(--f);color:var(--mid);margin-top:5px">Feature list, screens, timeline and cost.</div></div></div>
+<div style="display:grid;grid-template-columns:36px 1fr;gap:14px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 12.5px/1 var(--h)">03</div><div><div style="font:600 14.5px/1.3 var(--h);color:var(--ink)">Design</div><div style="font:400 13px/1.8 var(--f);color:var(--mid);margin-top:5px">UI, prototype and sign-off before build.</div></div></div>
+<div style="display:grid;grid-template-columns:36px 1fr;gap:14px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 12.5px/1 var(--h)">04</div><div><div style="font:600 14.5px/1.3 var(--h);color:var(--ink)">Development</div><div style="font:400 13px/1.8 var(--f);color:var(--mid);margin-top:5px">Build, device testing and store preparation.</div></div></div>
+<div style="display:grid;grid-template-columns:36px 1fr;gap:14px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:700 12.5px/1 var(--h)">05</div><div><div style="font:600 14.5px/1.3 var(--h);color:var(--ink)">Launch &amp; Support</div><div style="font:400 13px/1.8 var(--f);color:var(--mid);margin-top:5px">Release, monitoring and updates.</div></div></div>
+</div></div>
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:32px"><h2 style="font:600 23px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0 0 22px">Common questions</h2><div style="display:grid;gap:11px">
+<div style="border:1px solid var(--cb);border-radius:16px;background:rgba(255,255,255,.03);padding:18px 20px;display:flex;justify-content:space-between;gap:16px;font:600 13.5px/1.45 var(--f);color:var(--ink)"><span>How long does an app take to build?</span><span style="color:var(--ac)">+</span></div>
+<div style="border:1px solid var(--cb);border-radius:16px;background:rgba(255,255,255,.03);padding:18px 20px;display:flex;justify-content:space-between;gap:16px;font:600 13.5px/1.45 var(--f);color:var(--ink)"><span>Native or cross-platform — which do I need?</span><span style="color:var(--ac)">+</span></div>
+<div style="border:1px solid var(--cb);border-radius:16px;background:rgba(255,255,255,.03);padding:18px 20px;display:flex;justify-content:space-between;gap:16px;font:600 13.5px/1.45 var(--f);color:var(--ink)"><span>Who owns the code and the store accounts?</span><span style="color:var(--ac)">+</span></div>
+<div style="border:1px solid var(--cb);border-radius:16px;background:rgba(255,255,255,.03);padding:18px 20px;display:flex;justify-content:space-between;gap:16px;font:600 13.5px/1.45 var(--f);color:var(--ink)"><span>What does maintenance cost after launch?</span><span style="color:var(--ac)">+</span></div>
+</div></div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 104px"><div style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:30px;background:linear-gradient(135deg,rgba(139,255,192,.16),rgba(58,160,255,.13) 55%,rgba(255,255,255,.05));backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 34px 90px rgba(0,0,0,.45);padding:56px 40px;text-align:center"><h2 style="font:400 41px/1.12 var(--d);letter-spacing:-.004em;color:#f2fff8;margin:0 auto;max-width:22ch">Ready to build your app?</h2><p style="font:400 15px/1.8 var(--f);color:rgba(238,255,246,.75);max-width:48ch;margin:16px auto 0">Book a free demo and we'll map the first release with you — screens, features and a fixed price.</p><div onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13.5px/1 var(--h);padding:17px 25px;border-radius:999px;margin-top:26px;cursor:pointer">Book a Call</div></div></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPackages }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% -20%,#0e4a31 0%,#081c15 45%,#050907 80%)"></div>
+<div style="position:absolute;left:50%;top:-50%;width:90%;height:150%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(79,232,154,.28),transparent 70%);filter:blur(80px);animation:vt-drift 21s ease-in-out infinite"></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:104px 28px 84px;text-align:center">
+<div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Pricing</div>
+<h1 style="font:400 58px/1.08 var(--d);letter-spacing:-.004em;color:var(--ink);margin:20px auto 0;max-width:18ch">Clear scope, clear price</h1>
+<p style="font:400 16px/1.8 var(--f);color:var(--mid);max-width:56ch;margin:18px auto 0">Every package is a starting point. Anything can be added, removed or quoted individually.</p>
+<div style="display:inline-flex;gap:6px;padding:6px;background:rgba(255,255,255,.06);border:1px solid var(--cb);border-radius:999px;margin-top:28px"><div style="background:rgba(255,255,255,.12);color:var(--ink);font:600 12.5px/1 var(--f);padding:12px 19px;border-radius:999px">Show prices</div><div style="color:var(--mid);font:600 12.5px/1 var(--f);padding:12px 19px;border-radius:999px">Request a quote</div></div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start">
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:32px"><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">Starter</h3><p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:9px 0 22px">A professional presence, live quickly.</p>
+<sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><div style="font:400 45px/1.04 var(--d);letter-spacing:-.004em;color:var(--ink)">£—<span style="font:400 13px/1 var(--f);color:var(--dim)"> from</span></div></sc-if>
+<div style="display:grid;gap:12px;margin:24px 0 26px;font:400 13px/1.5 var(--f);color:var(--mid)">
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Professional website</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Mobile responsive design</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Contact form</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Basic SEO setup</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Social media integration</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>SSL / security setup</div>
+</div>
+<div onClick="{{ goContact }}" style="background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 13.5px/1 var(--h);padding:16px 20px;border-radius:999px;text-align:center;cursor:pointer">Book A Call Now!</div></div>
+<div style="position:relative;overflow:hidden;border:1px solid rgba(79,232,154,.36);border-radius:26px;background:radial-gradient(130% 130% at 50% 0%,rgba(79,232,154,.22),rgba(255,255,255,.02) 60%);padding:32px;box-shadow:0 30px 90px rgba(79,232,154,.12)"><div style="position:absolute;top:18px;right:18px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 10px/1 var(--h);letter-spacing:.08em;padding:8px 12px;border-radius:999px">MOST POPULAR</div><h3 style="font:600 21px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0">Business</h3><p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:9px 0 22px">For companies competing on search and credibility.</p>
+<sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"><div style="font:400 45px/1.04 var(--d);letter-spacing:-.004em;color:var(--ac2)">£—<span style="font:400 13px/1 var(--f);color:var(--dim)"> from</span></div></sc-if>
+<div style="display:grid;gap:12px;margin:24px 0 26px;font:400 13px/1.5 var(--f);color:var(--mid)">
+<div style="color:var(--ink);font-weight:600">Everything in Starter, plus</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Advanced website &amp; custom design</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Additional pages</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Google Business integration</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Analytics &amp; advanced SEO setup</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Business email assistance</div>
+</div>
+<div onClick="{{ goContact }}" style="background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13.5px/1 var(--h);padding:17px 20px;border-radius:999px;text-align:center;cursor:pointer">Book A Call Now!</div></div>
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:32px"><h3 style="font: 700 21px/1.25 var(--h); color: var(--ink); margin: 0; font-size: 21px">Premium</h3><p style="font:400 13px/1.8 var(--f);color:var(--mid);margin:9px 0 22px">Applications, e-commerce and bespoke functionality.</p><div style="font: 800 42px/1 var(--h); letter-spacing: -.03em; color: var(--ink); font-weight: 500; font-size: 22px">Custom Pricing<br><br></div>
+<sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}"></sc-if>
+<div style="display:grid;gap:12px;margin:24px 0 26px;font:400 13px/1.5 var(--f);color:var(--mid)">
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Custom website or application</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Advanced functionality</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>E-commerce &amp; payment integration</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>Custom UI/UX</div>
+<div style="display:flex;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:3px"><path d="m5 13 4 4L19 7"></path></svg>API integration &amp; priority support</div>
+</div>
+<div onClick="{{ goContact }}" style="background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 13.5px/1 var(--h);padding:16px 20px;border-radius:999px;text-align:center;cursor:pointer">Connect with Sales Team</div></div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0"><div style="border:1px solid var(--cb);border-radius:26px;background:linear-gradient(120deg,rgba(79,232,154,.10),rgba(255,255,255,.02) 60%);padding:34px">
+<h2 style="font:600 25px/1.25 var(--h);letter-spacing:-.012em;color:var(--ink);margin:0 0 9px">We keep your digital business running</h2><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0 0 24px">Monthly support and maintenance, billed as a plan rather than ad-hoc hours.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font:400 13px/1.45 var(--f);color:var(--mid)">
+<span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 4v5h-5"></path></svg>Website updates</span><span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 3l7 3v6c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>Security updates</span><span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><ellipse cx="12" cy="6" rx="7" ry="3"></ellipse><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"></path><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"></path></svg>Backups</span>
+<span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 13a8 8 0 0 1 16 0"></path><rect x="2.5" y="13" width="4" height="7" rx="1.6"></rect><rect x="17.5" y="13" width="4" height="7" rx="1.6"></rect><path d="M20 20v1a2 2 0 0 1-2 2h-3"></path></svg>Technical support</span><span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M14.5 4.5l5 5L10 19H5v-5z"></path><path d="m12.5 6.5 5 5"></path></svg>Content changes</span><span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 20a8 8 0 1 0-8-8"></path><path d="m12 12 5-4"></path><path d="M20 20a8 8 0 0 0-1.5-9"></path></svg>Performance monitoring</span>
+<span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="4" width="18" height="7" rx="2"></rect><rect x="3" y="13" width="18" height="7" rx="2"></rect><path d="M7 7.5h.01M7 16.5h.01"></path></svg>Hosting management</span><span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.5 3 2.5 15 0 18-2.5-3-2.5-15 0-18z"></path></svg>Domain management</span><span style="background:rgba(255,255,255,.04);border:1px solid var(--cb);border-radius:14px;padding:14px 17px;display:flex;align-items:center;gap:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4fe89a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M14.7 6.3a4 4 0 1 1 3 3L12 15l-3 3-3-3 3-3z"></path><path d="m5 19 2-2"></path></svg>Application maintenance</span>
+</div>
+<div onClick="{{ goContact }}" style="display:inline-block;background:rgba(255,255,255,.07);border:1px solid var(--cb);color:var(--ink);font:600 13px/1 var(--h);padding:15px 22px;border-radius:999px;margin-top:26px;cursor:pointer">Ask About Support Plans</div>
+</div></div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 104px"><div style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:30px;background:linear-gradient(135deg,rgba(139,255,192,.16),rgba(58,160,255,.13) 55%,rgba(255,255,255,.05));backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 34px 90px rgba(0,0,0,.45);padding:56px 40px;text-align:center"><h2 style="font:400 41px/1.12 var(--d);letter-spacing:-.004em;color:#f2fff8;margin:0 auto;max-width:22ch">Not sure which package fits?</h2><p style="font:400 15px/1.8 var(--f);color:rgba(238,255,246,.75);max-width:42ch;margin:16px auto 0;text-wrap:balance">Book a free demo and we'll recommend the smallest package that does the job properly.</p><div onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 13.5px/1 var(--h);padding:17px 25px;border-radius:999px;margin-top:26px;cursor:pointer">Book a Consultation</div></div></div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 0">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">What happens next</div><h2 style="font:400 42px/1.1 var(--d);letter-spacing:-.004em;color:var(--ink);margin:18px auto 0;max-width:24ch">Three steps from enquiry to launch date</h2></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px">
+<div style="border:1px solid rgba(79,232,154,.28);border-radius:24px;background:linear-gradient(180deg,rgba(79,232,154,.12),rgba(255,255,255,.02));padding:30px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(79,232,154,.2);color:var(--ac2);display:grid;place-items:center;font:600 13px/1 var(--h)">01</div><h3 style="font:600 18px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:20px 0 10px">We read your brief</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">Within one working day you will hear back from a person — not an autoresponder — with a suggested call time.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:600 13px/1 var(--h)">02</div><h3 style="font:600 18px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:20px 0 10px">A 30-minute call</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">We walk through layouts and features built around your business, and answer the awkward questions about cost and timing.</p></div>
+<div style="border:1px solid var(--cb);border-radius:24px;background:var(--cd);padding:30px"><div style="width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);color:var(--mid);display:grid;place-items:center;font:600 13px/1 var(--h)">03</div><h3 style="font:600 18px/1.3 var(--h);letter-spacing:-.008em;color:var(--ink);margin:20px 0 10px">A written quotation</h3><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:0">Fixed price, defined deliverables and a launch date. Say yes and we start; say no and you keep the plan.</p></div>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:88px 28px 104px">
+<div style="text-align:center"><div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Questions</div><h2 style="font:400 42px/1.1 var(--d);letter-spacing:-.004em;color:var(--ink);margin:18px auto 0;max-width:24ch">Before you send the form</h2></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px">
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="font:600 15px/1.4 var(--h);letter-spacing:-.008em;color:var(--ink)">Do I need to know what I want before we talk?</div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:12px 0 0">No. Most clients arrive with a problem rather than a specification — we translate it into scope.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="font:600 15px/1.4 var(--h);letter-spacing:-.008em;color:var(--ink)">Is the first call really free?</div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:12px 0 0">Yes — 30 minutes, no obligation, and you keep the outline plan whether or not you work with us.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="font:600 15px/1.4 var(--h);letter-spacing:-.008em;color:var(--ink)">Can you work with my existing website?</div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:12px 0 0">Usually. We audit what is there and tell you honestly whether to improve it or replace it.</p></div>
+<div style="border:1px solid var(--cb);border-radius:22px;background:var(--cd);padding:26px"><div style="font:600 15px/1.4 var(--h);letter-spacing:-.008em;color:var(--ink)">What if I am outside the UK?</div><p style="font:400 13.5px/1.8 var(--f);color:var(--mid);margin:12px 0 0">We work with clients internationally. Contracts and invoicing are UK-based; delivery is remote.</p></div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 30% -20%,#0e4a31 0%,#081c15 45%,#050907 80%)"></div>
+<div style="position:absolute;left:-8%;top:-50%;width:60%;height:150%;background:radial-gradient(closest-side,rgba(79,232,154,.30),transparent 70%);filter:blur(80px);animation:vt-drift 20s ease-in-out infinite"></div>
+<div style="position:relative;max-width:1240px;margin:0 auto;padding:104px 28px 84px;text-align:center">
+<div style="font:500 11px/1 var(--f);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)">Contact</div>
+<h1 style="font:400 54px/1.08 var(--d);letter-spacing:-.004em;color:var(--ink);margin:20px auto 0;max-width:20ch">Tell us about your project</h1>
+<p style="font:400 15.5px/1.8 var(--f);color:var(--mid);max-width:56ch;margin:16px auto 0">Answer as much as you can — we'll come back with a written quotation and a suggested next step.</p>
+</div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:0 28px 88px;display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start">
+<div style="border:1px solid var(--cb);border-radius:26px;background:var(--cd);padding:34px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Full name *</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:14px;height:48px"></div></div>
+<div><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Company name</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:14px;height:48px"></div></div>
+<div><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Email address *</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:14px;height:48px"></div></div>
+<div><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Phone number</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:14px;height:48px"></div></div>
+<div><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Service required *</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:14px;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font:400 13px/1 var(--f);color:var(--dim)"><span>Select a service</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7c9689" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+<div><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Estimated budget</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:13px;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font:400 13px/1 var(--f);color:var(--dim)"><span>Select a range</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7c9689" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+<div style="grid-column:span 2"><label style="font:600 11.5px/1 var(--f);color:var(--mid);display:block;margin-bottom:10px">Project description *</label><div style="border:1px solid var(--cb);background:rgba(255,255,255,.04);border-radius:16px;height:130px"></div></div>
+</div>
+<div style="display:flex;align-items:flex-start;gap:12px;margin-top:22px"><div style="width:20px;height:20px;flex:none;border:1px solid var(--cb);border-radius:6px;background:rgba(255,255,255,.04)"></div><span style="font:400 12px/1.6 var(--f);color:var(--mid)">I agree to VTech contacting me about this enquiry. See our <span style="color:var(--ac)">Privacy Policy</span>.</span></div>
+<div style="display:flex;align-items:center;gap:16px;margin-top:26px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%);color:#04140c;font:700 14px/1 var(--h);padding:18px 26px;border-radius:999px">Send Enquiry</div><span style="font:400 11.5px/1.4 var(--f);color:var(--dim)">Spam protection / CAPTCHA sits here</span></div>
+</div>
+<div style="display:grid;gap:20px">
+<div style="border:1px solid rgba(79,232,154,.26);border-radius:26px;background:radial-gradient(130% 130% at 0% 0%,rgba(79,232,154,.14),rgba(255,255,255,.02) 60%);padding:30px">
+<div style="display:grid;gap:20px;font:400 14px/1.5 var(--f);color:var(--ink)">
+<div style="display:flex;gap:13px;align-items:flex-start"><div style="width:34px;height:34px;flex:none;border-radius:12px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></div><div><div style="font:600 11px/1 var(--f);color:var(--dim);margin-bottom:7px">EMAIL</div>info@vyntrixtechnologies.co.uk</div></div>
+<div style="display:flex;gap:13px;align-items:flex-start"><div style="width:34px;height:34px;flex:none;border-radius:12px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a16 16 0 0 1-16-16z"></path></svg></div><div><div style="font:600 11px/1 var(--f);color:var(--dim);margin-bottom:7px">TELEPHONE</div>+44 7397636955</div></div>
+<div style="display:flex;gap:13px;align-items:flex-start"><div style="width:34px;height:34px;flex:none;border-radius:12px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></div><div><div style="font:600 11px/1 var(--f);color:var(--dim);margin-bottom:7px">ADDRESS</div>Address line one<br>City, Postcode, UK</div></div>
+<div style="display:flex;gap:13px;align-items:flex-start"><div style="width:34px;height:34px;flex:none;border-radius:12px;background:rgba(79,232,154,.16);display:grid;place-items:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8bffc0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div><div><div style="font:600 11px/1 var(--f);color:var(--dim);margin-bottom:7px">HOURS</div>Mon–Fri, 9:00–18:00</div></div>
+</div>
+
+</div>
+<div onMouseMove="{{ onTilt }}" onMouseLeave="{{ resetTilt }}" style="position:relative;height:250px;border-radius:26px;overflow:hidden;border:1px solid var(--cb);background:radial-gradient(120% 130% at 25% 0%,rgba(79,232,154,.16),rgba(58,160,255,.12) 55%,rgba(255,255,255,.02) 100%);perspective:900px">
+<div style="position:absolute;left:50%;top:56%;width:220px;height:60px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(79,232,154,.30),transparent 70%);filter:blur(26px)"></div>
+<div data-tilt="" style="position:absolute;inset:0;display:grid;place-items:center;padding:0 34px 22px;transform-style:preserve-3d;transition:transform .2s ease-out;will-change:transform">
+<div style="position:relative;width:194px;height:126px;transform-style:preserve-3d">
+<div style="position:absolute;inset:0;border-radius:16px;border:1px solid rgba(58,160,255,.34);background:linear-gradient(140deg,rgba(79,232,154,.18),rgba(58,160,255,.16));transform:translateZ(-52px) translateY(14px)"></div>
+<div style="position:absolute;inset:0;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(6,20,16,.86);transform:translateZ(0);box-shadow:0 26px 60px rgba(0,0,0,.5);padding:14px;display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;gap:6px"><div style="width:7px;height:7px;border-radius:999px;background:#4fe89a"></div><div style="width:7px;height:7px;border-radius:999px;background:rgba(255,255,255,.18)"></div><div style="width:7px;height:7px;border-radius:999px;background:rgba(255,255,255,.18)"></div></div>
+<div style="height:8px;width:70%;border-radius:999px;background:linear-gradient(90deg,#4fe89a,rgba(79,232,154,.15))"></div>
+<div style="height:8px;width:46%;border-radius:999px;background:rgba(255,255,255,.12)"></div>
+<div style="height:8px;width:58%;border-radius:999px;background:rgba(255,255,255,.12)"></div>
+<div style="margin-top:auto;height:26px;width:96px;border-radius:999px;background:linear-gradient(110deg,#8bffc0 0%,#4fe89a 40%,#3aa0ff 100%)"></div>
+</div>
+<div style="position:absolute;right:-34px;bottom:-16px;width:72px;height:104px;border-radius:16px;border:1px solid rgba(139,255,192,.42);background:linear-gradient(160deg,rgba(139,255,192,.20),rgba(58,160,255,.20));transform:translateZ(54px);box-shadow:0 22px 48px rgba(0,0,0,.55);padding:11px;display:flex;flex-direction:column;gap:7px">
+<div style="height:20px;border-radius:7px;background:rgba(255,255,255,.16)"></div>
+<div style="height:7px;width:70%;border-radius:999px;background:rgba(255,255,255,.22)"></div>
+<div style="height:7px;width:52%;border-radius:999px;background:rgba(255,255,255,.16)"></div>
+<div style="margin-top:auto;height:20px;border-radius:999px;background:rgba(139,255,192,.55)"></div>
+</div>
+<div style="position:absolute;left:-28px;top:-22px;display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid rgba(79,232,154,.4);background:rgba(6,20,16,.9);font:600 10.5px/1 var(--f);letter-spacing:.1em;color:var(--ac2);transform:translateZ(86px)"><span style="width:6px;height:6px;border-radius:999px;background:#4fe89a;animation:vt-blink 1.6s steps(1,end) infinite"></span>LIVE BUILD</div>
+</div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:14px;text-align:center;font:500 11px/1 var(--f);color:var(--dim)">Move your cursor over the build</div>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+
+
+<div style="border-top:1px solid var(--cb);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)">
+<div style="max-width:1240px;margin:0 auto;padding:44px 28px 18px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:28px">
+<div>
+<img onClick="{{ goHome }}" src="assets/vtech-logo.png" alt="VTech" style="height:30px;width:auto;display:block;cursor:pointer">
+<p style="font:400 12.5px/1.7 var(--f);color:var(--dim);margin:14px 0 0;max-width:36ch">UK-based IT and digital solutions company building websites, applications and brands for businesses worldwide.</p>
+</div>
+<div><div style="font:700 12px/1 var(--h);color:var(--ink);margin-bottom:16px">Services</div><div style="display:grid;gap:10px;font:400 12.5px/1.4 var(--f);color:var(--dim)"><span onClick="{{ goService }}" style="cursor:pointer">Website Development</span><span onClick="{{ goService }}" style="cursor:pointer">Mobile Apps</span><span onClick="{{ goService }}" style="cursor:pointer">Graphic Design</span><span onClick="{{ goService }}" style="cursor:pointer">UI/UX Design</span><span onClick="{{ goService }}" style="cursor:pointer">E-commerce</span><span onClick="{{ goService }}" style="cursor:pointer">IT Solutions</span></div></div>
+<div><div style="font:700 12px/1 var(--h);color:var(--ink);margin-bottom:16px">Company</div><div style="display:grid;gap:10px;font:400 12.5px/1.4 var(--f);color:var(--dim)"><span onClick="{{ goAbout }}" style="cursor:pointer">About Us</span><span onClick="{{ goServices }}" style="cursor:pointer">Services</span><span onClick="{{ goPackages }}" style="cursor:pointer">Pricing</span><span onClick="{{ goContact }}" style="cursor:pointer">Contact Us</span></div></div>
+<div><div style="font:700 12px/1 var(--h);color:var(--ink);margin-bottom:16px">Contact</div><div style="display:grid;gap:10px;font:400 12.5px/1.4 var(--f);color:var(--dim)"><a href="mailto:info@vyntrixtechnologies.co.uk" style="color:var(--dim)" style-hover="color:var(--mid)">info@vyntrixtechnologies.co.uk</a><a href="tel:+447397636955" style="color:var(--dim)" style-hover="color:var(--mid)">+44 7397636955</a><span>Address line, UK</span><div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap"><a href="#" style="color:var(--dim)" style-hover="color:var(--mid)">Privacy</a><span>·</span><a href="#" style="color:var(--dim)" style-hover="color:var(--mid)">Cookies</a><span>·</span><a href="#" style="color:var(--dim)" style-hover="color:var(--mid)">Terms</a></div></div></div>
+</div>
+<div style="max-width:1240px;margin:0 auto;padding:16px 28px 30px;border-top:1px solid var(--cb);font:400 11.5px/1.4 var(--f);color:var(--dim);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span>© VTech Limited · Registered in England &amp; Wales</span><span>Built and maintained in-house</span></div>
+</div>
+
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Packages&quot;}}">
+class Component extends DCLogic {
+  state = { page: "home" };
+  go(p) {
+    return () => {
+      this.setState({ page: p });
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }
+  renderVals() {
+    const p = this.state.page;
+    return {
+      isHome: p === "home", isNotFound: p === "404",
+      isAbout: p === "about", isServices: p === "services", isService: p === "service",
+      isPackages: p === "packages", isContact: p === "contact",
+      onHome: p === "home", onAbout: p === "about", onServices: p === "services" || p === "service",
+      onPackages: p === "packages",
+      goHome: this.go("home"), goAbout: this.go("about"), goServices: this.go("services"),
+      goService: this.go("service"), goPackages: this.go("packages"), goContact: this.go("contact"),
+      goNotFound: this.go("404"),
+      onTilt: (e) => {
+        const host = e.currentTarget, el = host.querySelector("[data-tilt]");
+        if (!el) return;
+        const r = host.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = "rotateX(" + (-y * 16).toFixed(2) + "deg) rotateY(" + (x * 26).toFixed(2) + "deg)";
+      },
+      resetTilt: (e) => {
+        const el = e.currentTarget.querySelector("[data-tilt]");
+        if (el) el.style.transform = "rotateX(0deg) rotateY(0deg)";
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
