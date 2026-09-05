@@ -15,8 +15,36 @@ export const categories = [
 
 const AUTHOR = "Vyntrix Technologies Team";
 
+const MONTHS = {
+  January: "01", February: "02", March: "03", April: "04", May: "05", June: "06",
+  July: "07", August: "08", September: "09", October: "10", November: "11", December: "12",
+};
+
+/** "12 March 2026" -> "2026-03-12", for schema.org datePublished and <time>. */
+function toIso(human) {
+  const [d, m, y] = human.split(" ");
+  return `${y}-${MONTHS[m]}-${d.padStart(2, "0")}`;
+}
+
+/* Each article supports one commercial page — blog content that never links
+   to a service page is a wasted internal link. */
+const SERVICE_FOR_CATEGORY = {
+  "Web Development": "website-development",
+  "Mobile Apps": "mobile-app-development",
+  "Business Technology": "it-digital-solutions",
+  "Graphic Design": "graphic-design-branding",
+  Branding: "graphic-design-branding",
+  "E-commerce": "ecommerce-development",
+  "Digital Growth": "website-development",
+};
+
 function post(o) {
-  return { author: AUTHOR, ...o };
+  return {
+    author: AUTHOR,
+    isoDate: toIso(o.date),
+    relatedService: SERVICE_FOR_CATEGORY[o.category],
+    ...o,
+  };
 }
 
 export const posts = [
@@ -232,6 +260,7 @@ export const posts = [
   }),
   post({
     slug: "backups-that-actually-work",
+    relatedService: "maintenance-support",
     title: "Backups that actually work when you need them",
     category: "Business Technology",
     date: "30 January 2026",

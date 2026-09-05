@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
@@ -12,6 +13,11 @@ export default function Services() {
 
   return (
     <div>
+      <Seo
+        title="Web, App & Digital Services | Vyntrix Technologies"
+        description="Seven service lines: website development, mobile apps, branding, UI/UX, e-commerce, IT solutions and ongoing maintenance. Each quoted individually."
+        jsonLd={graph(breadcrumbs([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }]))}
+      />
       <AuroraHero
         ground="radial-gradient(120% 100% at 50% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
         blobs={[{ left: "-8%", top: "-50%", width: "60%", height: "150%", color: "rgba(79,232,154,.30)", duration: "22s" }]}
@@ -34,7 +40,7 @@ export default function Services() {
                   <div className="icon-box">
                     <Icon size={19} />
                   </div>
-                  <h3>{s.name}</h3>
+                  <h2>{s.name}</h2>
                 </div>
                 <p>{s.short}</p>
               </Link>
@@ -50,7 +56,7 @@ export default function Services() {
               <BadgeIcon size={20} />
             </div>
             <div>
-              <h3>{maintenance.name}</h3>
+              <h2>{maintenance.name}</h2>
               <p>{maintenance.short}</p>
             </div>
           </div>

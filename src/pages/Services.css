@@ -30,7 +30,7 @@
   gap: 12px;
   margin-top: 22px;
 }
-.services-grid__head h3 {
+.services-grid__head h2 {
   font: 600 21px/1.25 var(--font-heading);
   letter-spacing: -0.012em;
   color: var(--ink);
@@ -54,7 +54,7 @@
   gap: 16px;
   align-items: flex-start;
 }
-.maintenance-banner h3 {
+.maintenance-banner h2 {
   font: 600 21px/1.25 var(--font-heading);
   letter-spacing: -0.012em;
   color: var(--ink);

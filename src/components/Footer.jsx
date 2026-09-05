@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/vtech-logo.png";
+import logo from "../assets/vyntrix-technologies-logo.png";
 import { services } from "../data/services";
 import "./Footer.css";
 

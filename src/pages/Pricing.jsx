@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import {
   CheckIcon,
@@ -86,6 +87,11 @@ const faqs = [
 export default function Pricing() {
   return (
     <div>
+      <Seo
+        title="Website & App Pricing | Vyntrix Technologies"
+        description="Starter, Business and Premium packages for UK businesses. Every project is quoted individually — fixed price, defined deliverables and a launch date."
+        jsonLd={graph(breadcrumbs([{ name: "Home", path: "/" }, { name: "Pricing", path: "/pricing" }]))}
+      />
       <AuroraHero
         ground="radial-gradient(120% 100% at 50% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
         blobs={[{ left: "50%", top: "-50%", width: "90%", height: "150%", color: "rgba(79,232,154,.28)", duration: "21s", center: true }]}
@@ -102,7 +108,7 @@ export default function Pricing() {
           {tiers.map((t) => (
             <div className={"card pricing-card" + (t.variant === "accent" ? " pricing-card--accent" : "")} key={t.name}>
               {t.popular && <div className="pricing-card__badge">MOST POPULAR</div>}
-              <h3>{t.name}</h3>
+              <h2>{t.name}</h2>
               <p className="pricing-card__body">{t.body}</p>
               <div className="pricing-card__features">
                 {t.lead && <div className="pricing-card__lead">{t.lead}</div>}

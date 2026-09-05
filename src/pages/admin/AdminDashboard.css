@@ -75,6 +75,7 @@
 .admin__topbar-title {
   font: 700 17px/1 var(--font-heading);
   color: var(--ink);
+  margin: 0;
 }
 .admin__topbar-actions {
   display: flex;

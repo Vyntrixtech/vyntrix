@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Seo, { graph, breadcrumbs, organisation, SITE_URL } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { getService } from "../data/services";
 import { ArrowRightIcon } from "../components/Icons";
@@ -27,6 +28,34 @@ export default function ServiceDetail() {
 
   return (
     <div>
+      <Seo
+        title={`${service.name} | Vyntrix Technologies`}
+        description={service.lede.length > 155 ? service.short : service.lede}
+        jsonLd={graph(
+          {
+            "@type": "Service",
+            name: service.name,
+            description: service.short,
+            url: `${SITE_URL}/services/${service.slug}`,
+            provider: { "@id": `${SITE_URL}/#organization` },
+            areaServed: "Worldwide",
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: `${service.name} — what's included`,
+              itemListElement: service.included.map((i) => ({
+                "@type": "Offer",
+                itemOffered: { "@type": "Service", name: i.title, description: i.body },
+              })),
+            },
+          },
+          organisation,
+          breadcrumbs([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.name, path: `/services/${service.slug}` },
+          ])
+        )}
+      />
       <AuroraHero
         ground="radial-gradient(120% 100% at 70% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
         blobs={[{ right: "-10%", top: "-50%", width: "65%", height: "150%", color: "rgba(79,232,154,.32)", duration: "19s" }]}
@@ -70,7 +99,7 @@ export default function ServiceDetail() {
         <div className="service-included">
           {service.included.map((item) => (
             <div className="card" key={item.title}>
-              <h4>{item.title}</h4>
+              <h3>{item.title}</h3>
               <p>{item.body}</p>
             </div>
           ))}

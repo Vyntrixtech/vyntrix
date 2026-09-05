@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/vtech-logo.png";
+import Seo from "../../components/Seo";
+import logo from "../../assets/vyntrix-technologies-logo.png";
 import "./AdminDashboard.css";
 
 const navSections = [
@@ -55,6 +56,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin">
+      <Seo title="Admin | Vyntrix Technologies" description="Internal admin area." noindex />
       <aside className="admin__sidebar">
         <div className="admin__brand">
           <img src={logo} alt="Vyntrix Technologies" height={26} />
@@ -79,7 +81,7 @@ export default function AdminDashboard() {
 
       <div className="admin__main">
         <div className="admin__topbar">
-          <div className="admin__topbar-title">Dashboard</div>
+          <h1 className="admin__topbar-title">Dashboard</h1>
           <div className="admin__topbar-actions">
             <Link to="/" className="btn btn-secondary btn-sm">
               View site

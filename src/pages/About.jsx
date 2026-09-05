@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { CompassIcon, TargetIcon, LockIcon, GrowthIcon, PinIcon, BadgeIcon } from "../components/Icons";
 import "./About.css";
@@ -36,6 +37,11 @@ const industries = [
 export default function About() {
   return (
     <div>
+      <Seo
+        title="About Vyntrix Technologies | UK Digital Agency"
+        description="A UK studio building websites, apps and brands for small and mid-sized businesses. One point of contact, fixed scope, and support that continues after launch."
+        jsonLd={graph(organisation, breadcrumbs([{ name: "Home", path: "/" }, { name: "About", path: "/about" }]))}
+      />
       <AuroraHero
         ground="radial-gradient(120% 100% at 50% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
         blobs={[{ right: "-10%", top: "-50%", width: "65%", height: "150%", color: "rgba(79,232,154,.32)", duration: "20s" }]}

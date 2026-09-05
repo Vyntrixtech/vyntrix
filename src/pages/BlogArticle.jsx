@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
+import Seo, { graph, breadcrumbs, organisation, SITE_URL } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { getPost, relatedPosts } from "../data/posts";
+import { getService } from "../data/services";
 import { ArrowRightIcon } from "../components/Icons";
 import BlogCover from "../components/BlogCover";
 import NotFound from "./NotFound";
@@ -13,9 +15,33 @@ export default function BlogArticle() {
   if (!post) return <NotFound />;
 
   const related = relatedPosts(post);
+  const relatedService = post.relatedService ? getService(post.relatedService) : null;
 
   return (
     <div>
+      <Seo
+        title={`${post.title} | Vyntrix Technologies`}
+        description={post.excerpt}
+        jsonLd={graph(
+          {
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            articleSection: post.category,
+            datePublished: post.isoDate,
+            dateModified: post.isoDate,
+            author: { "@type": "Organization", name: post.author },
+            publisher: { "@id": `${SITE_URL}/#organization` },
+            mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+          },
+          organisation,
+          breadcrumbs([
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ])
+        )}
+      />
       <AuroraHero
         ground="radial-gradient(110% 80% at 50% -25%, #0d4530 0%, #081c15 45%, #050907 80%)"
         blobs={[{ left: "50%", top: "-55%", width: "70%", height: "130%", color: "rgba(79,232,154,.24)", duration: "20s", center: true }]}
@@ -69,6 +95,13 @@ export default function BlogArticle() {
           )}
           <h3>What this means for you</h3>
           <p>{post.closing}</p>
+
+          {relatedService && (
+            <p className="article-service-link">
+              Related service:{" "}
+              <Link to={`/services/${relatedService.slug}`}>{relatedService.name}</Link>
+            </p>
+          )}
 
           <Link to="/contact" className="article-cta">
             <div>

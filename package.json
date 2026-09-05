@@ -8,7 +8,8 @@
     "build": "vite build",
     "postbuild": "cp dist/index.html dist/404.html",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",

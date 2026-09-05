@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { services } from "../data/services";
 import { MailIcon, PhoneIcon, PinIcon, ClockIcon, ChevronDownIcon } from "../components/Icons";
@@ -44,6 +45,11 @@ export default function Contact() {
 
   return (
     <div>
+      <Seo
+        title="Contact Us | Free Project Quote | Vyntrix Technologies"
+        description="Tell us about your project and get a written quotation within one working day. London-based, working with clients across the UK and internationally."
+        jsonLd={graph(organisation, breadcrumbs([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]))}
+      />
       <AuroraHero
         ground="radial-gradient(120% 100% at 30% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
         blobs={[{ left: "-8%", top: "-50%", width: "60%", height: "150%", color: "rgba(79,232,154,.30)", duration: "20s" }]}
@@ -142,7 +148,7 @@ export default function Contact() {
                 <button type="submit" className="btn btn-primary">
                   Send Enquiry
                 </button>
-                <span className="contact-submit-note">Spam protection / CAPTCHA sits here</span>
+                <span className="contact-submit-note">We reply within one working day.</span>
               </div>
             </form>
           )}

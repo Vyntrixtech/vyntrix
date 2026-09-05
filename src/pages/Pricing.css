@@ -50,7 +50,7 @@
   padding: 8px 12px;
   border-radius: 999px;
 }
-.pricing-card h3 {
+.pricing-card h2 {
   font: 600 21px/1.25 var(--font-heading);
   letter-spacing: -0.012em;
   color: var(--ink);

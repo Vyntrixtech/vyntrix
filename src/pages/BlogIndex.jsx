@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
 import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import { categories, posts } from "../data/posts";
@@ -14,6 +15,11 @@ export default function BlogIndex() {
 
   return (
     <div>
+      <Seo
+        title="Insights on Web, Apps & Digital Growth | Vyntrix"
+        description="Practical articles for UK business owners on websites, mobile apps, e-commerce, branding and getting more enquiries online. No jargon, no filler."
+        jsonLd={graph(breadcrumbs([{ name: "Home", path: "/" }, { name: "Insights", path: "/blog" }]))}
+      />
       <AuroraHero
         ground="radial-gradient(120% 100% at 50% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
         blobs={[{ left: "50%", top: "-50%", width: "80%", height: "130%", color: "rgba(79,232,154,.26)", duration: "22s", center: true }]}

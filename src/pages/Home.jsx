@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
@@ -6,7 +7,7 @@ import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon } from
 import "./Home.css";
 
 const stats = [
-  { icon: TargetIcon, value: "+38%", body: "Average enquiry lift after a site rebuild — illustrative, replaced with real client figures before launch." },
+  { icon: TargetIcon, value: "1 day", body: "Typical first response to an enquiry — from a person, with a suggested call time." },
   { icon: ClockIcon, value: "4 wks", body: "Typical time from discovery to launch on a Starter build, with weekly check-ins." },
   { icon: ShieldCheckIcon, value: "100%", body: "Ownership of domain, hosting, code and store accounts stays with you." },
 ];
@@ -25,6 +26,17 @@ export default function Home() {
 
   return (
     <div>
+      <Seo
+        title="IT & Digital Solutions for Growing Businesses | Vyntrix"
+        description="UK web design, mobile app development, branding and e-commerce. Fixed scope, fixed price and a written quotation before work starts. Book a free 30-minute call."
+        jsonLd={graph(organisation, {
+          "@type": "WebSite",
+          "@id": SITE_URL + "/#website",
+          url: SITE_URL,
+          name: SITE_NAME,
+          publisher: { "@id": SITE_URL + "/#organization" },
+        })}
+      />
       <AuroraHero
         ground="radial-gradient(130% 100% at 50% -20%, #0f5236 0%, #082018 45%, #050907 80%)"
         blobs={[

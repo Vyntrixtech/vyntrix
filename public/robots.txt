@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Internal admin area — no public value, keeps it out of the index.
+Disallow: /admin
+
+Sitemap: https://vyntrixtechnologies.co.uk/sitemap.xml

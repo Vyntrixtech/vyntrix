@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import Seo from "../components/Seo";
 import "./NotFound.css";
 
 export default function NotFound() {
   return (
     <div className="notfound aurora">
+      <Seo title="Page not found | Vyntrix Technologies" description="The page you are looking for has moved or no longer exists." noindex />
       <div
         className="aurora-ground"
         style={{ background: "radial-gradient(120% 100% at 50% 10%, #0c3f2b 0%, #071913 45%, #050907 80%)" }}
