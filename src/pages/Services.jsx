@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
-import ServiceIllustration from "../components/ServiceIllustration";
+import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
 import { BadgeIcon } from "../components/Icons";
 import { serviceIconMap as iconMap } from "../data/serviceIcons";
@@ -29,7 +29,7 @@ export default function Services() {
             const Icon = iconMap[s.icon];
             return (
               <Link to={`/services/${s.slug}`} key={s.slug} className="card card--accent services-grid__item">
-                <ServiceIllustration type={s.icon} height={130} />
+                <ServiceArt type={s.icon} height={150} />
                 <div className="services-grid__head">
                   <div className="icon-box">
                     <Icon size={19} />

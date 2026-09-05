@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
-import ServiceIllustration from "../components/ServiceIllustration";
+import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
 import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon } from "../components/Icons";
 import "./Home.css";
@@ -120,7 +120,7 @@ export default function Home() {
 
           <div className="home-services">
             <Link to={`/services/${homeServices[0].slug}`} className="home-services__lead card card--accent">
-              <ServiceIllustration type={homeServices[0].icon} height={190} />
+              <ServiceArt type={homeServices[0].icon} height={200} />
               <h3>{homeServices[0].name}</h3>
               <p>{homeServices[0].short}</p>
               <span className="service-link">

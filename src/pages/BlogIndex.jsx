@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import { categories, posts } from "../data/posts";
 import { ArrowRightIcon } from "../components/Icons";
+import BlogCover from "../components/BlogCover";
 import "./BlogIndex.css";
 
 export default function BlogIndex() {
@@ -35,7 +36,9 @@ export default function BlogIndex() {
 
       <div className="section">
         <Link to={`/blog/${featured.slug}`} className="card featured-post">
-          <div className="featured-post__art" />
+          <div className="featured-post__art">
+              <BlogCover category={featured.category} />
+            </div>
           <div className="featured-post__body">
             <span className="pill-tag">
               {featured.category} · {featured.readTime}
@@ -53,7 +56,9 @@ export default function BlogIndex() {
         <div className="blog-grid">
           {filtered.map((p) => (
             <Link to={`/blog/${p.slug}`} key={p.slug} className="card blog-card">
-              <div className="blog-card__art" />
+              <div className="blog-card__art">
+                <BlogCover category={p.category} label={false} />
+              </div>
               <div className="blog-card__body">
                 <span className="blog-card__category">{p.category.toUpperCase()}</span>
                 <h3>{p.title}</h3>

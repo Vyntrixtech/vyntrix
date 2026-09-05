@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import { getPost, relatedPosts } from "../data/posts";
 import { ArrowRightIcon } from "../components/Icons";
+import BlogCover from "../components/BlogCover";
 import NotFound from "./NotFound";
 import "./BlogArticle.css";
 
@@ -36,7 +37,9 @@ export default function BlogArticle() {
       </AuroraHero>
 
       <div className="container">
-        <div className="article-art" />
+        <div className="article-art">
+          <BlogCover category={post.category} />
+        </div>
       </div>
 
       <div className="container article-layout">
@@ -81,7 +84,9 @@ export default function BlogArticle() {
           <div className="article-related">
             {related.map((r) => (
               <Link to={`/blog/${r.slug}`} key={r.slug} className="article-related__item">
-                <div className="article-related__art" />
+                <div className="article-related__art">
+                  <BlogCover category={r.category} label={false} />
+                </div>
                 <div className="article-related__title">{r.title}</div>
               </Link>
             ))}

@@ -43,7 +43,7 @@
 .featured-post__art {
   height: 290px;
   border-radius: 20px;
-  background: radial-gradient(120% 120% at 30% 0%, rgba(79, 232, 154, 0.18), rgba(255, 255, 255, 0.02) 60%);
+  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
 .featured-post__body {
@@ -72,7 +72,7 @@
 .blog-card__art {
   height: 150px;
   border-radius: 14px;
-  background: radial-gradient(120% 120% at 30% 0%, rgba(79, 232, 154, 0.14), rgba(255, 255, 255, 0.02) 60%);
+  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 .blog-card__body {
