@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../assets/vyntrix-technologies-logo.png";
 import { ArrowRightIcon } from "./Icons";
 import "./Header.css";
+
+// Served straight from /public, so the URL is identical in the pre-rendered
+// HTML and in the hydrated app. A bundled import would be content-hashed.
+const logo = "/vyntrix-technologies-logo.png";
 
 const navItems = [
   { to: "/", label: "Home", end: true },

@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Seo from "../../components/Seo";
-import logo from "../../assets/vyntrix-technologies-logo.png";
 import "./AdminDashboard.css";
+
+const logo = "/vyntrix-technologies-logo.png";
 
 const navSections = [
   { label: "Dashboard", active: true },

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/vyntrix-technologies-logo.png";
 import { services } from "../data/services";
 import "./Footer.css";
+
+const logo = "/vyntrix-technologies-logo.png";
 
 export default function Footer() {
   return (
