@@ -31,6 +31,10 @@
   );
 
   --max: 1240px;
+
+  /* One duration for every hover response, so the whole site answers the
+     cursor at the same speed. */
+  --hover-t: 180ms ease-out;
 }
 
 *,
@@ -192,10 +196,37 @@ img {
   border-radius: 26px;
   background: var(--cd);
   padding: 30px;
+  transition: border-color var(--hover-t), background-color var(--hover-t), transform var(--hover-t),
+    box-shadow var(--hover-t);
 }
 .card--accent {
   border-color: rgba(79, 232, 154, 0.26);
   background: radial-gradient(130% 130% at 0% 0%, rgba(79, 232, 154, 0.14), rgba(255, 255, 255, 0.02) 60%);
+}
+
+/* Hover system — one vocabulary, used site-wide.
+   Clickable surfaces lift 2px and brighten their edge; static ones only
+   brighten. Nothing scales and nothing glows harder, so the page stays quiet
+   while still answering the cursor. */
+
+a.card:hover,
+.card--interactive:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 232, 154, 0.34);
+  background-color: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+}
+a.card--accent:hover {
+  border-color: rgba(79, 232, 154, 0.46);
+}
+
+/* An arrow inside a card nudges when the whole card is hovered. */
+.service-link svg {
+  transition: transform var(--hover-t);
+}
+a.card:hover .service-link svg,
+.service-link:hover svg {
+  transform: translateX(3px);
 }
 
 .glass-cta {
@@ -484,12 +515,56 @@ img {
   display: block;
 }
 
-/* The motion in these is decorative — drop it when the visitor asks. */
+/* The motion in these is decorative — drop it when the visitor asks, and
+   hold every hover response still at the same time. */
 @media (prefers-reduced-motion: reduce) {
   .svc-art *,
   .blog-cover * {
     animation: none !important;
   }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+  a.card:hover,
+  .card--interactive:hover,
+  .btn-primary:hover,
+  .industries span:hover {
+    transform: none;
+  }
+}
+
+/* — chips, tags and inputs — */
+
+.industries span,
+.addons-grid span,
+.pill-tag {
+  transition: border-color var(--hover-t), background-color var(--hover-t), color var(--hover-t),
+    transform var(--hover-t);
+}
+.industries span:hover,
+.addons-grid span:hover {
+  border-color: rgba(79, 232, 154, 0.3);
+  color: var(--ink);
+}
+.industries span:hover {
+  transform: translateY(-1px);
+}
+
+.field input,
+.field select,
+.field textarea {
+  transition: border-color var(--hover-t), background-color var(--hover-t);
+}
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.055);
+}
+.field select {
+  cursor: pointer;
 }
 
 /* ---------- responsive ---------- */

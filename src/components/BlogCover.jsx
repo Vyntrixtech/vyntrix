@@ -3,12 +3,21 @@
 // One template, seven variants. Every cover shares the same construction —
 // aurora wash, a faint wire grid, a category motif, and the category label —
 // so the index reads as one system while each post stays identifiable at
-// thumbnail size. Rendering these as inline SVG (rather than uploaded images)
-// keeps the blog index at zero image requests, which is the whole ballgame for
-// LCP on a listing page.
+// thumbnail size. Inline SVG keeps the blog index at zero image requests,
+// which is the main LCP lever on a listing page.
+//
+// Layout note: covers are cropped with `slice`, and the crop differs in every
+// slot (a wide featured card loses horizontally, a 320px article hero loses
+// vertically). So the label and the motif STACK rather than sit side by side,
+// and both live inside a central safe zone — x 80..356, y 40..142 — which
+// survives roughly 80 units of horizontal and 40 of vertical crop. Nothing is
+// anchored to an edge.
+//
+// Motifs are drawn in a local 176x58 box and positioned by one transform, so
+// adding a category means adding a motif at that size and one MOTIFS entry.
 //
 // Note: social preview cards (og:image) still need real raster files — an SVG
-// in the DOM can't serve that. Tracked separately.
+// in the DOM can't serve that.
 
 const MOTIFS = {
   "Web Development": { hue: "green", motif: "browser" },
@@ -21,30 +30,33 @@ const MOTIFS = {
 };
 
 const HUES = {
-  green: { a: "#4fe89a", soft: "rgba(79,232,154,.14)", line: "rgba(79,232,154,.34)", glow: "rgba(79,232,154,.30)" },
-  mint: { a: "#8bffc0", soft: "rgba(139,255,192,.14)", line: "rgba(139,255,192,.34)", glow: "rgba(139,255,192,.28)" },
-  blue: { a: "#3aa0ff", soft: "rgba(58,160,255,.14)", line: "rgba(58,160,255,.34)", glow: "rgba(58,160,255,.26)" },
+  green: { a: "#4fe89a", soft: "rgba(79,232,154,.14)", line: "rgba(79,232,154,.34)", glow: "rgba(79,232,154,.26)" },
+  mint: { a: "#8bffc0", soft: "rgba(139,255,192,.14)", line: "rgba(139,255,192,.34)", glow: "rgba(139,255,192,.24)" },
+  blue: { a: "#3aa0ff", soft: "rgba(58,160,255,.14)", line: "rgba(58,160,255,.34)", glow: "rgba(58,160,255,.22)" },
 };
 
 const bar = "rgba(255,255,255,.16)";
 const surface = "rgba(255,255,255,.05)";
 const stroke = "rgba(255,255,255,.12)";
 
+/* Each motif fits a 176x58 box, origin top-left. */
 function Motif({ kind, c }) {
   switch (kind) {
     case "device":
       return (
         <g>
-          <rect x="150" y="34" width="60" height="96" rx="13" fill={surface} stroke={stroke} />
-          <rect x="222" y="46" width="60" height="96" rx="13" fill={c.soft} stroke={c.line} />
+          <rect x="44" y="0" width="36" height="58" rx="8" fill={surface} stroke={stroke} />
+          <rect x="88" y="4" width="36" height="54" rx="8" fill={c.soft} stroke={c.line} />
           <g fill={bar}>
-            <rect x="162" y="56" width="36" height="9" rx="4.5" />
-            <rect x="162" y="72" width="36" height="9" rx="4.5" />
+            <rect x="52" y="12" width="20" height="5" rx="2.5" />
+            <rect x="52" y="22" width="20" height="5" rx="2.5" />
+            <rect x="52" y="32" width="14" height="5" rx="2.5" />
           </g>
           <g fill={c.a} opacity=".45">
-            <rect x="234" y="68" width="36" height="9" rx="4.5" />
-            <rect x="234" y="84" width="36" height="9" rx="4.5" />
+            <rect x="96" y="16" width="20" height="5" rx="2.5" />
+            <rect x="96" y="26" width="20" height="5" rx="2.5" />
           </g>
+          <rect x="98" y="48" width="16" height="3" rx="1.5" fill="rgba(255,255,255,.22)" />
         </g>
       );
     case "stack":
@@ -52,9 +64,10 @@ function Motif({ kind, c }) {
         <g>
           {[0, 1, 2].map((i) => (
             <g key={i}>
-              <rect x="148" y={40 + i * 34} width="140" height="26" rx="7" fill={i === 0 ? c.soft : surface} stroke={i === 0 ? c.line : stroke} />
-              <circle cx="162" cy={53 + i * 34} r="3.5" fill={i === 0 ? c.a : "rgba(255,255,255,.22)"} />
-              <rect x="176" y={49 + i * 34} width="86" height="7" rx="3.5" fill={bar} />
+              <rect x="13" y={i * 21} width="150" height="16" rx="5"
+                fill={i === 0 ? c.soft : surface} stroke={i === 0 ? c.line : stroke} />
+              <circle cx="26" cy={i * 21 + 8} r="3" fill={i === 0 ? c.a : "rgba(255,255,255,.22)"} />
+              <rect x="38" y={i * 21 + 5} width="92" height="6" rx="3" fill={bar} />
             </g>
           ))}
         </g>
@@ -63,7 +76,7 @@ function Motif({ kind, c }) {
       return (
         <g>
           {[0, 1, 2, 3].map((i) => (
-            <rect key={i} x={148 + i * 38} y={i % 2 ? 58 : 42} width="30" height="76" rx="9"
+            <rect key={i} x={26 + i * 34} y={i % 2 ? 6 : 0} width="26" height="52" rx="7"
               fill={i === 0 ? c.a : i === 1 ? c.soft : surface}
               opacity={i === 0 ? 0.85 : 1}
               stroke={i === 0 ? "none" : i === 1 ? c.line : stroke} />
@@ -73,50 +86,58 @@ function Motif({ kind, c }) {
     case "mark":
       return (
         <g>
-          <circle cx="218" cy="86" r="52" fill="none" stroke={c.line} strokeDasharray="5 7" />
-          <path d="M192 116 218 48l26 68" fill="none" stroke={c.a} strokeWidth="2.6" strokeLinejoin="round" />
-          <path d="M203 98h30" stroke={c.a} strokeWidth="2.6" strokeLinecap="round" opacity=".7" />
+          <circle cx="88" cy="29" r="28" fill="none" stroke={c.line} strokeDasharray="4 6" />
+          <path d="M74 44 88 12l14 32" fill="none" stroke={c.a} strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M80 34h16" stroke={c.a} strokeWidth="2.4" strokeLinecap="round" opacity=".7" />
         </g>
       );
     case "cart":
       return (
-        <g transform="translate(160 40)">
-          <path d="M6 16h84l-12 62H18z" fill={c.soft} stroke={c.line} strokeWidth="1.8" strokeLinejoin="round" />
-          <path d="M26 16a22 22 0 0 1 44 0" fill="none" stroke={c.line} strokeWidth="1.8" />
+        <g transform="translate(58 2)">
+          <path d="M4 12h56l-8 42H12z" fill={c.soft} stroke={c.line} strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M17 12a15 15 0 0 1 30 0" fill="none" stroke={c.line} strokeWidth="1.6" />
           <g fill={c.a} opacity=".45">
-            <rect x="24" y="34" width="48" height="8" rx="4" />
-            <rect x="24" y="50" width="48" height="8" rx="4" />
+            <rect x="16" y="24" width="32" height="6" rx="3" />
+            <rect x="16" y="36" width="32" height="6" rx="3" />
           </g>
-          <circle cx="84" cy="6" r="9" fill={c.a} />
+          <circle cx="56" cy="4" r="7" fill={c.a} />
         </g>
       );
     case "chart":
       return (
         <g>
           <g fill={surface} stroke={stroke}>
-            <rect x="150" y="92" width="26" height="42" rx="5" />
-            <rect x="186" y="72" width="26" height="62" rx="5" />
-            <rect x="222" y="56" width="26" height="78" rx="5" />
+            <rect x="22" y="30" width="24" height="28" rx="4" />
+            <rect x="54" y="20" width="24" height="38" rx="4" />
+            <rect x="86" y="12" width="24" height="46" rx="4" />
           </g>
-          <rect x="258" y="38" width="26" height="96" rx="5" fill={c.soft} stroke={c.line} />
-          <path d="M156 86l32-18 34-16 36-12" fill="none" stroke={c.a} strokeWidth="2.2" strokeLinecap="round" />
-          <circle cx="258" cy="40" r="5" fill={c.a} />
+          <rect x="118" y="4" width="24" height="54" rx="4" fill={c.soft} stroke={c.line} />
+          <path d="M30 26l32-10 32-8 32-6" fill="none" stroke={c.a} strokeWidth="2" strokeLinecap="round" />
+          <circle cx="130" cy="2" r="4.5" fill={c.a} />
         </g>
       );
     default:
-      // browser
+      /* browser — a page rendering next to the same page on a phone */
       return (
         <g>
-          <rect x="144" y="36" width="148" height="104" rx="11" fill={surface} stroke={stroke} />
-          <path d="M144 58h148" stroke={stroke} />
-          <circle cx="158" cy="47" r="3.2" fill={c.a} opacity=".8" />
-          <circle cx="169" cy="47" r="3.2" fill="rgba(255,255,255,.2)" />
-          <rect x="158" y="72" width="76" height="26" rx="6" fill={c.soft} stroke={c.line} />
+          <rect x="8" y="0" width="112" height="58" rx="8" fill={surface} stroke={stroke} />
+          <path d="M8 15h112" stroke={stroke} />
+          <circle cx="20" cy="7.5" r="2.6" fill={c.a} opacity=".85" />
+          <circle cx="30" cy="7.5" r="2.6" fill="rgba(255,255,255,.2)" />
+          <circle cx="40" cy="7.5" r="2.6" fill="rgba(255,255,255,.2)" />
+          <rect x="18" y="23" width="54" height="17" rx="4" fill={c.soft} stroke={c.line} />
           <g fill={bar}>
-            <rect x="158" y="108" width="60" height="7" rx="3.5" />
-            <rect x="158" y="121" width="40" height="7" rx="3.5" />
+            <rect x="18" y="46" width="40" height="5" rx="2.5" />
+            <rect x="64" y="46" width="20" height="5" rx="2.5" />
           </g>
-          <rect x="246" y="72" width="32" height="56" rx="6" fill={surface} stroke={stroke} />
+          <rect x="80" y="23" width="30" height="17" rx="4" fill={surface} stroke={stroke} />
+          {/* the same page, on a phone */}
+          <rect x="134" y="5" width="34" height="48" rx="7" fill={surface} stroke={c.line} />
+          <rect x="140" y="12" width="22" height="11" rx="3" fill={c.soft} stroke={c.line} />
+          <g fill={bar}>
+            <rect x="140" y="28" width="22" height="4" rx="2" />
+            <rect x="140" y="36" width="16" height="4" rx="2" />
+          </g>
         </g>
       );
   }
@@ -126,6 +147,9 @@ export default function BlogCover({ category, label = true, className = "" }) {
   const spec = MOTIFS[category] || MOTIFS["Web Development"];
   const c = HUES[spec.hue];
   const gid = `bc-${spec.hue}-${spec.motif}`;
+
+  // With a label the motif sits below it; without one it centres.
+  const motifY = label ? 80 : 59;
 
   return (
     <svg
@@ -137,7 +161,7 @@ export default function BlogCover({ category, label = true, className = "" }) {
     >
       <title>{category}</title>
       <defs>
-        <radialGradient id={`${gid}-glow`} cx="30%" cy="0%">
+        <radialGradient id={`${gid}-glow`} cx="34%" cy="4%">
           <stop offset="0" stopColor={c.glow} />
           <stop offset="1" stopColor="rgba(79,232,154,0)" />
         </radialGradient>
@@ -148,7 +172,7 @@ export default function BlogCover({ category, label = true, className = "" }) {
       </defs>
 
       <rect width="436" height="176" fill={`url(#${gid}-ground)`} />
-      <ellipse cx="150" cy="10" rx="260" ry="165" fill={`url(#${gid}-glow)`} />
+      <ellipse cx="160" cy="14" rx="260" ry="160" fill={`url(#${gid}-glow)`} />
 
       {/* wire texture — the house pattern, kept faint */}
       <g stroke="rgba(255,255,255,.05)" strokeWidth="1">
@@ -156,24 +180,19 @@ export default function BlogCover({ category, label = true, className = "" }) {
         <path d="M60 0v176M180 0v176M300 0v176M400 0v176" />
       </g>
 
-      {/* Shift the motif clear of the label when one is drawn, so the two
-          never collide on the featured and article slots. */}
-      <g transform={label ? "translate(56 0)" : undefined}>
-        <Motif kind={spec.motif} c={c} />
-      </g>
-
-      {/* Covers are cropped with `slice`, and the crop differs per container
-          (a 320px article hero loses ~29 viewBox units top and bottom; the
-          featured card loses ~25 each side). The label sits inside that safe
-          area so it survives every slot it's used in. */}
       {label && (
         <g>
-          <rect x="44" y="40" width={category.length * 6.4 + 26} height="24" rx="12" fill="rgba(6,20,16,.72)" stroke={c.line} />
-          <text x="57" y="56" fill={c.a} style={{ font: "600 10.5px 'DM Sans', sans-serif", letterSpacing: ".08em" }}>
+          <rect x="80" y="42" width={category.length * 6.4 + 26} height="24" rx="12"
+            fill="rgba(6,20,16,.72)" stroke={c.line} />
+          <text x="93" y="58" fill={c.a} style={{ font: "600 10.5px 'DM Sans', sans-serif", letterSpacing: ".08em" }}>
             {category.toUpperCase()}
           </text>
         </g>
       )}
+
+      <g transform={`translate(130 ${motifY})`}>
+        <Motif kind={spec.motif} c={c} />
+      </g>
     </svg>
   );
 }

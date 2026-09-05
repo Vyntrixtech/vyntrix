@@ -36,7 +36,7 @@
   transition: color 0.15s ease;
 }
 .site-footer__links a:hover {
-  color: var(--mid);
+  color: var(--ac2);
 }
 
 .site-footer__legal {

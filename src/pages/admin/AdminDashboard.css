@@ -36,6 +36,11 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  transition: background-color var(--hover-t), color var(--hover-t);
+}
+.admin__nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
 }
 .admin__nav-item.is-active {
   background: rgba(255, 255, 255, 0.09);
@@ -258,6 +263,11 @@
   border-radius: 14px;
   padding: 13px 15px;
   cursor: pointer;
+  transition: border-color var(--hover-t), background-color var(--hover-t);
+}
+.admin__actions-list div:hover {
+  border-color: rgba(79, 232, 154, 0.3);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 @media (max-width: 1000px) {

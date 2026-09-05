@@ -115,6 +115,11 @@
   background: rgba(255, 255, 255, 0.03);
   padding: 18px 20px;
   cursor: pointer;
+  transition: border-color var(--hover-t), background-color var(--hover-t);
+}
+.faq-row:hover {
+  border-color: rgba(79, 232, 154, 0.28);
+  background: rgba(255, 255, 255, 0.05);
 }
 .faq-row__head {
   display: flex;

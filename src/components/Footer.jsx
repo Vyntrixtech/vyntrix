@@ -62,7 +62,7 @@ export default function Footer() {
 
       <div className="site-footer__bottom">
         <span>© Vyntrix Technologies Limited · Registered in England &amp; Wales</span>
-        <span>Built and maintained in-house</span>
+        <span>All Rights Reserved</span>
       </div>
     </footer>
   );

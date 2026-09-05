@@ -21,10 +21,18 @@
   gap: 20px;
   align-items: start;
 }
+/* Pricing cards aren't links — the CTA inside them is — so they brighten
+   on hover without lifting. */
 .pricing-card {
   position: relative;
   display: flex;
   flex-direction: column;
+}
+.pricing-card:hover {
+  border-color: rgba(79, 232, 154, 0.34);
+}
+.pricing-card--accent:hover {
+  border-color: rgba(79, 232, 154, 0.5);
 }
 .pricing-card--accent {
   border-color: rgba(79, 232, 154, 0.36);

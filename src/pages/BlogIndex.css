@@ -25,6 +25,14 @@
   color: var(--mid);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--cb);
+  transition: border-color var(--hover-t), color var(--hover-t), background-color var(--hover-t);
+}
+.blog-filters button:hover {
+  color: var(--ink);
+  border-color: rgba(79, 232, 154, 0.32);
+}
+.blog-filters button.is-active:hover {
+  color: var(--acd);
 }
 .blog-filters button.is-active {
   background: var(--ac);
