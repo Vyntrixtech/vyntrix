@@ -335,10 +335,8 @@
 .process-card {
   padding: 24px;
 }
-.process-card.is-first {
-  border-color: rgba(79, 232, 154, 0.3);
-  background: linear-gradient(180deg, rgba(79, 232, 154, 0.12), rgba(255, 255, 255, 0.02));
-}
+/* All five steps read the same — the first is not a highlighted state, it is
+   just step one. */
 .process-card__num {
   width: 38px;
   height: 38px;
@@ -348,8 +346,10 @@
   display: grid;
   place-items: center;
   font: 700 13px/1 var(--font-heading);
+  transition: background-color var(--hover-t), color var(--hover-t);
 }
-.process-card__num.is-first {
+/* The step number warms with its card, the way an .icon-box does. */
+.process-card:hover .process-card__num {
   background: rgba(79, 232, 154, 0.2);
   color: var(--ac2);
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ArrowRightIcon } from "./Icons";
 import "./Header.css";
@@ -18,9 +18,21 @@ const navItems = [
 export default function Header() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [stuck, setStuck] = useState(false);
+
+  // The bar only turns to glass once the page has moved. At the very top it
+  // sits directly on the hero's aurora, and a panel there would cut the
+  // gradient in half. Starting false matches the pre-rendered markup, so
+  // hydration stays clean.
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="site-header">
+    <header className={"site-header" + (stuck || open ? " is-glass" : "")}>
       <div className="site-header__inner">
         <div
           className="site-header__brand"

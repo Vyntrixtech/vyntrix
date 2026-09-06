@@ -56,9 +56,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Deliberately no overflow here. `overflow-x: hidden` on #root computes
+   `overflow-y: auto`, which turns #root into a scroll container — and the
+   sticky header then sticks to that box instead of the viewport, so it scrolls
+   away with the page. The aurora blobs that overflow sideways are clipped by
+   the rule on body above, which propagates to the viewport. */
 #root {
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 a {
@@ -256,8 +260,12 @@ a.card:hover .service-link svg,
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 30px;
   background: var(--gradient-cta);
+  /* Do not hand-write -webkit-backdrop-filter next to this. When both forms
+     appear in the source the CSS minifier dedupes them down to the prefixed
+     one alone, which Chrome and Firefox do not support — the blur silently
+     stops rendering everywhere except Safari. Left alone, the build emits both
+     correctly. Same applies to .site-header and .pillar. */
   backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 34px 90px rgba(0, 0, 0, 0.45);
   padding: 56px 40px;
   text-align: center;

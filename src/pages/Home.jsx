@@ -208,9 +208,9 @@ export default function Home() {
             <h2>Five steps, no surprises</h2>
           </div>
           <div className="process-grid">
-            {process.map((step, i) => (
-              <div className={"card process-card" + (i === 0 ? " is-first" : "")} key={step.n}>
-                <div className={"process-card__num" + (i === 0 ? " is-first" : "")}>{step.n}</div>
+            {process.map((step) => (
+              <div className="card process-card" key={step.n}>
+                <div className="process-card__num">{step.n}</div>
                 <h4>{step.title}</h4>
                 <p>{step.body}</p>
               </div>

@@ -2,10 +2,18 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background: rgba(5, 9, 7, 0.72);
-  border-bottom: 1px solid var(--cb);
+  /* The blur is always on — at scroll 0 there is only a smooth gradient behind
+     the bar, so it reads as nothing. Only the panel itself fades in, which
+     keeps the transition smooth: backdrop-filter is not reliably animatable. */
+  backdrop-filter: blur(18px) saturate(140%);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+.site-header.is-glass {
+  background: rgba(5, 9, 7, 0.62);
+  border-bottom-color: var(--cb);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
 }
 
 .site-header__inner {
