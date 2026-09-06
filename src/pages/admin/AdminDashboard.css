@@ -103,6 +103,16 @@
   padding: 20px;
   border-radius: 20px;
 }
+.admin__stat-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.admin__stat-head .icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 11px;
+}
 .admin__stat-label {
   font: 600 11px/1 var(--font-body);
   color: var(--mid);

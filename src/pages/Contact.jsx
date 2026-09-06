@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, organisation, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { services } from "../data/services";
 import { MailIcon, PhoneIcon, PinIcon, ClockIcon, ChevronDownIcon } from "../components/Icons";
@@ -64,7 +64,7 @@ export default function Contact() {
       </AuroraHero>
 
       <div className="container contact-grid">
-        <div className="card contact-form-card">
+        <div className="card card--panel contact-form-card">
           {submitted ? (
             <div className="contact-success">
               <div className="contact-success__title">Thank you — your enquiry has been received.</div>
@@ -155,7 +155,7 @@ export default function Contact() {
         </div>
 
         <div className="contact-side">
-          <div className="card card--accent contact-details">
+          <div className="card card--accent card--panel contact-details">
             <div className="contact-details__row">
               <div className="icon-box">
                 <MailIcon size={17} />

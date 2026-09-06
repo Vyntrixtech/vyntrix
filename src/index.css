@@ -205,19 +205,40 @@ img {
 }
 
 /* Hover system — one vocabulary, used site-wide.
-   Clickable surfaces lift 2px and brighten their edge; static ones only
-   brighten. Nothing scales and nothing glows harder, so the page stays quiet
-   while still answering the cursor. */
+   Every card answers the cursor the same way: a 2px lift, a brighter edge and
+   a soft shadow. It applies to the whole `.card` family rather than only the
+   ones that happen to be links, so a grid never has one card that responds and
+   three that sit dead beside it. Nothing scales and nothing glows harder, so
+   the page stays quiet. */
 
-a.card:hover,
+.card:not(.card--panel):hover,
 .card--interactive:hover {
   transform: translateY(-2px);
   border-color: rgba(79, 232, 154, 0.34);
   background-color: rgba(255, 255, 255, 0.055);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
 }
-a.card--accent:hover {
+.card--accent:not(.card--panel):hover {
   border-color: rgba(79, 232, 154, 0.46);
+}
+
+/* .card--panel marks the large surfaces that hold what the cursor is actually
+   aiming at — a form, a table, an accordion, a list of rows. They brighten but
+   never move: lifting one would shift a form out from under the pointer, or
+   slide an FAQ row away as you reach for it. */
+.card--panel:hover {
+  border-color: rgba(79, 232, 154, 0.26);
+}
+/* An accent panel already sits at .26, so it needs to go further to register. */
+.card--accent.card--panel:hover {
+  border-color: rgba(79, 232, 154, 0.44);
+}
+
+/* The card's icon warms with it — the one accent that moves, and only by a
+   shade. Icon boxes carrying an inline background (the numbered steps) keep
+   theirs; the inline style wins, which is what we want there. */
+.card:hover .icon-box {
+  background: rgba(79, 232, 154, 0.26);
 }
 
 /* An arrow inside a card nudges when the whole card is hovered. */
@@ -281,6 +302,7 @@ a.card:hover .service-link svg,
   display: grid;
   place-items: center;
   flex: none;
+  transition: background-color var(--hover-t);
 }
 
 /* ---------- aurora backgrounds ---------- */
@@ -527,7 +549,7 @@ a.card:hover .service-link svg,
   *::after {
     transition-duration: 0.01ms !important;
   }
-  a.card:hover,
+  .card:hover,
   .card--interactive:hover,
   .btn-primary:hover,
   .industries span:hover {

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Seo from "../../components/Seo";
+import { MailIcon, GrowthIcon, GridIcon, SupportIcon } from "../../components/Icons";
 import "./AdminDashboard.css";
 
 const logo = "/vyntrix-technologies-logo.png";
@@ -21,10 +22,10 @@ const navSections = [
 ];
 
 const stats = [
-  { label: "New enquiries", value: "12", accent: true },
-  { label: "This month", value: "37" },
-  { label: "Published projects", value: "8" },
-  { label: "Open support plans", value: "14" },
+  { label: "New enquiries", value: "12", accent: true, icon: MailIcon },
+  { label: "This month", value: "37", icon: GrowthIcon },
+  { label: "Published projects", value: "8", icon: GridIcon },
+  { label: "Open support plans", value: "14", icon: SupportIcon },
 ];
 
 const statusFilters = ["All", "New", "Replied", "Quoted", "Closed"];
@@ -94,14 +95,19 @@ export default function AdminDashboard() {
         <div className="admin__stats">
           {stats.map((s) => (
             <div className={"card" + (s.accent ? " card--accent" : "")} key={s.label}>
-              <div className="admin__stat-label">{s.label}</div>
+              <div className="admin__stat-head">
+                <div className="icon-box">
+                  <s.icon size={16} />
+                </div>
+                <div className="admin__stat-label">{s.label}</div>
+              </div>
               <div className={"admin__stat-value" + (s.accent ? " is-accent" : "")}>{s.value}</div>
             </div>
           ))}
         </div>
 
         <div className="admin__section">
-          <div className="card admin__table-card">
+          <div className="card card--panel admin__table-card">
             <div className="admin__table-head">
               <div className="admin__table-title">Enquiries</div>
               <div className="admin__filter">
@@ -138,7 +144,7 @@ export default function AdminDashboard() {
         </div>
 
         <div className="admin__section admin__section--split">
-          <div className="card admin__detail-card">
+          <div className="card card--panel admin__detail-card">
             <div className="admin__detail-head">
               <div className="admin__detail-title">Enquiry detail</div>
               <div className="admin__detail-actions">
@@ -164,7 +170,7 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
-          <div className="card admin__actions-card">
+          <div className="card card--panel admin__actions-card">
             <div className="admin__detail-title">Quick actions</div>
             <div className="admin__actions-list">
               {quickActions.map((a) => (

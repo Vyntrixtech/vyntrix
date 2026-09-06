@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import {
   CheckIcon,
@@ -11,12 +11,19 @@ import {
   ServerIcon,
   DomainIcon,
   WrenchIcon,
+  BoltIcon,
+  GrowthIcon,
+  BadgeIcon,
+  CompassIcon,
+  ClockIcon,
+  PinIcon,
 } from "../components/Icons";
 import "./Pricing.css";
 
 const tiers = [
   {
     name: "Starter",
+    icon: BoltIcon,
     body: "A professional presence, live quickly.",
     features: [
       "Professional website",
@@ -31,6 +38,7 @@ const tiers = [
   },
   {
     name: "Business",
+    icon: GrowthIcon,
     body: "For companies competing on search and credibility.",
     popular: true,
     lead: "Everything in Starter, plus",
@@ -46,6 +54,7 @@ const tiers = [
   },
   {
     name: "Premium",
+    icon: BadgeIcon,
     body: "Applications, e-commerce and bespoke functionality.",
     features: [
       "Custom website or application",
@@ -78,10 +87,10 @@ const nextSteps = [
 ];
 
 const faqs = [
-  { q: "Do I need to know what I want before we talk?", a: "No. Most clients arrive with a problem rather than a specification — we translate it into scope." },
-  { q: "Is the first call really free?", a: "Yes — 30 minutes, no obligation, and you keep the outline plan whether or not you work with us." },
-  { q: "Can you work with my existing website?", a: "Usually. We audit what is there and tell you honestly whether to improve it or replace it." },
-  { q: "What if I am outside the UK?", a: "We work with clients internationally. Contracts and invoicing are UK-based; delivery is remote." },
+  { icon: CompassIcon, q: "Do I need to know what I want before we talk?", a: "No. Most clients arrive with a problem rather than a specification — we translate it into scope." },
+  { icon: ClockIcon, q: "Is the first call really free?", a: "Yes — 30 minutes, no obligation, and you keep the outline plan whether or not you work with us." },
+  { icon: WrenchIcon, q: "Can you work with my existing website?", a: "Usually. We audit what is there and tell you honestly whether to improve it or replace it." },
+  { icon: PinIcon, q: "What if I am outside the UK?", a: "We work with clients internationally. Contracts and invoicing are UK-based; delivery is remote." },
 ];
 
 export default function Pricing() {
@@ -108,6 +117,9 @@ export default function Pricing() {
           {tiers.map((t) => (
             <div className={"card pricing-card" + (t.variant === "accent" ? " pricing-card--accent" : "")} key={t.name}>
               {t.popular && <div className="pricing-card__badge">MOST POPULAR</div>}
+              <div className="icon-box">
+                <t.icon size={19} />
+              </div>
               <h2>{t.name}</h2>
               <p className="pricing-card__body">{t.body}</p>
               <div className="pricing-card__features">
@@ -131,7 +143,7 @@ export default function Pricing() {
       </div>
 
       <div className="section">
-        <div className="card addons-card">
+        <div className="card card--panel addons-card">
           <h2>We keep your digital business running</h2>
           <p>Monthly support and maintenance, billed as a plan rather than ad-hoc hours.</p>
           <div className="addons-grid">
@@ -186,6 +198,9 @@ export default function Pricing() {
         <div className="pricing-faq">
           {faqs.map((f) => (
             <div className="card" key={f.q}>
+              <div className="icon-box">
+                <f.icon size={19} />
+              </div>
               <div className="pricing-faq__q">{f.q}</div>
               <p>{f.a}</p>
             </div>

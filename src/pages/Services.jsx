@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";

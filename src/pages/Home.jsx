@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, organisation, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
 import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon } from "../components/Icons";
+import { serviceIconMap } from "../data/serviceIcons";
 import "./Home.css";
 
 const stats = [
@@ -20,6 +21,20 @@ const process = [
   { n: "05", title: "Launch & Support", body: "Go live, then ongoing support." },
 ];
 
+/* The six cards beside the illustrated lead card. They carry the service's own
+   mark so no card in the grid is left as bare text. */
+function ServiceCard({ service }) {
+  const Icon = serviceIconMap[service.icon];
+  return (
+    <Link to={`/services/${service.slug}`} className="card home-services__card">
+      <div className="icon-box">
+        <Icon size={19} />
+      </div>
+      <h3 className="home-services__side-title">{service.name}</h3>
+      <p>{service.short}</p>
+    </Link>
+  );
+}
 
 export default function Home() {
   const homeServices = services.slice(0, 6);
@@ -141,24 +156,15 @@ export default function Home() {
             </Link>
             <div className="home-services__side">
               {homeServices.slice(1, 4).map((s) => (
-                <Link to={`/services/${s.slug}`} key={s.slug} className="card">
-                  <h3 className="home-services__side-title">{s.name}</h3>
-                  <p>{s.short}</p>
-                </Link>
+                <ServiceCard key={s.slug} service={s} />
               ))}
             </div>
           </div>
           <div className="home-services__row">
             {homeServices.slice(4).map((s) => (
-              <Link to={`/services/${s.slug}`} key={s.slug} className="card">
-                <h3 className="home-services__side-title">{s.name}</h3>
-                <p>{s.short}</p>
-              </Link>
+              <ServiceCard key={s.slug} service={s} />
             ))}
-            <Link to={`/services/${services[6].slug}`} className="card">
-              <h3 className="home-services__side-title">{services[6].name}</h3>
-              <p>{services[6].short}</p>
-            </Link>
+            <ServiceCard service={services[6]} />
           </div>
         </div>
 

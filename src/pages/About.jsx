@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
-import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, organisation, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
-import { CompassIcon, TargetIcon, LockIcon, GrowthIcon, PinIcon, BadgeIcon } from "../components/Icons";
+import {
+  CompassIcon,
+  TargetIcon,
+  LockIcon,
+  GrowthIcon,
+  PinIcon,
+  BadgeIcon,
+  FileIcon,
+  PaletteIcon,
+  UserIcon,
+  ShieldCheckIcon,
+} from "../components/Icons";
 import "./About.css";
 
 const pillars = [
@@ -17,10 +28,10 @@ const facts = [
 ];
 
 const values = [
-  { title: "Clarity", body: "Fixed scope, fixed price and plain English. No hourly surprises, no jargon in status calls." },
-  { title: "Craft", body: "Typography, performance and accessibility are part of the brief, not an upgrade." },
-  { title: "Accountability", body: "One named contact who owns the project from the first call to launch day." },
-  { title: "Longevity", body: "Built so your team can run it — and supported by ours when they would rather not." },
+  { title: "Clarity", icon: FileIcon, body: "Fixed scope, fixed price and plain English. No hourly surprises, no jargon in status calls." },
+  { title: "Craft", icon: PaletteIcon, body: "Typography, performance and accessibility are part of the brief, not an upgrade." },
+  { title: "Accountability", icon: UserIcon, body: "One named contact who owns the project from the first call to launch day." },
+  { title: "Longevity", icon: ShieldCheckIcon, body: "Built so your team can run it — and supported by ours when they would rather not." },
 ];
 
 const industries = [
@@ -119,7 +130,7 @@ export default function About() {
               and support that continues long after launch.
             </p>
           </div>
-          <div className="card facts-card">
+          <div className="card card--panel facts-card">
             {facts.map((f) => (
               <div className="facts-card__row" key={f.title}>
                 <div className="icon-box">
@@ -143,6 +154,9 @@ export default function About() {
         <div className="values-grid">
           {values.map((v, i) => (
             <div className={"card" + (i === 0 ? " card--accent" : "")} key={v.title}>
+              <div className="icon-box">
+                <v.icon size={19} />
+              </div>
               <h3 className="values-grid__title">{v.title}</h3>
               <p>{v.body}</p>
             </div>

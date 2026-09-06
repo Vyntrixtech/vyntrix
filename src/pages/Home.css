@@ -284,6 +284,9 @@
   color: var(--ink);
   margin: 0 0 8px;
 }
+.home-services__card .home-services__side-title {
+  margin-top: 18px;
+}
 .home-services__side p,
 .home-services__row p {
   font: 400 13px/1.8 var(--font-body);

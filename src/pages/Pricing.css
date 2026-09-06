@@ -21,16 +21,13 @@
   gap: 20px;
   align-items: start;
 }
-/* Pricing cards aren't links — the CTA inside them is — so they brighten
-   on hover without lifting. */
 .pricing-card {
   position: relative;
   display: flex;
   flex-direction: column;
 }
-.pricing-card:hover {
-  border-color: rgba(79, 232, 154, 0.34);
-}
+/* The accent tier already sits on a green gradient, so it needs a brighter
+   edge than the shared .card--accent hover to read as a change at all. */
 .pricing-card--accent:hover {
   border-color: rgba(79, 232, 154, 0.5);
 }
@@ -54,6 +51,7 @@
   font: 600 21px/1.25 var(--font-heading);
   letter-spacing: -0.012em;
   color: var(--ink);
+  margin-top: 18px;
 }
 .pricing-card__body {
   font: 400 13px/1.8 var(--font-body);
@@ -142,6 +140,7 @@
   font: 600 15px/1.4 var(--font-heading);
   letter-spacing: -0.008em;
   color: var(--ink);
+  margin-top: 18px;
 }
 .pricing-faq p {
   font: 400 13.5px/1.8 var(--font-body);

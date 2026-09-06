@@ -297,3 +297,137 @@ export function BoltIcon(props) {
     </Svg>
   );
 }
+
+/* — icons for the "what's included" grids on the service pages — */
+
+export function DevicesIcon(props) {
+  return (
+    <Svg {...props}>
+      <rect x="2" y="4" width="13" height="11" rx="2" />
+      <path d="M6 19h5" />
+      <rect x="17" y="9" width="5" height="11" rx="1.5" />
+    </Svg>
+  );
+}
+
+export function LayersIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="m12 3 9 5-9 5-9-5z" />
+      <path d="m3 13 9 5 9-5" />
+    </Svg>
+  );
+}
+
+export function RocketIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3c3.5 2 5.5 5.6 5.5 9.5L15 16H9l-2.5-3.5C6.5 8.6 8.5 5 12 3Z" />
+      <circle cx="12" cy="10" r="1.6" />
+      <path d="M9 17c-1 1.4-1.2 3-1 4 1.2.2 2.8 0 4-1M15 17c1 1.4 1.2 3 1 4-1.2.2-2.8 0-4-1" />
+    </Svg>
+  );
+}
+
+export function PaletteIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 2-1.8s-.7-1.2-.7-2c0-.7.6-1.2 1.4-1.2H17a4 4 0 0 0 4-4c0-4.4-4-9-9-9Z" />
+      <circle cx="8" cy="11" r="1.1" />
+      <circle cx="12" cy="7.5" r="1.1" />
+      <circle cx="16" cy="10" r="1.1" />
+    </Svg>
+  );
+}
+
+export function PrintIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M7 9V3h10v6" />
+      <rect x="3" y="9" width="18" height="7" rx="2" />
+      <rect x="7" y="15" width="10" height="6" rx="1" />
+    </Svg>
+  );
+}
+
+export function CursorIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="m5 3 6.5 17 2.4-6.6 6.6-2.4z" />
+      <path d="m14 14 6 6" />
+    </Svg>
+  );
+}
+
+export function SearchIcon(props) {
+  return (
+    <Svg {...props}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.6-3.6" />
+    </Svg>
+  );
+}
+
+export function FileIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+      <path d="M14 3v5h5" />
+      <path d="M9 14h6M9 17h4" />
+    </Svg>
+  );
+}
+
+export function TagIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M3 11V4a1 1 0 0 1 1-1h7l9 9-8 8z" />
+      <circle cx="7.5" cy="7.5" r="1.3" />
+    </Svg>
+  );
+}
+
+export function CardIcon(props) {
+  return (
+    <Svg {...props}>
+      <rect x="2" y="5" width="20" height="14" rx="2.5" />
+      <path d="M2 10h20" />
+      <path d="M6 15h4" />
+    </Svg>
+  );
+}
+
+export function CloudIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M7 19a4.5 4.5 0 0 1-.6-8.96 6 6 0 0 1 11.55 1.66A3.9 3.9 0 0 1 17.5 19z" />
+    </Svg>
+  );
+}
+
+export function MigrateIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M3 8h13l-3-3M21 16H8l3 3" />
+    </Svg>
+  );
+}
+
+export function UserIcon(props) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="8" r="3.6" />
+      <path d="M4.5 20a7.5 7.5 0 0 1 15 0" />
+    </Svg>
+  );
+}
+
+export function ClipboardIcon(props) {
+  return (
+    <Svg {...props}>
+      <rect x="5" y="4" width="14" height="17" rx="2" />
+      <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+      <path d="M9 11h6M9 15h4" />
+    </Svg>
+  );
+}

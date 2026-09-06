@@ -61,7 +61,7 @@
 .service-included h3 {
   font: 700 16.5px/1.3 var(--font-heading);
   color: var(--ink);
-  margin-bottom: 9px;
+  margin: 18px 0 9px;
 }
 .service-included p {
   font: 400 12.5px/1.7 var(--font-body);

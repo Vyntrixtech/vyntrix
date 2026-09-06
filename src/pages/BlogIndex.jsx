@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Seo, { graph, organisation, breadcrumbs, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, breadcrumbs } from "../components/Seo";
 import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import { categories, posts } from "../data/posts";

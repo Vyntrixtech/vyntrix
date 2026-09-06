@@ -4,6 +4,7 @@ import Seo, { graph, breadcrumbs, organisation, SITE_URL } from "../components/S
 import AuroraHero from "../components/AuroraHero";
 import { getService } from "../data/services";
 import { ArrowRightIcon } from "../components/Icons";
+import { itemIconMap } from "../data/serviceIcons";
 import NotFound from "./NotFound";
 import "./ServiceDetail.css";
 
@@ -97,18 +98,24 @@ export default function ServiceDetail() {
           <h2>Everything the {service.name.toLowerCase()} service needs, in one place</h2>
         </div>
         <div className="service-included">
-          {service.included.map((item) => (
-            <div className="card" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </div>
-          ))}
+          {service.included.map((item) => {
+            const Icon = itemIconMap[item.icon];
+            return (
+              <div className="card" key={item.title}>
+                <div className="icon-box">
+                  <Icon size={19} />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       <div className="section">
         <div className="service-two-col">
-          <div className="card">
+          <div className="card card--panel">
             <h2 className="service-two-col__heading">How the project runs</h2>
             <div className="service-steps">
               {[
@@ -130,7 +137,7 @@ export default function ServiceDetail() {
               ))}
             </div>
           </div>
-          <div className="card">
+          <div className="card card--panel">
             <h2 className="service-two-col__heading">Common questions</h2>
             <div className="faq-list">
               {service.faq.map((f) => (
