@@ -28,7 +28,14 @@ jobs:
 
       - run: npm ci
 
+      # The Web3Forms access key that routes enquiries to the inbox. It is
+      # public by design — it ends up in the JS bundle either way — but it
+      # lives in repository settings so it can be rotated without a commit.
+      # Repo → Settings → Secrets and variables → Actions → VITE_WEB3FORMS_KEY.
+      # Unset, the contact form falls back to the visitor's mail client.
       - run: npm run build
+        env:
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
 
       # enablement lets the first run turn Pages on itself, so no manual
       # Settings → Pages step is needed.

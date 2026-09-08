@@ -35,6 +35,25 @@ npm run build    # sitemap → vite build → pre-render, all into dist/
 npm run preview  # preview the production build
 ```
 
+## Contact form delivery
+
+The site is static, so it cannot send email itself, and no credential can live
+in the bundle — everything here reaches the browser in plain text. Hostinger's
+mail API only provisions and manages mailboxes (it has no send endpoint), and
+its token would hand mailbox administration to anyone who opened devtools.
+Gmail has the same problem via OAuth. So the browser posts to a relay that is
+built to hold the credential, and the relay delivers to the Hostinger mailbox.
+
+Set `VITE_WEB3FORMS_KEY` to a [Web3Forms](https://web3forms.com) access key —
+free, and the key is public by design, tied to one destination address. In CI
+it comes from the `VITE_WEB3FORMS_KEY` repository secret; locally, put it in
+`.env.local`. `VITE_CONTACT_ENDPOINT` is the escape hatch for any other
+backend, which receives the raw form object as JSON.
+
+With neither set the form falls back to opening the visitor's mail client, and
+the confirmation says so rather than claiming a delivery that did not happen.
+A hidden `botcheck` honeypot drops automated submissions.
+
 ## Build pipeline
 
 `npm run build` runs three steps:

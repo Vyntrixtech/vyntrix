@@ -4,9 +4,13 @@ import Seo, { graph, organisation, localBusiness, breadcrumbs } from "../compone
 import AuroraHero from "../components/AuroraHero";
 import { services } from "../data/services";
 import { MailIcon, PhoneIcon, PinIcon, ClockIcon, ChevronDownIcon } from "../components/Icons";
+import EnquirySent from "../components/EnquirySent";
 import "./Contact.css";
 
 const budgets = ["Under £1k", "£1–2k", "£2–5k", "£5–10k", "£10k+", "Not sure"];
+
+const MAILBOX = "info@vyntrixtechnologies.co.uk";
+const PHONE = "0207877897";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -20,24 +24,39 @@ export default function Contact() {
     consent: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const tiltRef = useRef(null);
+  const botField = useRef(null);
 
   function update(key, value) {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  // This form previously did nothing but flip a flag and tell the visitor
-  // their enquiry had been received. It hadn't been: nothing was sent
-  // anywhere, and every lead was discarded silently.
+  function succeed() {
+    setSubmitted(true);
+    setShowModal(true);
+  }
+
+  // Delivery to the enquiries inbox.
   //
-  // The site is static, so there is no server of our own to post to. Set
-  // VITE_CONTACT_ENDPOINT to a form backend and enquiries are posted there.
-  // With no endpoint configured we hand the enquiry to the visitor's mail
-  // client addressed to the enquiries inbox — less slick, but it actually
-  // arrives, and the confirmation we show says what really happened.
+  // The site is static on GitHub Pages, so there is no server of ours to post
+  // to, and no credential may live in this bundle — everything here ships to
+  // the browser in plain text. Hostinger's mail API only provisions and
+  // manages mailboxes; it has no send endpoint, and its token would grant
+  // mailbox administration to anyone who opened devtools. Gmail would need an
+  // OAuth secret, with the same problem. So the browser posts to a relay that
+  // is designed to hold the credential instead, and the relay delivers to the
+  // Hostinger mailbox.
+  //
+  // VITE_WEB3FORMS_KEY is a Web3Forms access key (public by design, tied to
+  // one destination address). VITE_CONTACT_ENDPOINT is the escape hatch for
+  // any other backend. With neither set the form falls back to the visitor's
+  // mail client, and the confirmation says so rather than claiming delivery.
+  const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
   const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT;
+  const sendsDirectly = Boolean(ACCESS_KEY || ENDPOINT);
 
   function enquiryText() {
     return [
@@ -56,27 +75,53 @@ export default function Contact() {
     e.preventDefault();
     setError("");
 
-    if (!ENDPOINT) {
+    // Honeypot: a field no person can see or tab into. Anything filling it is
+    // automated, so drop the submission without telling the bot why.
+    if (botField.current?.value) {
+      succeed();
+      return;
+    }
+
+    if (!sendsDirectly) {
       window.location.href =
-        `mailto:info@vyntrixtechnologies.co.uk` +
+        `mailto:${MAILBOX}` +
         `?subject=${encodeURIComponent(`Website enquiry — ${form.name}`)}` +
         `&body=${encodeURIComponent(enquiryText())}`;
-      setSubmitted(true);
+      succeed();
       return;
     }
 
     setSending(true);
     try {
-      const res = await fetch(ENDPOINT, {
+      const url = ACCESS_KEY ? "https://api.web3forms.com/submit" : ENDPOINT;
+      const payload = ACCESS_KEY
+        ? {
+            access_key: ACCESS_KEY,
+            subject: `Website enquiry — ${form.name}`,
+            from_name: "Vyntrix Technologies website",
+            // So hitting reply in the inbox goes back to the enquirer.
+            replyto: form.email,
+            Name: form.name,
+            Company: form.company || "—",
+            Email: form.email,
+            Phone: form.phone || "—",
+            Service: form.service,
+            Budget: form.budget || "—",
+            Message: form.description,
+          }
+        : form;
+
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error(String(res.status));
-      setSubmitted(true);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) throw new Error(data.message || String(res.status));
+      succeed();
     } catch {
       setError(
-        "We could not send that just now. Please email info@vyntrixtechnologies.co.uk or call 0207877897 and we will pick it up straight away."
+        `We could not send that just now. Please email ${MAILBOX} or call ${PHONE} and we will pick it up straight away.`
       );
     } finally {
       setSending(false);
@@ -124,25 +169,34 @@ export default function Contact() {
         <div className="card card--panel contact-form-card">
           {submitted ? (
             <div className="contact-success">
-              {ENDPOINT ? (
-                <>
-                  <div className="contact-success__title">Thank you — your enquiry has been received.</div>
-                  <p>A member of the team will reply within one working day.</p>
-                </>
-              ) : (
-                <>
-                  <div className="contact-success__title">Your enquiry is ready to send.</div>
-                  <p>
+              <div className="contact-success__title">
+                {sendsDirectly ? "Thank you — your enquiry has been received." : "Your enquiry is ready to send."}
+              </div>
+              <p>
+                {sendsDirectly ? (
+                  "A member of the team will reply within one working day."
+                ) : (
+                  <>
                     We have opened it in your email app, addressed to{" "}
-                    <a href="mailto:info@vyntrixtechnologies.co.uk">info@vyntrixtechnologies.co.uk</a> — press send
-                    and we will reply within one working day. If nothing opened, email us directly or call{" "}
-                    <a href="tel:0207877897">0207877897</a>.
-                  </p>
-                </>
-              )}
+                    <a href={`mailto:${MAILBOX}`}>{MAILBOX}</a>. If nothing opened, email us directly or call{" "}
+                    <a href={`tel:${PHONE}`}>{PHONE}</a>.
+                  </>
+                )}
+              </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              {/* Honeypot. Hidden from sight and from the tab order, so only a
+                  bot will ever put anything in it. */}
+              <input
+                ref={botField}
+                type="text"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="contact-honeypot"
+              />
               <div className="contact-fields">
                 <div className="field">
                   <label>Full name *</label>
@@ -163,7 +217,12 @@ export default function Contact() {
                 <div className="field">
                   <label>Service required *</label>
                   <div className="field-select-wrap">
-                    <select required value={form.service} onChange={(e) => update("service", e.target.value)}>
+                    <select
+                      required
+                      data-empty={form.service === ""}
+                      value={form.service}
+                      onChange={(e) => update("service", e.target.value)}
+                    >
                       <option value="" disabled>
                         Select a service
                       </option>
@@ -180,7 +239,11 @@ export default function Contact() {
                 <div className="field">
                   <label>Estimated budget</label>
                   <div className="field-select-wrap">
-                    <select value={form.budget} onChange={(e) => update("budget", e.target.value)}>
+                    <select
+                      data-empty={form.budget === ""}
+                      value={form.budget}
+                      onChange={(e) => update("budget", e.target.value)}
+                    >
                       <option value="" disabled>
                         Select a range
                       </option>
@@ -304,6 +367,17 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      {showModal && (
+        <EnquirySent
+          delivered={sendsDirectly}
+          name={form.name}
+          service={form.service}
+          mailbox={MAILBOX}
+          phone={PHONE}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 }

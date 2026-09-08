@@ -496,6 +496,25 @@ a.card:hover .service-link svg,
 }
 .field select {
   appearance: none;
+  /* The native option list is drawn by the OS, not by this stylesheet. Without
+     color-scheme it renders on a white surface while inheriting the near-white
+     `color` above — white text on white, which is what made the Service and
+     Budget menus look empty. `dark` tells the browser to paint the popup dark;
+     the explicit option colours below cover the browsers that ignore it. */
+  color-scheme: dark;
+}
+.field select option {
+  background-color: #0d1712;
+  color: var(--ink);
+}
+.field select option:disabled {
+  color: var(--dim);
+}
+/* Until a choice is made the control shows the placeholder, so grey it to
+   match the input placeholders rather than looking like a filled answer. */
+.field select:invalid,
+.field select[data-empty="true"] {
+  color: var(--dim);
 }
 .field textarea {
   height: 130px;
