@@ -4,7 +4,7 @@ import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
 import { homepagePosts } from "../data/posts";
-import BlogCover from "../components/BlogCover";
+import PostArt from "../components/PostArt";
 import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon } from "../components/Icons";
 import { serviceIconMap } from "../data/serviceIcons";
 import "./Home.css";
@@ -233,7 +233,7 @@ export default function Home() {
             {featuredPosts.map((post) => (
               <Link to={`/blog/${post.slug}`} key={post.slug} className="card home-post">
                 <div className="home-post__art">
-                  <BlogCover category={post.category} label={false} />
+                  <PostArt post={post} />
                 </div>
                 <div className="home-post__body">
                   <div className="home-post__meta">

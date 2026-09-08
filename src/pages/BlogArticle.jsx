@@ -4,7 +4,7 @@ import AuroraHero from "../components/AuroraHero";
 import { getPost, relatedPosts } from "../data/posts";
 import { getService } from "../data/services";
 import { ArrowRightIcon } from "../components/Icons";
-import BlogCover from "../components/BlogCover";
+import PostArt from "../components/PostArt";
 import NotFound from "./NotFound";
 import "./BlogArticle.css";
 
@@ -66,7 +66,7 @@ export default function BlogArticle() {
 
       <div className="container">
         <div className="article-art">
-          <BlogCover category={post.category} />
+          <PostArt post={post} showCategory />
         </div>
       </div>
 
@@ -120,7 +120,7 @@ export default function BlogArticle() {
             {related.map((r) => (
               <Link to={`/blog/${r.slug}`} key={r.slug} className="article-related__item">
                 <div className="article-related__art">
-                  <BlogCover category={r.category} label={false} />
+                  <PostArt post={r} />
                 </div>
                 <div className="article-related__title">{r.title}</div>
               </Link>

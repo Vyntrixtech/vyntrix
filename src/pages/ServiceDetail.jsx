@@ -4,7 +4,7 @@ import Seo, { graph, breadcrumbs, faqPage, organisation, SITE_URL } from "../com
 import AuroraHero from "../components/AuroraHero";
 import { getService } from "../data/services";
 import { postsForService } from "../data/posts";
-import BlogCover from "../components/BlogCover";
+import PostArt from "../components/PostArt";
 import { ArrowRightIcon } from "../components/Icons";
 import { itemIconMap } from "../data/serviceIcons";
 import NotFound from "./NotFound";
@@ -178,7 +178,7 @@ export default function ServiceDetail() {
             {insights.map((post) => (
               <Link to={`/blog/${post.slug}`} key={post.slug} className="card service-insight">
                 <div className="service-insight__art">
-                  <BlogCover category={post.category} label={false} />
+                  <PostArt post={post} />
                 </div>
                 <h3>{post.title}</h3>
                 <p>{post.excerpt}</p>

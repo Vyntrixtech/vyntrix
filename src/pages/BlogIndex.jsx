@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import { categories, posts } from "../data/posts";
 import { ArrowRightIcon } from "../components/Icons";
-import BlogCover from "../components/BlogCover";
+import PostArt from "../components/PostArt";
 import "./BlogIndex.css";
 
 export default function BlogIndex() {
@@ -62,7 +62,7 @@ export default function BlogIndex() {
       <div className="section">
         <Link to={`/blog/${featured.slug}`} className="card featured-post">
           <div className="featured-post__art">
-              <BlogCover category={featured.category} />
+              <PostArt post={featured} showCategory />
             </div>
           <div className="featured-post__body">
             <span className="pill-tag">
@@ -82,7 +82,7 @@ export default function BlogIndex() {
           {filtered.map((p) => (
             <Link to={`/blog/${p.slug}`} key={p.slug} className="card blog-card">
               <div className="blog-card__art">
-                <BlogCover category={p.category} label={false} />
+                <PostArt post={p} />
               </div>
               <div className="blog-card__body">
                 <span className="blog-card__category">{p.category.toUpperCase()}</span>
