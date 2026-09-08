@@ -1,22 +1,39 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Seo, { graph, breadcrumbs, organisation, SITE_URL } from "../components/Seo";
+import Seo, { graph, breadcrumbs, faqPage, organisation, SITE_URL } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { getService } from "../data/services";
+import { postsForService } from "../data/posts";
+import BlogCover from "../components/BlogCover";
 import { ArrowRightIcon } from "../components/Icons";
 import { itemIconMap } from "../data/serviceIcons";
 import NotFound from "./NotFound";
 import "./ServiceDetail.css";
 
-function FaqRow({ q, a }) {
+// The answer is always in the HTML and only hidden with `hidden`, never
+// conditionally rendered. Two reasons: crawlers index text that is present but
+// collapsed, and the page carries FAQPage schema — marking up an answer the
+// document does not contain would be claiming content that isn't there.
+// The head is a real <button> so the accordion works from the keyboard.
+function FaqRow({ q, a, id }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={"faq-row" + (open ? " is-open" : "")} onClick={() => setOpen((v) => !v)}>
-      <div className="faq-row__head">
+    <div className={"faq-row" + (open ? " is-open" : "")}>
+      <button
+        type="button"
+        className="faq-row__head"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen((v) => !v)}
+      >
         <span>{q}</span>
-        <span className="faq-row__toggle">{open ? "−" : "+"}</span>
-      </div>
-      {open && <p className="faq-row__body">{a}</p>}
+        <span className="faq-row__toggle" aria-hidden="true">
+          {open ? "−" : "+"}
+        </span>
+      </button>
+      <p className="faq-row__body" id={id} hidden={!open}>
+        {a}
+      </p>
     </div>
   );
 }
@@ -26,6 +43,8 @@ export default function ServiceDetail() {
   const service = getService(slug);
 
   if (!service) return <NotFound />;
+
+  const insights = postsForService(service.slug);
 
   return (
     <div>
@@ -49,6 +68,7 @@ export default function ServiceDetail() {
               })),
             },
           },
+          faqPage(service.faq),
           organisation,
           breadcrumbs([
             { name: "Home", path: "/" },
@@ -140,13 +160,36 @@ export default function ServiceDetail() {
           <div className="card card--panel">
             <h2 className="service-two-col__heading">Common questions</h2>
             <div className="faq-list">
-              {service.faq.map((f) => (
-                <FaqRow key={f.q} q={f.q} a={f.a} />
+              {service.faq.map((f, i) => (
+                <FaqRow key={f.q} q={f.q} a={f.a} id={`${service.slug}-faq-${i}`} />
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {insights.length > 0 && (
+        <div className="section">
+          <div className="section-head">
+            <div className="eyebrow">Further reading</div>
+            <h2>Guidance on {service.name.toLowerCase()}</h2>
+          </div>
+          <div className="service-insights">
+            {insights.map((post) => (
+              <Link to={`/blog/${post.slug}`} key={post.slug} className="card service-insight">
+                <div className="service-insight__art">
+                  <BlogCover category={post.category} label={false} />
+                </div>
+                <h3>{post.title}</h3>
+                <p>{post.excerpt}</p>
+                <span className="service-link">
+                  Read the article <ArrowRightIcon size={15} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="section section--end">
         <div className="glass-cta">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Seo, { graph, breadcrumbs } from "../components/Seo";
+import Seo, { graph, breadcrumbs, faqPage, organisation, SITE_URL } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import {
   CheckIcon,
@@ -99,7 +99,29 @@ export default function Pricing() {
       <Seo
         title="Website & App Pricing | Vyntrix Technologies"
         description="Starter, Business and Premium packages for UK businesses. Every project is quoted individually — fixed price, defined deliverables and a launch date."
-        jsonLd={graph(breadcrumbs([{ name: "Home", path: "/" }, { name: "Pricing", path: "/pricing" }]))}
+        jsonLd={graph(
+          {
+            "@type": "OfferCatalog",
+            name: "Website and application packages",
+            url: `${SITE_URL}/pricing`,
+            provider: { "@id": `${SITE_URL}/#organization` },
+            itemListElement: tiers.map((t) => ({
+              "@type": "Offer",
+              name: t.name,
+              description: t.body,
+              // No price: every project is quoted individually, which is the
+              // whole point of the page. A made-up figure here would contradict it.
+              itemOffered: {
+                "@type": "Service",
+                name: `${t.name} package`,
+                description: t.features.join(". ") + ".",
+              },
+            })),
+          },
+          faqPage(faqs),
+          organisation,
+          breadcrumbs([{ name: "Home", path: "/" }, { name: "Pricing", path: "/pricing" }])
+        )}
       />
       <AuroraHero
         ground="radial-gradient(120% 100% at 50% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"

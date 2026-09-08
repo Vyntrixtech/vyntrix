@@ -211,7 +211,7 @@ export default function Home() {
             {process.map((step) => (
               <div className="card process-card" key={step.n}>
                 <div className="process-card__num">{step.n}</div>
-                <h4>{step.title}</h4>
+                <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </div>
             ))}

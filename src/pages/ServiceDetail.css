@@ -121,12 +121,22 @@
   border-color: rgba(79, 232, 154, 0.28);
   background: rgba(255, 255, 255, 0.05);
 }
+/* A real <button>, so reset the UA styling and let it fill the row. */
 .faq-row__head {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 16px;
+  width: 100%;
+  padding: 0;
+  text-align: left;
   font: 600 13.5px/1.45 var(--font-body);
   color: var(--ink);
+}
+.faq-row__head:focus-visible {
+  outline: 2px solid var(--ac);
+  outline-offset: 4px;
+  border-radius: 6px;
 }
 .faq-row__toggle {
   color: var(--ac);
@@ -151,6 +161,51 @@
     grid-template-columns: 1fr;
   }
   .service-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Further reading — the articles that support this service, so the cluster
+   links both ways instead of only blog -> service. */
+.service-insights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 44px;
+}
+.service-insight {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+.service-insight__art {
+  height: 132px;
+  overflow: hidden;
+}
+.service-insight__art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.service-insight h3 {
+  font: 600 16px/1.35 var(--font-heading);
+  letter-spacing: -0.008em;
+  color: var(--ink);
+  margin: 22px 26px 0;
+}
+.service-insight p {
+  font: 400 12.5px/1.7 var(--font-body);
+  color: var(--mid);
+  margin: 10px 26px 0;
+  flex: 1;
+}
+.service-insight .service-link {
+  margin: 18px 26px 26px;
+}
+
+@media (max-width: 900px) {
+  .service-insights {
     grid-template-columns: 1fr;
   }
 }

@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="site-footer__grid">
         <div>
           <Link to="/">
-            <img src={logo} alt="Vyntrix Technologies" height={30} />
+            <img src={logo} alt="Vyntrix Technologies" height={30} loading="lazy" decoding="async" />
           </Link>
           <p className="site-footer__blurb">
             UK-based IT and digital solutions company building websites, applications and brands for businesses
@@ -51,11 +51,11 @@ export default function Footer() {
               London, England, E7 9HZ
             </span>
             <div className="site-footer__legal">
-              <a href="#">Privacy</a>
+              <Link to="/privacy">Privacy</Link>
               <span>·</span>
-              <a href="#">Cookies</a>
+              <Link to="/cookies">Cookies</Link>
               <span>·</span>
-              <a href="#">Terms</a>
+              <Link to="/terms">Terms</Link>
             </div>
           </div>
         </div>

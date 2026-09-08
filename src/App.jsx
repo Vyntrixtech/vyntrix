@@ -11,6 +11,7 @@ import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import BlogIndex from "./pages/BlogIndex";
 import BlogArticle from "./pages/BlogArticle";
+import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
@@ -43,6 +44,12 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/blog" element={<BlogIndex />} />
                 <Route path="/blog/:slug" element={<BlogArticle />} />
+                {/* Listed one by one rather than as `/:slug` — a wildcard here
+                    would swallow every unknown top-level path and render an
+                    empty policy page instead of the 404. */}
+                <Route path="/privacy" element={<Legal />} />
+                <Route path="/cookies" element={<Legal />} />
+                <Route path="/terms" element={<Legal />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </SiteLayout>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Seo, { graph, breadcrumbs } from "../components/Seo";
+import Seo, { graph, breadcrumbs, organisation, SITE_URL, SITE_NAME } from "../components/Seo";
 import { Link } from "react-router-dom";
 import AuroraHero from "../components/AuroraHero";
 import { categories, posts } from "../data/posts";
@@ -18,7 +18,26 @@ export default function BlogIndex() {
       <Seo
         title="Insights on Web, Apps & Digital Growth | Vyntrix"
         description="Practical articles for UK business owners on websites, mobile apps, e-commerce, branding and getting more enquiries online. No jargon, no filler."
-        jsonLd={graph(breadcrumbs([{ name: "Home", path: "/" }, { name: "Insights", path: "/blog" }]))}
+        jsonLd={graph(
+          {
+            "@type": "Blog",
+            "@id": `${SITE_URL}/blog#blog`,
+            name: `${SITE_NAME} Insights`,
+            description:
+              "Practical guidance on websites, apps, branding and e-commerce for UK businesses.",
+            url: `${SITE_URL}/blog`,
+            publisher: { "@id": `${SITE_URL}/#organization` },
+            blogPost: posts.map((p) => ({
+              "@type": "BlogPosting",
+              headline: p.title,
+              description: p.excerpt,
+              datePublished: p.isoDate,
+              url: `${SITE_URL}/blog/${p.slug}`,
+            })),
+          },
+          organisation,
+          breadcrumbs([{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }])
+        )}
       />
       <AuroraHero
         ground="radial-gradient(120% 100% at 50% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"

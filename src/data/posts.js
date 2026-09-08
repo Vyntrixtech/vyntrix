@@ -51,6 +51,7 @@ export const posts = [
   /* ---------------- featured ---------------- */
   post({
     slug: "why-your-website-is-losing-enquiries",
+    metaTitle: "Why Your Website Isn't Getting Enquiries | Vyntrix",
     title: "Why your website is losing enquiries (and it's rarely the design)",
     category: "Web Development",
     date: "12 March 2026",
@@ -78,6 +79,7 @@ export const posts = [
   /* ---------------- Web Development ---------------- */
   post({
     slug: "how-long-a-website-really-takes",
+    metaTitle: "How Long Does a Website Take to Build? | Vyntrix",
     title: "How long a website really takes, week by week",
     category: "Web Development",
     date: "5 March 2026",
@@ -100,6 +102,7 @@ export const posts = [
   }),
   post({
     slug: "wordpress-or-custom-build",
+    metaTitle: "WordPress or Custom Build: How to Choose | Vyntrix",
     title: "WordPress or a custom build: how to choose without regret",
     category: "Web Development",
     date: "24 February 2026",
@@ -122,8 +125,13 @@ export const posts = [
   }),
   post({
     slug: "website-accessibility-basics-uk",
+    metaTitle: "Website Accessibility Basics for UK Businesses",
     title: "Accessibility basics every UK business site should meet",
     category: "Web Development",
+    // Filed under Web Development editorially, but accessibility is a UI/UX
+    // decision — and this is the article that gives that service page its
+    // supporting content.
+    relatedService: "ui-ux-design",
     date: "16 February 2026",
     readTime: "5 min",
     excerpt: "A short, practical list — most of it costs nothing if handled during the build rather than after.",
@@ -146,6 +154,7 @@ export const posts = [
   /* ---------------- Mobile Apps ---------------- */
   post({
     slug: "native-vs-cross-platform-2026",
+    metaTitle: "Native vs Cross-Platform Apps: How to Decide",
     title: "Native or cross-platform: how we actually decide",
     category: "Mobile Apps",
     date: "2 March 2026",
@@ -169,6 +178,7 @@ export const posts = [
   }),
   post({
     slug: "what-an-mvp-should-actually-contain",
+    metaTitle: "What an MVP Should Actually Contain | Vyntrix",
     title: "What an MVP should actually contain (and what to cut)",
     category: "Mobile Apps",
     date: "19 February 2026",
@@ -191,6 +201,7 @@ export const posts = [
   }),
   post({
     slug: "app-store-submission-what-to-expect",
+    metaTitle: "App Store Submission: What to Expect | Vyntrix",
     title: "App Store submission: what to expect the first time",
     category: "Mobile Apps",
     date: "8 February 2026",
@@ -215,6 +226,7 @@ export const posts = [
   /* ---------------- Business Technology ---------------- */
   post({
     slug: "domain-hosting-email-explained",
+    metaTitle: "Domains, Hosting & Business Email Explained",
     title: "Domains, hosting and business email — a plain-English guide",
     category: "Business Technology",
     date: "22 February 2026",
@@ -238,6 +250,7 @@ export const posts = [
   }),
   post({
     slug: "moving-away-from-an-agency",
+    metaTitle: "How to Leave a Web Agency Safely | Vyntrix",
     title: "How to leave an agency without losing your website",
     category: "Business Technology",
     date: "11 February 2026",
@@ -260,6 +273,7 @@ export const posts = [
   }),
   post({
     slug: "backups-that-actually-work",
+    metaTitle: "Website Backups That Actually Work | Vyntrix",
     relatedService: "maintenance-support",
     title: "Backups that actually work when you need them",
     category: "Business Technology",
@@ -285,6 +299,7 @@ export const posts = [
   /* ---------------- Graphic Design ---------------- */
   post({
     slug: "print-vs-digital-marketing-material",
+    metaTitle: "Print vs Digital Marketing for Small Business",
     title: "When print still beats digital for small business marketing",
     category: "Graphic Design",
     date: "3 January 2026",
@@ -307,6 +322,7 @@ export const posts = [
   }),
   post({
     slug: "what-to-send-your-designer",
+    metaTitle: "What to Send Your Designer Before You Start",
     title: "What to send your designer so the first draft lands",
     category: "Graphic Design",
     date: "21 January 2026",
@@ -329,6 +345,7 @@ export const posts = [
   }),
   post({
     slug: "file-formats-explained-for-clients",
+    metaTitle: "PNG, SVG or PDF: Which Logo File to Use",
     title: "PNG, SVG, PDF: which logo file to send where",
     category: "Graphic Design",
     date: "9 January 2026",
@@ -353,6 +370,7 @@ export const posts = [
   /* ---------------- Branding ---------------- */
   post({
     slug: "logo-refresh-vs-full-rebrand",
+    metaTitle: "Logo Refresh or Full Rebrand? | Vyntrix",
     title: "Logo refresh or full rebrand? A five-minute test",
     category: "Branding",
     date: "10 February 2026",
@@ -375,6 +393,7 @@ export const posts = [
   }),
   post({
     slug: "brand-guidelines-small-business",
+    metaTitle: "Brand Guidelines for Small Businesses | Vyntrix",
     title: "Brand guidelines a small team will actually follow",
     category: "Branding",
     date: "27 January 2026",
@@ -397,6 +416,7 @@ export const posts = [
   }),
   post({
     slug: "naming-a-business-practical-checks",
+    metaTitle: "Naming a Business: Practical Checks First",
     title: "Naming a business: the practical checks before you fall in love",
     category: "Branding",
     date: "15 January 2026",
@@ -421,6 +441,7 @@ export const posts = [
   /* ---------------- E-commerce ---------------- */
   post({
     slug: "reduce-cart-abandonment",
+    metaTitle: "5 Checkout Fixes to Reduce Cart Abandonment",
     title: "Five checkout changes that reduce cart abandonment",
     category: "E-commerce",
     date: "28 January 2026",
@@ -443,6 +464,7 @@ export const posts = [
   }),
   post({
     slug: "choosing-an-ecommerce-platform",
+    metaTitle: "Shopify, WooCommerce or Custom: How to Choose",
     title: "Shopify, WooCommerce or custom: matching platform to catalogue",
     category: "E-commerce",
     date: "6 January 2026",
@@ -465,6 +487,7 @@ export const posts = [
   }),
   post({
     slug: "product-photography-on-a-budget",
+    metaTitle: "Product Photography on a Small Budget | Vyntrix",
     title: "Product photography that sells, on a small budget",
     category: "E-commerce",
     date: "20 December 2025",
@@ -489,6 +512,7 @@ export const posts = [
   /* ---------------- Digital Growth ---------------- */
   post({
     slug: "measuring-website-roi",
+    metaTitle: "How to Measure Website ROI | Vyntrix",
     title: "How to actually measure your website's return on investment",
     category: "Digital Growth",
     date: "14 January 2026",
@@ -511,6 +535,7 @@ export const posts = [
   }),
   post({
     slug: "local-seo-for-uk-businesses",
+    metaTitle: "Local SEO Checklist for UK Businesses",
     title: "Local SEO: the short list for UK businesses",
     category: "Digital Growth",
     date: "2 January 2026",
@@ -533,6 +558,7 @@ export const posts = [
   }),
   post({
     slug: "content-that-earns-enquiries",
+    metaTitle: "Writing Content That Earns Enquiries | Vyntrix",
     title: "Writing content that earns enquiries, not just traffic",
     category: "Digital Growth",
     date: "12 December 2025",
@@ -557,6 +583,15 @@ export const posts = [
 
 export function getPost(slug) {
   return posts.find((p) => p.slug === slug);
+}
+
+/**
+ * The articles that support one service page. Blog posts already point at a
+ * service; this is the other direction, so a service page and its articles
+ * form a cluster rather than a one-way street.
+ */
+export function postsForService(serviceSlug, count = 3) {
+  return posts.filter((p) => p.relatedService === serviceSlug).slice(0, count);
 }
 
 export function relatedPosts(current, count = 2) {

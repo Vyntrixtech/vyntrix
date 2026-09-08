@@ -127,6 +127,53 @@ export const organisation = {
   areaServed: "Worldwide",
 };
 
+/**
+ * FAQPage from the questions a page actually renders. Only call this where the
+ * answers are visible on the page — marking up questions a visitor cannot see
+ * is exactly the spammy implementation Google penalises.
+ */
+export function faqPage(items) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
+/** The trading address, for the pages where the location is the point. */
+export const localBusiness = {
+  "@type": "ProfessionalService",
+  "@id": `${SITE_URL}/#localbusiness`,
+  name: SITE_NAME,
+  parentOrganization: { "@id": `${SITE_URL}/#organization` },
+  url: `${SITE_URL}/contact`,
+  email: "info@vyntrixtechnologies.co.uk",
+  telephone: "0207877897",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Business centre 246-250 Romford Road",
+    addressLocality: "London",
+    addressRegion: "England",
+    postalCode: "E7 9HZ",
+    addressCountry: "GB",
+  },
+  areaServed: [
+    { "@type": "Country", name: "United Kingdom" },
+    { "@type": "Place", name: "Worldwide" },
+  ],
+  // No priceRange: the site deliberately publishes no prices, and asserting a
+  // band here would be a claim the page does not make.
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
+};
+
 export function breadcrumbs(trail) {
   return {
     "@type": "BreadcrumbList",

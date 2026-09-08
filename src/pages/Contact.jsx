@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import Seo, { graph, organisation, breadcrumbs } from "../components/Seo";
+import { Link } from "react-router-dom";
+import Seo, { graph, organisation, localBusiness, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { services } from "../data/services";
 import { MailIcon, PhoneIcon, PinIcon, ClockIcon, ChevronDownIcon } from "../components/Icons";
@@ -19,15 +20,67 @@ export default function Contact() {
     consent: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const tiltRef = useRef(null);
 
   function update(key, value) {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  function handleSubmit(e) {
+  // This form previously did nothing but flip a flag and tell the visitor
+  // their enquiry had been received. It hadn't been: nothing was sent
+  // anywhere, and every lead was discarded silently.
+  //
+  // The site is static, so there is no server of our own to post to. Set
+  // VITE_CONTACT_ENDPOINT to a form backend and enquiries are posted there.
+  // With no endpoint configured we hand the enquiry to the visitor's mail
+  // client addressed to the enquiries inbox — less slick, but it actually
+  // arrives, and the confirmation we show says what really happened.
+  const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT;
+
+  function enquiryText() {
+    return [
+      `Name: ${form.name}`,
+      `Company: ${form.company || "—"}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || "—"}`,
+      `Service: ${form.service}`,
+      `Budget: ${form.budget || "—"}`,
+      "",
+      form.description,
+    ].join("\n");
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    setSubmitted(true);
+    setError("");
+
+    if (!ENDPOINT) {
+      window.location.href =
+        `mailto:info@vyntrixtechnologies.co.uk` +
+        `?subject=${encodeURIComponent(`Website enquiry — ${form.name}`)}` +
+        `&body=${encodeURIComponent(enquiryText())}`;
+      setSubmitted(true);
+      return;
+    }
+
+    setSending(true);
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setSubmitted(true);
+    } catch {
+      setError(
+        "We could not send that just now. Please email info@vyntrixtechnologies.co.uk or call 0207877897 and we will pick it up straight away."
+      );
+    } finally {
+      setSending(false);
+    }
   }
 
   function onTilt(e) {
@@ -48,7 +101,11 @@ export default function Contact() {
       <Seo
         title="Contact Us | Free Project Quote | Vyntrix Technologies"
         description="Tell us about your project and get a written quotation within one working day. London-based, working with clients across the UK and internationally."
-        jsonLd={graph(organisation, breadcrumbs([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]))}
+        jsonLd={graph(
+          localBusiness,
+          organisation,
+          breadcrumbs([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }])
+        )}
       />
       <AuroraHero
         ground="radial-gradient(120% 100% at 30% -20%, #0e4a31 0%, #081c15 45%, #050907 80%)"
@@ -67,8 +124,22 @@ export default function Contact() {
         <div className="card card--panel contact-form-card">
           {submitted ? (
             <div className="contact-success">
-              <div className="contact-success__title">Thank you — your enquiry has been received.</div>
-              <p>A member of the team will reply within one working day.</p>
+              {ENDPOINT ? (
+                <>
+                  <div className="contact-success__title">Thank you — your enquiry has been received.</div>
+                  <p>A member of the team will reply within one working day.</p>
+                </>
+              ) : (
+                <>
+                  <div className="contact-success__title">Your enquiry is ready to send.</div>
+                  <p>
+                    We have opened it in your email app, addressed to{" "}
+                    <a href="mailto:info@vyntrixtechnologies.co.uk">info@vyntrixtechnologies.co.uk</a> — press send
+                    and we will reply within one working day. If nothing opened, email us directly or call{" "}
+                    <a href="tel:0207877897">0207877897</a>.
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
@@ -140,13 +211,19 @@ export default function Contact() {
                   onChange={(e) => update("consent", e.target.checked)}
                 />
                 <span>
-                  I agree to Vyntrix Technologies contacting me about this enquiry. See our <a href="#">Privacy Policy</a>.
+                  I agree to Vyntrix Technologies contacting me about this enquiry. See our <Link to="/privacy">Privacy Policy</Link>.
                 </span>
               </label>
 
+              {error && (
+                <p className="contact-error" role="alert">
+                  {error}
+                </p>
+              )}
+
               <div className="contact-submit-row">
-                <button type="submit" className="btn btn-primary">
-                  Send Enquiry
+                <button type="submit" className="btn btn-primary" disabled={sending}>
+                  {sending ? "Sending…" : "Send Enquiry"}
                 </button>
                 <span className="contact-submit-note">We reply within one working day.</span>
               </div>

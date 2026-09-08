@@ -7,6 +7,48 @@ import { BadgeIcon } from "../components/Icons";
 import { serviceIconMap as iconMap } from "../data/serviceIcons";
 import "./Services.css";
 
+/* Routes the problem people actually arrive with to the right service page.
+   Written from real enquiry language rather than service names — someone
+   searching "my website looks dated" is not searching "UI/UX design". */
+const chooseBy = [
+  {
+    problem: "\u201CWe need a website, or the one we have is dated\u201D",
+    answer:
+      "A new build or a rebuild of an existing site. If the structure is sound we improve it rather than start again \u2014 we will tell you which is cheaper before you commit.",
+    slug: "website-development",
+  },
+  {
+    problem: "\u201CWe want to sell online\u201D",
+    answer:
+      "A storefront with a catalogue, payments and order management. The platform choice depends on how many products you carry and who updates them.",
+    slug: "ecommerce-development",
+  },
+  {
+    problem: "\u201COur customers keep asking for an app\u201D",
+    answer:
+      "Native or cross-platform, published under your own developer accounts. Most business apps do well cross-platform; we recommend native only where performance demands it.",
+    slug: "mobile-app-development",
+  },
+  {
+    problem: "\u201COur branding is inconsistent\u201D",
+    answer:
+      "A logo, palette, type and the usage rules that keep them consistent across print, screen and social \u2014 documented so your team can apply them without a designer.",
+    slug: "graphic-design-branding",
+  },
+  {
+    problem: "\u201CPeople visit but do not convert\u201D",
+    answer:
+      "A usability review of what exists, then wireframes and interface design that fix the specific points where people drop out.",
+    slug: "ui-ux-design",
+  },
+  {
+    problem: "\u201CNobody is looking after any of it\u201D",
+    answer:
+      "Updates, backups, monitoring and a named contact on a monthly plan \u2014 billed as a plan rather than ad-hoc hours.",
+    slug: "maintenance-support",
+  },
+];
+
 export default function Services() {
   const grid = services.slice(0, 6);
   const maintenance = services[6];
@@ -62,6 +104,34 @@ export default function Services() {
           </div>
           <span className="btn btn-secondary btn-sm">See plans</span>
         </Link>
+      </div>
+
+      <div className="section">
+        <div className="section-head">
+          <div className="eyebrow">Choosing</div>
+          <h2>Not sure which one you need?</h2>
+          <p>
+            Most enquiries arrive describing a problem rather than a service. These are the ones we hear most, and
+            where each usually lands.
+          </p>
+        </div>
+        <div className="services-choose">
+          {chooseBy.map((c) => (
+            <div className="card" key={c.problem}>
+              <div className="icon-box">
+                {(() => {
+                  const Icon = iconMap[services.find((s) => s.slug === c.slug).icon];
+                  return <Icon size={19} />;
+                })()}
+              </div>
+              <h3>{c.problem}</h3>
+              <p>{c.answer}</p>
+              <Link to={`/services/${c.slug}`} className="service-link">
+                {services.find((s) => s.slug === c.slug).name} <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="section section--end">

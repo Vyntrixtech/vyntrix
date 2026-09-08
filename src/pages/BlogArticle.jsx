@@ -20,7 +20,9 @@ export default function BlogArticle() {
   return (
     <div>
       <Seo
-        title={`${post.title} | Vyntrix Technologies`}
+        // The title tag is written for the SERP — short, keyword-led, no
+        // truncation. The editorial headline stays as the H1 on the page.
+        title={post.metaTitle || `${post.title} | Vyntrix Technologies`}
         description={post.excerpt}
         jsonLd={graph(
           {
@@ -37,7 +39,7 @@ export default function BlogArticle() {
           organisation,
           breadcrumbs([
             { name: "Home", path: "/" },
-            { name: "Insights", path: "/blog" },
+            { name: "Blog", path: "/blog" },
             { name: post.title, path: `/blog/${post.slug}` },
           ])
         )}
@@ -47,7 +49,7 @@ export default function BlogArticle() {
         blobs={[{ left: "50%", top: "-55%", width: "70%", height: "130%", color: "rgba(79,232,154,.24)", duration: "20s", center: true }]}
       >
         <div className="container article-crumb">
-          <Link to="/">Home</Link> / <Link to="/blog">Insights</Link> / <span>{post.category}</span>
+          <Link to="/">Home</Link> / <Link to="/blog">Blog</Link> / <span>{post.category}</span>
         </div>
         <div className="container article-hero">
           <span className="pill-tag">{post.category}</span>
@@ -55,7 +57,7 @@ export default function BlogArticle() {
           <div className="article-hero__meta">
             <span>By {post.author}</span>
             <span>·</span>
-            <span>{post.date}</span>
+            <time dateTime={post.isoDate}>{post.date}</time>
             <span>·</span>
             <span>{post.readTime} read</span>
           </div>
