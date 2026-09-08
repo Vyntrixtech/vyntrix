@@ -586,6 +586,26 @@ export function getPost(slug) {
 }
 
 /**
+ * The articles the homepage leads with: the featured post, then the newest
+ * from categories it hasn't used yet, so the three tags are always different
+ * and the row shows the breadth of what we write about rather than three
+ * variations on one subject.
+ */
+export function homepagePosts(count = 3) {
+  const featured = posts.find((p) => p.featured);
+  const picked = featured ? [featured] : [];
+  const used = new Set(picked.map((p) => p.category));
+
+  for (const p of posts) {
+    if (picked.length === count) break;
+    if (used.has(p.category) || picked.includes(p)) continue;
+    picked.push(p);
+    used.add(p.category);
+  }
+  return picked;
+}
+
+/**
  * The articles that support one service page. Blog posts already point at a
  * service; this is the other direction, so a service page and its articles
  * form a cluster rather than a one-way street.

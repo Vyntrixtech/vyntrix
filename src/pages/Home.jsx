@@ -3,6 +3,8 @@ import Seo, { graph, organisation, SITE_URL, SITE_NAME } from "../components/Seo
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
+import { homepagePosts } from "../data/posts";
+import BlogCover from "../components/BlogCover";
 import { GridIcon, ArrowRightIcon, TargetIcon, ClockIcon, ShieldCheckIcon } from "../components/Icons";
 import { serviceIconMap } from "../data/serviceIcons";
 import "./Home.css";
@@ -38,6 +40,7 @@ function ServiceCard({ service }) {
 
 export default function Home() {
   const homeServices = services.slice(0, 6);
+  const featuredPosts = homepagePosts();
 
   return (
     <div>
@@ -215,6 +218,41 @@ export default function Home() {
                 <p>{step.body}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="section section--end">
+          <div className="section-head">
+            <div className="eyebrow">Insights</div>
+            <h2>Practical guidance, not marketing</h2>
+            <p>
+              What we have learned building and maintaining these projects, written for the people paying for them.
+            </p>
+          </div>
+          <div className="home-posts">
+            {featuredPosts.map((post) => (
+              <Link to={`/blog/${post.slug}`} key={post.slug} className="card home-post">
+                <div className="home-post__art">
+                  <BlogCover category={post.category} label={false} />
+                </div>
+                <div className="home-post__body">
+                  <div className="home-post__meta">
+                    <span className="home-post__tag">{post.category}</span>
+                    <span className="home-post__time">{post.readTime} read</span>
+                  </div>
+                  <h3>{post.title}</h3>
+                  <p>{post.excerpt}</p>
+                  <span className="service-link">
+                    Read article <ArrowRightIcon size={15} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="home-posts__more">
+            <Link to="/blog" className="btn btn-secondary">
+              Read all articles
+            </Link>
           </div>
         </div>
 
