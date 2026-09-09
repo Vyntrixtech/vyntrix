@@ -38,9 +38,43 @@ function FaqRow({ q, a, id }) {
   );
 }
 
+const PROJECT_STEPS = [
+  {
+    n: "01",
+    title: "Discovery",
+    body: "Objectives, users and scope.",
+    detail: "A short call to understand goals, users and constraints before anything is scoped or priced.",
+  },
+  {
+    n: "02",
+    title: "Planning",
+    body: "Feature list, screens, timeline and cost.",
+    detail: "A written quotation with the feature list, timeline and a fixed price — signed off before work starts.",
+  },
+  {
+    n: "03",
+    title: "Design",
+    body: "Prototype and sign-off before build.",
+    detail: "Wireframes, then full visual design, reviewed with you at each stage before a line of code is built.",
+  },
+  {
+    n: "04",
+    title: "Development",
+    body: "Build, testing and preparation.",
+    detail: "Built in the open with staging links as we go, and tested throughout rather than only at the end.",
+  },
+  {
+    n: "05",
+    title: "Launch & Support",
+    body: "Release, monitoring and updates.",
+    detail: "Go live, then a monthly support plan so nothing is left unattended once handover is done.",
+  },
+];
+
 export default function ServiceDetail() {
   const { slug } = useParams();
   const service = getService(slug);
+  const [activeStep, setActiveStep] = useState(0);
 
   if (!service) return <NotFound />;
 
@@ -137,23 +171,27 @@ export default function ServiceDetail() {
         <div className="service-two-col">
           <div className="card card--panel">
             <h2 className="service-two-col__heading">How the project runs</h2>
+            <p className="service-steps__hint">Step through it — click any stage to see what it involves.</p>
             <div className="service-steps">
-              {[
-                { n: "01", title: "Discovery", body: "Objectives, users and scope." },
-                { n: "02", title: "Planning", body: "Feature list, screens, timeline and cost." },
-                { n: "03", title: "Design", body: "Prototype and sign-off before build." },
-                { n: "04", title: "Development", body: "Build, testing and preparation." },
-                { n: "05", title: "Launch & Support", body: "Release, monitoring and updates." },
-              ].map((s) => (
-                <div className="service-steps__row" key={s.n}>
-                  <div className="icon-box" style={{ background: "rgba(255,255,255,.06)", color: "var(--mid)" }}>
-                    {s.n}
-                  </div>
+              {PROJECT_STEPS.map((s, i) => (
+                <button
+                  type="button"
+                  key={s.n}
+                  className={
+                    "service-steps__row" +
+                    (i === activeStep ? " is-active" : "") +
+                    (i < activeStep ? " is-done" : "")
+                  }
+                  aria-expanded={i === activeStep}
+                  onClick={() => setActiveStep(i)}
+                >
+                  <div className="icon-box service-steps__num">{s.n}</div>
                   <div>
                     <div className="service-steps__title">{s.title}</div>
                     <div className="service-steps__body">{s.body}</div>
+                    {i === activeStep && <div className="service-steps__detail">{s.detail}</div>}
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>

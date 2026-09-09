@@ -80,20 +80,63 @@
   margin-bottom: 22px;
 }
 
+.service-steps__hint {
+  font: 400 12px/1.5 var(--font-body);
+  color: var(--dim);
+  margin: -12px 0 20px;
+}
 .service-steps {
   display: grid;
-  gap: 16px;
+  gap: 10px;
 }
+/* Each stage is a real button — quiet by default, so the infographic reads
+   as plain text until a cursor arrives, then answers it the way every other
+   interactive surface on the site does. */
 .service-steps__row {
   display: grid;
   grid-template-columns: 36px 1fr;
   gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin: 0 -12px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+.service-steps__row:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+.service-steps__row.is-active {
+  background: rgba(79, 232, 154, 0.07);
+  border-color: rgba(79, 232, 154, 0.22);
+}
+.service-steps__row:focus-visible {
+  outline: 2px solid var(--ac);
+  outline-offset: 2px;
 }
 .service-steps__row .icon-box {
   width: 36px;
   height: 36px;
   border-radius: 12px;
   font: 700 12.5px/1 var(--font-heading);
+}
+.service-steps__num {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--mid);
+  transition: background-color 0.25s, color 0.25s;
+}
+.service-steps__row.is-active .service-steps__num {
+  background: var(--ac);
+  color: var(--acd);
+}
+.service-steps__row.is-done .service-steps__num {
+  background: rgba(79, 232, 154, 0.14);
+  color: var(--ac2);
 }
 .service-steps__title {
   font: 600 14.5px/1.3 var(--font-heading);
@@ -103,6 +146,22 @@
   font: 400 13px/1.8 var(--font-body);
   color: var(--mid);
   margin-top: 5px;
+}
+.service-steps__detail {
+  font: 400 12.5px/1.7 var(--font-body);
+  color: var(--ac2);
+  margin-top: 8px;
+  animation: vt-step-in 0.3s ease;
+}
+@keyframes vt-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .faq-list {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Seo, { graph, organisation, localBusiness, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import { services } from "../data/services";
+import { countries, flagEmoji } from "../data/countries";
 import { MailIcon, PhoneIcon, PinIcon, ClockIcon, ChevronDownIcon } from "../components/Icons";
 import EnquirySent from "../components/EnquirySent";
 import "./Contact.css";
@@ -33,6 +34,7 @@ export default function Contact() {
     name: "",
     company: "",
     email: "",
+    countryCode: "+44",
     phone: "",
     service: "",
     budget: "",
@@ -74,12 +76,14 @@ export default function Contact() {
   const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT;
   const sendsDirectly = Boolean(ACCESS_KEY || ENDPOINT);
 
+  const fullPhone = form.phone ? `${form.countryCode} ${form.phone}`.trim() : "";
+
   function enquiryText() {
     return [
       `Name: ${form.name}`,
       `Company: ${form.company || "—"}`,
       `Email: ${form.email}`,
-      `Phone: ${form.phone || "—"}`,
+      `Phone: ${fullPhone || "—"}`,
       `Service: ${form.service}`,
       `Budget: ${form.budget || "—"}`,
       "",
@@ -120,7 +124,7 @@ export default function Contact() {
             Name: form.name,
             Company: form.company || "—",
             Email: form.email,
-            Phone: form.phone || "—",
+            Phone: fullPhone || "—",
             Service: form.service,
             Budget: form.budget || "—",
             Message: form.description,
@@ -239,7 +243,30 @@ export default function Contact() {
                 </div>
                 <div className="field">
                   <label>Phone number</label>
-                  <input value={form.phone} onChange={(e) => update("phone", e.target.value)} />
+                  <div className="phone-field">
+                    <div className="field-select-wrap phone-field__country">
+                      <select
+                        aria-label="Country code"
+                        value={form.countryCode}
+                        onChange={(e) => update("countryCode", e.target.value)}
+                      >
+                        {countries.map((c) => (
+                          <option key={c.iso2} value={c.dial}>
+                            {flagEmoji(c.iso2)} {c.dial}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDownIcon size={13} color="#7c9689" />
+                    </div>
+                    <input
+                      className="phone-field__number"
+                      type="tel"
+                      inputMode="tel"
+                      placeholder="7911 123456"
+                      value={form.phone}
+                      onChange={(e) => update("phone", e.target.value)}
+                    />
+                  </div>
                 </div>
                 <div className="field">
                   <label>Service required *</label>

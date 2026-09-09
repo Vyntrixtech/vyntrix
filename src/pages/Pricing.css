@@ -25,16 +25,38 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease-out, border-color 0.3s, background 0.4s, box-shadow 0.3s;
+  will-change: transform;
 }
 /* The accent tier already sits on a green gradient, so it needs a brighter
-   edge than the shared .card--accent hover to read as a change at all. */
+   edge than the shared .card--accent hover to read as a change at all. Its
+   glow is centred with --mx/--my so the same cursor-tracking parallax moves
+   it too, rather than leaving it the one static card in the row. */
 .pricing-card--accent:hover {
   border-color: rgba(79, 232, 154, 0.5);
 }
 .pricing-card--accent {
   border-color: rgba(79, 232, 154, 0.36);
-  background: radial-gradient(130% 130% at 50% 0%, rgba(79, 232, 154, 0.22), rgba(255, 255, 255, 0.02) 60%);
+  background: radial-gradient(130% 130% at var(--mx, 50%) var(--my, 0%), rgba(79, 232, 154, 0.22), rgba(255, 255, 255, 0.02) 60%);
   box-shadow: 0 30px 90px rgba(79, 232, 154, 0.12);
+}
+
+/* Starter and Premium borrow the Business card's highlighted look on hover
+   (or keyboard focus) instead of carrying it permanently — same gradient,
+   same glow that tracks the cursor, and the CTA switches to the primary
+   gradient button for as long as the card holds attention. */
+.pricing-card:not(.pricing-card--accent):hover,
+.pricing-card:not(.pricing-card--accent):focus-within {
+  border-color: rgba(79, 232, 154, 0.5);
+  background: radial-gradient(130% 130% at var(--mx, 50%) var(--my, 0%), rgba(79, 232, 154, 0.22), rgba(255, 255, 255, 0.02) 60%);
+  box-shadow: 0 30px 90px rgba(79, 232, 154, 0.12);
+}
+.pricing-card:not(.pricing-card--accent):hover .btn-secondary,
+.pricing-card:not(.pricing-card--accent):focus-within .btn-secondary {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: var(--acd);
+  box-shadow: 0 14px 44px rgba(79, 232, 154, 0.28);
 }
 .pricing-card__badge {
   position: absolute;

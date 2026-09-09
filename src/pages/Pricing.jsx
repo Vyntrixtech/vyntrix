@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Seo, { graph, breadcrumbs, faqPage, organisation, SITE_URL } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
@@ -93,6 +94,63 @@ const faqs = [
   { icon: PinIcon, q: "What if I am outside the UK?", a: "We work with clients internationally. Contracts and invoicing are UK-based; delivery is remote." },
 ];
 
+/* A gentle 3D tilt plus a glow that tracks the cursor — the same "parallax"
+   feel the Business card already implies with its fixed gradient, just now
+   responsive. Kept small (a few degrees) so it reads as depth, not a gimmick. */
+function PricingCard({ tier }) {
+  const ref = useRef(null);
+
+  function onMove(e) {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--mx", `${(x * 100).toFixed(1)}%`);
+    el.style.setProperty("--my", `${(y * 100).toFixed(1)}%`);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 6).toFixed(2)}deg) rotateY(${((x - 0.5) * 8).toFixed(2)}deg) translateY(-4px)`;
+  }
+  function onLeave() {
+    const el = ref.current;
+    if (!el) return;
+    el.style.setProperty("--mx", "50%");
+    el.style.setProperty("--my", "0%");
+    el.style.transform = "";
+  }
+
+  return (
+    <div
+      ref={ref}
+      className={"card pricing-card" + (tier.variant === "accent" ? " pricing-card--accent" : "")}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+    >
+      {tier.popular && <div className="pricing-card__badge">MOST POPULAR</div>}
+      <div className="icon-box">
+        <tier.icon size={19} />
+      </div>
+      <h2>{tier.name}</h2>
+      <p className="pricing-card__body">{tier.body}</p>
+      <div className="pricing-card__features">
+        {tier.lead && <div className="pricing-card__lead">{tier.lead}</div>}
+        {tier.features.map((f) => (
+          <div className="pricing-card__feature" key={f}>
+            <CheckIcon size={15} color={tier.variant === "accent" ? "#8bffc0" : "#4fe89a"} />
+            {f}
+          </div>
+        ))}
+      </div>
+      <Link
+        to="/contact"
+        className={"btn btn-block " + (tier.variant === "accent" ? "btn-primary" : "btn-secondary")}
+      >
+        {tier.cta}
+      </Link>
+    </div>
+  );
+}
+
 export default function Pricing() {
   return (
     <div>
@@ -137,29 +195,7 @@ export default function Pricing() {
       <div className="section">
         <div className="pricing-grid">
           {tiers.map((t) => (
-            <div className={"card pricing-card" + (t.variant === "accent" ? " pricing-card--accent" : "")} key={t.name}>
-              {t.popular && <div className="pricing-card__badge">MOST POPULAR</div>}
-              <div className="icon-box">
-                <t.icon size={19} />
-              </div>
-              <h2>{t.name}</h2>
-              <p className="pricing-card__body">{t.body}</p>
-              <div className="pricing-card__features">
-                {t.lead && <div className="pricing-card__lead">{t.lead}</div>}
-                {t.features.map((f) => (
-                  <div className="pricing-card__feature" key={f}>
-                    <CheckIcon size={15} color={t.variant === "accent" ? "#8bffc0" : "#4fe89a"} />
-                    {f}
-                  </div>
-                ))}
-              </div>
-              <Link
-                to="/contact"
-                className={"btn btn-block " + (t.variant === "accent" ? "btn-primary" : "btn-secondary")}
-              >
-                {t.cta}
-              </Link>
-            </div>
+            <PricingCard tier={t} key={t.name} />
           ))}
         </div>
       </div>
@@ -176,9 +212,6 @@ export default function Pricing() {
               </span>
             ))}
           </div>
-          <Link to="/contact" className="btn btn-secondary" style={{ marginTop: 26 }}>
-            Ask About Support Plans
-          </Link>
         </div>
       </div>
 

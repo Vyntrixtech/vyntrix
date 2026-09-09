@@ -32,6 +32,25 @@
   grid-template-columns: 1fr 1fr;
   gap: 18px;
 }
+
+/* Phone number's country-code sub-field. The select shows a flag and dial
+   code only, so it stays narrow and leaves the number itself the wider box. */
+.phone-field {
+  display: flex;
+  gap: 8px;
+}
+.phone-field__country {
+  flex: none;
+  width: 108px;
+}
+.phone-field__country select {
+  width: 100%;
+  padding-right: 26px;
+}
+.phone-field__number {
+  flex: 1;
+  min-width: 0;
+}
 .contact-consent {
   display: flex;
   align-items: flex-start;
