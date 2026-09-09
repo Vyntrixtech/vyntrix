@@ -33,21 +33,21 @@ jobs:
       # lives in repository settings so it can be rotated without a commit.
       # Repo → Settings → Secrets and variables → Actions → VITE_WEB3FORMS_KEY.
       # Unset, the contact form falls back to the visitor's mail client.
-      # Prints only a length and a checksum, never the value — enough to prove
-      # the secret actually reached this job without exposing it in a log.
-      # Prints only a length, never the value — enough to confirm at a glance
-      # whether the secret reached this job, without exposing it in a log.
-      # Never make this fail the build: an unset key is a valid, intentional
-      # state (the contact form falls back to mailto).
-      # Prints only a length, never the value — enough to confirm at a glance
-      # whether the secret reached this job, without exposing it in a log.
-      # Never make this fail the build: an unset key is a valid, intentional
-      # state (the contact form falls back to mailto).
+      #
+      # Prints only a length and a shape check, never the value — enough to
+      # confirm at a glance whether the secret reached this job AND whether it
+      # actually looks like a UUID, without exposing it in a log. Web3Forms
+      # rejects anything else with "Invalid form_id/access_key format", which
+      # a plain present/empty check would not have caught (a value with a
+      # stray newline or wrapping quotes still counts as "present"). Never
+      # make this fail the build: an unset key is a valid, intentional state.
       - run: |
           if [ -z "$VITE_WEB3FORMS_KEY" ]; then
             echo "VITE_WEB3FORMS_KEY: EMPTY — contact form will use the mailto fallback"
+          elif [[ "$VITE_WEB3FORMS_KEY" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$ ]]; then
+            echo "VITE_WEB3FORMS_KEY: present, length=${#VITE_WEB3FORMS_KEY}, looks like a clean UUID"
           else
-            echo "VITE_WEB3FORMS_KEY: present, length=${#VITE_WEB3FORMS_KEY}"
+            echo "VITE_WEB3FORMS_KEY: present, length=${#VITE_WEB3FORMS_KEY}, but NOT a clean UUID (stray whitespace/quotes/extra text?) — the app extracts a UUID substring at runtime, so this alone won't break the send, but re-saving the secret with just the 36-character key is worth doing"
           fi
         env:
           VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}

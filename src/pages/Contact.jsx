@@ -12,6 +12,22 @@ const budgets = ["Under £1k", "£1–2k", "£2–5k", "£5–10k", "£10k+", "N
 const MAILBOX = "info@vyntrixtechnologies.co.uk";
 const PHONE = "0207877897";
 
+// Web3Forms rejects anything that isn't exactly a UUID with
+// "Invalid form_id/access_key format" — and a repo secret is easy to save
+// with a stray newline, wrapping quotes, or the whole HTML snippet from
+// Web3Forms's own setup page pasted in around the key, none of which look
+// like a UUID once concatenated. Rather than depend on the secret being
+// saved perfectly, pull the UUID-shaped substring out of whatever the build
+// actually receives — cruft around it becomes harmless, and if no UUID is
+// found at all this returns undefined, which correctly falls back to mailto
+// instead of sending Web3Forms something it will only reject anyway.
+function extractAccessKey(raw) {
+  const match = String(raw ?? "").match(
+    /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i
+  );
+  return match?.[0];
+}
+
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -54,7 +70,7 @@ export default function Contact() {
   // one destination address). VITE_CONTACT_ENDPOINT is the escape hatch for
   // any other backend. With neither set the form falls back to the visitor's
   // mail client, and the confirmation says so rather than claiming delivery.
-  const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+  const ACCESS_KEY = extractAccessKey(import.meta.env.VITE_WEB3FORMS_KEY);
   const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT;
   const sendsDirectly = Boolean(ACCESS_KEY || ENDPOINT);
 
