@@ -35,7 +35,7 @@ const enquiries = [
   { name: "Daniel Reyes", company: "Reyes Property Group", service: "Website Development", budget: "£2–5k", received: "Today", status: "New" },
   { name: "Priya Nair", company: "—", service: "E-commerce Development", budget: "Not sure", received: "Yesterday", status: "Replied" },
   { name: "Jordan Ellis", company: "Ellis Studio Ltd", service: "Graphic Design & Branding", budget: "£1–2k", received: "2 days ago", status: "Quoted" },
-  { name: "Morgan Blake", company: "Blake & Partners", service: "Maintenance & Support", budget: "Monthly", received: "3 days ago", status: "Closed" },
+  { name: "Morgan Blake", company: "Blake & Partners", service: "IT & Digital Solutions", budget: "Monthly", received: "3 days ago", status: "Closed" },
 ];
 
 const statusStyles = {

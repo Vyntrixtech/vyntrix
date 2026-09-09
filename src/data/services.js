@@ -146,30 +146,6 @@ export const services = [
       { q: "What does maintenance cost after launch?", a: "Ongoing management is billed as a simple monthly plan." },
     ],
   },
-  {
-    slug: "maintenance-support",
-    number: "07",
-    icon: "maintenance",
-    name: "Maintenance & Support",
-    short:
-      "Updates, security, backups, technical support, content changes, performance monitoring, hosting and domain management — billed as a monthly plan.",
-    tagline: "We keep your digital business running after launch.",
-    lede: "Updates, security, backups, technical support, content changes and performance monitoring — billed as a single monthly plan rather than ad-hoc hours.",
-    included: [
-      { title: "Website Updates", icon: "maintenance", body: "Core, plugin and platform updates applied on a schedule." },
-      { title: "Security Updates", icon: "shield", body: "Patches and monitoring to keep the site out of trouble." },
-      { title: "Backups", icon: "backup", body: "Regular, tested backups so recovery is never a scramble." },
-      { title: "Technical Support", icon: "support", body: "A named contact for issues, not a ticket queue." },
-      { title: "Content Changes", icon: "edit", body: "Text, image and page updates without needing a developer." },
-      { title: "Performance Monitoring", icon: "gauge", body: "Uptime and speed tracked, with fixes applied before you notice." },
-    ],
-    faq: [
-      { q: "Is this only for sites you built?", a: "No — we can take over maintenance of an existing site after a short audit." },
-      { q: "How fast is support?", a: "Standard requests are actioned within one working day." },
-      { q: "Can I cancel any time?", a: "Yes, plans are monthly with no long-term lock-in." },
-      { q: "What if something breaks outside the plan's scope?", a: "We'll always tell you honestly and quote separately before doing extra work." },
-    ],
-  },
 ];
 
 export function getService(slug) {

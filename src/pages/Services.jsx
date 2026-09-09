@@ -3,7 +3,6 @@ import Seo, { graph, breadcrumbs } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
-import { BadgeIcon } from "../components/Icons";
 import { serviceIconMap as iconMap } from "../data/serviceIcons";
 import "./Services.css";
 
@@ -41,23 +40,14 @@ const chooseBy = [
       "A usability review of what exists, then wireframes and interface design that fix the specific points where people drop out.",
     slug: "ui-ux-design",
   },
-  {
-    problem: "\u201CNobody is looking after any of it\u201D",
-    answer:
-      "Updates, backups, monitoring and a named contact on a monthly plan \u2014 billed as a plan rather than ad-hoc hours.",
-    slug: "maintenance-support",
-  },
 ];
 
 export default function Services() {
-  const grid = services.slice(0, 6);
-  const maintenance = services[6];
-
   return (
     <div>
       <Seo
         title="Web, App & Digital Services | Vyntrix Technologies"
-        description="Seven service lines: website development, mobile apps, branding, UI/UX, e-commerce, IT solutions and ongoing maintenance. Each quoted individually."
+        description="Six service lines: website development, mobile apps, branding, UI/UX, e-commerce and IT solutions. Each quoted individually."
         jsonLd={graph(breadcrumbs([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }]))}
       />
       <AuroraHero
@@ -67,13 +57,13 @@ export default function Services() {
         <div className="container services-hero">
           <div className="eyebrow">Services</div>
           <h1 className="services-hero__title">Everything your business needs to succeed online</h1>
-          <p className="services-hero__lede">Seven service lines, each with its own page so it can rank independently in search.</p>
+          <p className="services-hero__lede">Six service lines, each with its own page so it can rank independently in search.</p>
         </div>
       </AuroraHero>
 
       <div className="section">
         <div className="services-grid">
-          {grid.map((s) => {
+          {services.map((s) => {
             const Icon = iconMap[s.icon];
             return (
               <Link to={`/services/${s.slug}`} key={s.slug} className="card card--accent services-grid__item">
@@ -89,21 +79,6 @@ export default function Services() {
             );
           })}
         </div>
-      </div>
-
-      <div className="section">
-        <Link to={`/services/${maintenance.slug}`} className="card maintenance-banner">
-          <div className="maintenance-banner__left">
-            <div className="icon-box" style={{ width: 40, height: 40, borderRadius: 14 }}>
-              <BadgeIcon size={20} />
-            </div>
-            <div>
-              <h2>{maintenance.name}</h2>
-              <p>{maintenance.short}</p>
-            </div>
-          </div>
-          <span className="btn btn-secondary btn-sm">See plans</span>
-        </Link>
       </div>
 
       <div className="section">

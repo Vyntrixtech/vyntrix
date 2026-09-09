@@ -41,41 +41,12 @@
   margin: 14px 0 16px;
 }
 
-.maintenance-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  background: linear-gradient(120deg, rgba(79, 232, 154, 0.1), rgba(255, 255, 255, 0.02) 60%);
-  cursor: pointer;
-}
-.maintenance-banner__left {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-.maintenance-banner h2 {
-  font: 600 21px/1.25 var(--font-heading);
-  letter-spacing: -0.012em;
-  color: var(--ink);
-  margin: 0 0 9px;
-}
-.maintenance-banner p {
-  font: 400 13.5px/1.8 var(--font-body);
-  color: var(--mid);
-  max-width: 72ch;
-}
-
 @media (max-width: 900px) {
   .services-hero__title {
     font-size: 40px;
   }
   .services-grid {
     grid-template-columns: 1fr;
-  }
-  .maintenance-banner {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }
 

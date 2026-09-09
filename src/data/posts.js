@@ -274,7 +274,7 @@ export const posts = [
   post({
     slug: "backups-that-actually-work",
     metaTitle: "Website Backups That Actually Work | Vyntrix",
-    relatedService: "maintenance-support",
+    relatedService: "it-digital-solutions",
     title: "Backups that actually work when you need them",
     category: "Business Technology",
     date: "30 January 2026",

@@ -37,7 +37,7 @@ import {
   GaugeIcon,
 } from "../components/Icons";
 
-// The seven service lines, keyed by the `icon` field in services.js.
+// The service lines, keyed by the `icon` field in services.js.
 export const serviceIconMap = {
   website: WebsiteIcon,
   app: AppIcon,

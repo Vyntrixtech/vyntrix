@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Seo, { graph, organisation, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
@@ -23,24 +24,91 @@ const process = [
   { n: "05", title: "Launch & Support", body: "Go live, then ongoing support." },
 ];
 
-/* The six cards beside the illustrated lead card. They carry the service's own
-   mark so no card in the grid is left as bare text. */
-function ServiceCard({ service }) {
+/* The pipeline stages behind the hero mock's tag row. Each carries its own
+   colour so selecting one recolours the code panel rather than just toggling
+   a single fixed accent. */
+const STAGES = [
+  {
+    key: "design",
+    label: "design",
+    solid: "#4fe89a",
+    lineA: "rgba(79,232,154,.75)",
+    lineAEnd: "rgba(79,232,154,.12)",
+    tagBg: "rgba(79,232,154,.16)",
+    tagBorder: "rgba(79,232,154,.4)",
+    glow: "rgba(79,232,154,.30)",
+  },
+  {
+    key: "build",
+    label: "build",
+    solid: "#3aa0ff",
+    lineA: "rgba(58,160,255,.75)",
+    lineAEnd: "rgba(58,160,255,.12)",
+    tagBg: "rgba(58,160,255,.16)",
+    tagBorder: "rgba(58,160,255,.4)",
+    glow: "rgba(58,160,255,.30)",
+  },
+  {
+    key: "test",
+    label: "test",
+    solid: "#b98bff",
+    lineA: "rgba(185,139,255,.75)",
+    lineAEnd: "rgba(185,139,255,.12)",
+    tagBg: "rgba(185,139,255,.16)",
+    tagBorder: "rgba(185,139,255,.4)",
+    glow: "rgba(185,139,255,.30)",
+  },
+  {
+    key: "launch",
+    label: "launch",
+    solid: "#ffb84f",
+    lineA: "rgba(255,184,79,.75)",
+    lineAEnd: "rgba(255,184,79,.12)",
+    tagBg: "rgba(255,184,79,.16)",
+    tagBorder: "rgba(255,184,79,.4)",
+    glow: "rgba(255,184,79,.30)",
+  },
+];
+
+/* One bento cell per service. The default face is icon + title + short copy;
+   hovering (or focusing, for keyboard users) swaps in the illustration, the
+   longer pitch and the link to that service's own page — so any cell in the
+   grid can become the "lead" card, not just the first one. */
+function ServiceBentoCard({ service }) {
   const Icon = serviceIconMap[service.icon];
   return (
-    <Link to={`/services/${service.slug}`} className="card home-services__card">
-      <div className="icon-box">
-        <Icon size={19} />
+    <Link to={`/services/${service.slug}`} className="card bento-card">
+      <div className="bento-card__face bento-card__face--default">
+        <div className="icon-box">
+          <Icon size={19} />
+        </div>
+        <h3>{service.name}</h3>
+        <p>{service.short}</p>
       </div>
-      <h3 className="home-services__side-title">{service.name}</h3>
-      <p>{service.short}</p>
+      <div className="bento-card__face bento-card__face--hover">
+        <ServiceArt type={service.icon} height={104} />
+        <h3>{service.name}</h3>
+        <p>{service.lede}</p>
+        <span className="service-link">
+          Explore service <ArrowRightIcon size={15} />
+        </span>
+      </div>
     </Link>
   );
 }
 
 export default function Home() {
-  const homeServices = services.slice(0, 6);
   const featuredPosts = homepagePosts();
+  const [stage, setStage] = useState(STAGES[0].key);
+  const activeStage = STAGES.find((s) => s.key === stage) ?? STAGES[0];
+  const stageVars = {
+    "--stage-solid": activeStage.solid,
+    "--stage-line-a": activeStage.lineA,
+    "--stage-line-a-end": activeStage.lineAEnd,
+    "--stage-tag-bg": activeStage.tagBg,
+    "--stage-tag-border": activeStage.tagBorder,
+    "--stage-glow": activeStage.glow,
+  };
 
   return (
     <div>
@@ -82,7 +150,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="hero__mock-wrap">
+          <div className="hero__mock-wrap" style={stageVars}>
             <div className="hero__mock-glow" />
             <div className="hero__mock">
               <div className="hero__mock-inner">
@@ -108,11 +176,19 @@ export default function Home() {
                         <span className="cursor" />
                       </div>
                     </div>
-                    <div className="hero__mock-tags">
-                      <span className="tag tag--accent">design</span>
-                      <span className="tag">build</span>
-                      <span className="tag">test</span>
-                      <span className="tag">launch</span>
+                    <div className="hero__mock-tags" role="tablist" aria-label="Pipeline stage">
+                      {STAGES.map((s) => (
+                        <button
+                          key={s.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={stage === s.key}
+                          className={"tag" + (stage === s.key ? " is-active" : "")}
+                          onClick={() => setStage(s.key)}
+                        >
+                          {s.label}
+                        </button>
+                      ))}
                     </div>
                   </div>
                   <div className="hero__mock-timeline">
@@ -124,7 +200,7 @@ export default function Home() {
                       { title: "Build & integrate", body: "Development, CMS, payments, testing" },
                       { title: "Launch & support", body: "Go live, monitoring, monthly plan", state: "blue" },
                     ].map((step, i) => (
-                      <div className="timeline-row" key={i}>
+                      <div className="timeline-row" key={i} tabIndex={0}>
                         <span className={"timeline-dot" + (step.state ? " is-" + step.state : "")} />
                         <div className={"timeline-card" + (step.state ? " is-" + step.state : "")}>
                           <div className="timeline-card-title">{step.title}</div>
@@ -148,26 +224,10 @@ export default function Home() {
             <p>Six service lines, one team, and a single point of contact from discovery to launch.</p>
           </div>
 
-          <div className="home-services">
-            <Link to={`/services/${homeServices[0].slug}`} className="home-services__lead card card--accent">
-              <ServiceArt type={homeServices[0].icon} height={200} />
-              <h3>{homeServices[0].name}</h3>
-              <p>{homeServices[0].short}</p>
-              <span className="service-link">
-                Explore service <ArrowRightIcon size={15} />
-              </span>
-            </Link>
-            <div className="home-services__side">
-              {homeServices.slice(1, 4).map((s) => (
-                <ServiceCard key={s.slug} service={s} />
-              ))}
-            </div>
-          </div>
-          <div className="home-services__row">
-            {homeServices.slice(4).map((s) => (
-              <ServiceCard key={s.slug} service={s} />
+          <div className="home-services-bento">
+            {services.map((s) => (
+              <ServiceBentoCard key={s.slug} service={s} />
             ))}
-            <ServiceCard service={services[6]} />
           </div>
         </div>
 
@@ -265,8 +325,8 @@ export default function Home() {
               <Link to="/contact" className="btn btn-primary">
                 Book a Call <ArrowRightIcon size={16} color="#04140c" />
               </Link>
-              <Link to="/contact" className="btn btn-onglass">
-                Talk to Our Team
+              <Link to="/services" className="btn btn-onglass">
+                Explore Services
               </Link>
             </div>
           </div>
