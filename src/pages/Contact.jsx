@@ -125,8 +125,14 @@ export default function Contact() {
       // Web3Forms key, a network block, whatever it turns out to be) needs to
       // be visible to whoever is debugging a failed send.
       console.error("Contact form send failed:", err);
+      // The real reason goes on the page itself, not just the console — the
+      // last round of debugging this cost a trip through DevTools that
+      // didn't need to happen. Web3Forms's own messages are already
+      // visitor-safe (e.g. "please verify your email"); a raw network
+      // failure just reads as "Failed to fetch", which is still useful to
+      // know it's a network/CORS issue rather than an API rejection.
       setError(
-        `We could not send that just now. Please email ${MAILBOX} or call ${PHONE} and we will pick it up straight away.`
+        `We could not send that just now (${err.message || "unknown error"}). Please email ${MAILBOX} or call ${PHONE} and we will pick it up straight away.`
       );
     } finally {
       setSending(false);
