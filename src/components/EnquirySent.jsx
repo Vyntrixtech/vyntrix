@@ -143,8 +143,8 @@ export default function EnquirySent({ delivered, name, service, mailbox, phone, 
         </div>
 
         <div className="sent-actions">
-          <Link to="/blog" className="btn btn-primary btn-sm">
-            Read our guides while you wait
+          <Link to="/" className="btn btn-primary btn-sm">
+            Back to Home
           </Link>
           <button type="button" className="btn btn-secondary btn-sm" onClick={onClose} ref={closeRef}>
             Close
