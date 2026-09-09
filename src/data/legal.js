@@ -47,7 +47,7 @@ export const legalPages = {
         heading: "Who else sees it",
         body: [
           "We do not sell personal data, and we do not share it with third parties for their own marketing.",
-          "Our email is hosted by Hostinger, so enquiries you send us are stored on their mail servers. This website is served by GitHub Pages, which processes standard server request data such as IP addresses in order to deliver the page to you.",
+          "When you submit the enquiry form, it is delivered to us through Web3Forms, a form-relay service — it receives what you type for the sole purpose of passing it to our inbox by email, and does not use it for anything else. Our email is hosted by Hostinger, so enquiries are stored on their mail servers once delivered. This website is served by GitHub Pages, which processes standard server request data such as IP addresses in order to deliver the page to you.",
           "Where a project requires a third party — a hosting provider, a payment processor, an app store — we will tell you which one before anything is set up, and those accounts are opened in your name.",
         ],
       },
@@ -87,7 +87,7 @@ export const legalPages = {
     name: "Cookie Policy",
     title: "Cookie Policy | Vyntrix Technologies",
     description:
-      "This website sets no cookies and runs no analytics or advertising trackers. What that means in practice, and the one third-party request your browser does make.",
+      "This website sets no cookies and runs no analytics or advertising trackers. What that means in practice, and the two third-party requests it does make.",
     lede: "The short version: this website sets no cookies at all, so there is no cookie banner to dismiss and nothing for you to opt out of.",
     sections: [
       {
@@ -98,10 +98,11 @@ export const legalPages = {
         ],
       },
       {
-        heading: "The one third-party request",
+        heading: "The two third-party requests",
         body: [
-          "Our typefaces are served by Google Fonts. When you open a page, your browser requests those font files from fonts.googleapis.com and fonts.gstatic.com. Google does not set cookies on these requests, but it does receive your IP address and browser details as part of delivering the files, and processes them under its own privacy policy.",
-          "Nothing else on the page contacts a third party: there are no embedded videos, maps, chat widgets or advertising scripts.",
+          "Our typefaces are served by Google Fonts. When you open any page, your browser requests those font files from fonts.googleapis.com and fonts.gstatic.com. Google does not set a cookie on this request, but it does receive your IP address and browser details as part of delivering the files, and processes them under its own privacy policy.",
+          "If you submit the enquiry form, your browser sends what you typed to Web3Forms, which passes it on to our inbox by email and does not set a cookie either. This request only happens if you press send — nothing is sent while you are simply reading the page.",
+          "Nothing else on the site contacts a third party: there are no embedded videos, maps, chat widgets or advertising scripts.",
         ],
       },
       {
