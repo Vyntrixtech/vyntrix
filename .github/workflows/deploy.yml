@@ -33,6 +33,17 @@ jobs:
       # lives in repository settings so it can be rotated without a commit.
       # Repo → Settings → Secrets and variables → Actions → VITE_WEB3FORMS_KEY.
       # Unset, the contact form falls back to the visitor's mail client.
+      # Prints only a length and a checksum, never the value — enough to prove
+      # the secret actually reached this job without exposing it in a log.
+      - run: |
+          if [ -z "$VITE_WEB3FORMS_KEY" ]; then
+            echo "VITE_WEB3FORMS_KEY: EMPTY — contact form will use the mailto fallback"
+          else
+            echo "VITE_WEB3FORMS_KEY: present, length=${#VITE_WEB3FORMS_KEY}, sha256=$(echo -n "$VITE_WEB3FORMS_KEY" | sha256sum | cut -c1-12)"
+          fi
+        env:
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
+
       - run: npm run build
         env:
           VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
