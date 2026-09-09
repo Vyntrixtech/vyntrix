@@ -31,13 +31,7 @@ export default function Contact() {
   const botField = useRef(null);
 
   function update(key, value) {
-    setForm((f) => ({ ...f, [<form action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="c752d34f-e569-4e6e-8bce-2843304f336f">
-  <input type="text" name="name" required>
-  <input type="email" name="email" required>
-  <textarea name="message" required></textarea>
-  <button type="submit">Submit Form</button>
-</form>]: c752d34f-e569-4e6e-8bce-2843304f336f }));
+    setForm((f) => ({ ...f, [key]: value }));
   }
 
   function succeed() {
