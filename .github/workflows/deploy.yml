@@ -39,12 +39,16 @@ jobs:
       # whether the secret reached this job, without exposing it in a log.
       # Never make this fail the build: an unset key is a valid, intentional
       # state (the contact form falls back to mailto).
+      # TEMPORARY re-probe after the user says the secret's location was
+      # fixed. Same reasoning as before: log content is unreachable from
+      # here, so pass/fail on the run is the only readable signal. Reverted
+      # immediately after this is checked.
       - run: |
           if [ -z "$VITE_WEB3FORMS_KEY" ]; then
-            echo "VITE_WEB3FORMS_KEY: EMPTY — contact form will use the mailto fallback"
-          else
-            echo "VITE_WEB3FORMS_KEY: present, length=${#VITE_WEB3FORMS_KEY}"
+            echo "::error::VITE_WEB3FORMS_KEY is empty in this job"
+            exit 1
           fi
+          echo "VITE_WEB3FORMS_KEY: present, length=${#VITE_WEB3FORMS_KEY}"
         env:
           VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
 
