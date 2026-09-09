@@ -119,7 +119,12 @@ export default function Contact() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok || data.success === false) throw new Error(data.message || String(res.status));
       succeed();
-    } catch {
+    } catch (err) {
+      // Surfaced to the console rather than swallowed — the friendly banner
+      // below is what a visitor sees, but the real reason (an unconfirmed
+      // Web3Forms key, a network block, whatever it turns out to be) needs to
+      // be visible to whoever is debugging a failed send.
+      console.error("Contact form send failed:", err);
       setError(
         `We could not send that just now. Please email ${MAILBOX} or call ${PHONE} and we will pick it up straight away.`
       );
