@@ -70,10 +70,10 @@ export default function NotFound() {
           <Link to="/" className="btn btn-primary">
             Back to Home
           </Link>
-          <Link to="/services" className="btn btn-secondary">
+          <Link to="/services/" className="btn btn-secondary">
             Browse Services
           </Link>
-          <Link to="/contact" className="btn btn-secondary">
+          <Link to="/contact/" className="btn btn-secondary">
             Book a Call
           </Link>
         </div>

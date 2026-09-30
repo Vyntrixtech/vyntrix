@@ -38,12 +38,28 @@ const SERVICE_FOR_CATEGORY = {
   "Digital Growth": "website-development",
 };
 
+/** Every word a reader actually sees, so read time and wordCount are true. */
+function countWords(o) {
+  const parts = [o.intro, o.quote, o.closing];
+  for (const s of o.sections) {
+    parts.push(s.heading, ...[].concat(s.body || []), ...(s.list || []), s.after);
+    if (s.table) parts.push(...s.table.head, ...s.table.rows.flat());
+  }
+  return parts.filter(Boolean).join(" ").split(/\s+/).length;
+}
+
 function post(o) {
+  const wordCount = countWords(o);
   return {
     author: AUTHOR,
     isoDate: toIso(o.date),
+    isoModified: o.modified ? toIso(o.modified) : undefined,
     relatedService: SERVICE_FOR_CATEGORY[o.category],
     ...o,
+    // Computed, not hand-typed: a "6 min read" on a 350-word article is a
+    // promise the page does not keep. ~220 words a minute, never under 2.
+    wordCount,
+    readTime: `${Math.max(2, Math.round(wordCount / 220))} min`,
   };
 }
 
@@ -74,6 +90,169 @@ export const posts = [
     quote: "The most expensive part of a slow website is the enquiry that never gets typed.",
     closing:
       "None of this requires a redesign. It requires someone to actually submit the form, on a phone, on 4G, and fix what breaks.",
+  }),
+
+  /* ---------------- Link-worthy reference pieces ---------------- */
+  post({
+    slug: "website-enquiry-calculator",
+    metaTitle: "How Many Website Visitors to Win One Client? | Vyntrix",
+    title: "How many website visitors does it take to win one client? The enquiry maths for service businesses",
+    category: "Digital Growth",
+    date: "25 September 2026",
+    excerpt:
+      "Three formulas that turn traffic, conversion rate and close rate into a cost per client — with worked scenarios you can copy into a spreadsheet.",
+    intro:
+      "Most small businesses judge a website on traffic. That number means nothing until you connect it to two others: how many visitors send an enquiry, and how many enquiries become paying clients. Put the three together and you get the only figure that matters for a service business — how many visitors, and how much spend, it takes to win one client. This page gives you the formulas, a set of worked scenarios and the levers that move each number.",
+    sections: [
+      {
+        heading: "The three formulas",
+        body: "You need three inputs, all of which you can pull from your own records: your enquiry conversion rate (enquiries ÷ website sessions), your close rate (new clients ÷ enquiries) and the value of a client (first-year gross profit, not revenue). Everything else follows.",
+        list: [
+          "Visitors per client = 1 ÷ (enquiry conversion rate × close rate)",
+          "Cost per client (paid traffic) = visitors per client × average cost per click",
+          "Break-even cost per click = client value ÷ visitors per client",
+        ],
+        after:
+          "Use gross profit for client value. A £6,000 project that costs you £3,500 to deliver is worth £2,500 to this calculation — using revenue will tell you a campaign is profitable when it is not.",
+      },
+      {
+        heading: "Worked scenarios",
+        body: "The table below runs the formulas across five combinations of conversion and close rate, with a £3 cost per click and a client worth £2,500 in first-year gross profit. These are illustrative inputs, not industry benchmarks — replace them with your own numbers, because your market, pricing and sales process will differ.",
+        table: {
+          caption: "Visitors and paid-traffic cost to win one client (£3 CPC, £2,500 client value)",
+          head: ["Enquiry conversion", "Close rate", "Visitors per client", "Cost per client at £3 CPC", "Break-even CPC"],
+          rows: [
+            ["1%", "10%", "1,000", "£3,000", "£2.50"],
+            ["1%", "20%", "500", "£1,500", "£5.00"],
+            ["2%", "20%", "250", "£750", "£10.00"],
+            ["2%", "30%", "167", "£500", "£15.00"],
+            ["3%", "30%", "111", "£333", "£22.50"],
+          ],
+        },
+        after:
+          "Read the table from top to bottom: moving enquiry conversion from 1% to 2% halves the traffic you need, and the same is true of moving close rate from 10% to 20%. Improving both multiplies. That is why fixing the website and the sales follow-up usually beats buying more traffic.",
+      },
+      {
+        heading: "Where to find your real numbers",
+        body: "You do not need an analytics platform to start. Count enquiries from your inbox and phone log for the last 90 days, count the clients those enquiries became, and take sessions from whatever analytics or hosting statistics you have. If you run Google Ads, the platform reports your actual average cost per click.",
+        list: [
+          "Enquiries: form submissions, calls and direct emails that mention the website — count them for one full quarter.",
+          "Close rate: clients won ÷ enquiries received in the same period. Exclude spam and job applicants.",
+          "Client value: average first-year gross profit per client, from your accounts rather than a quote.",
+          "Cost per click: from Google Ads, or leave paid traffic out and use the visitors-per-client figure alone.",
+        ],
+      },
+      {
+        heading: "The levers that move each number",
+        body: "Each input has a small number of practical levers. Most of them are on the website or in the first hour after an enquiry arrives.",
+        table: {
+          caption: "What typically moves each input",
+          head: ["Input", "Main levers", "Who owns it"],
+          rows: [
+            ["Enquiry conversion", "Form length, mobile load speed, clear pricing signals, visible proof (reviews, case studies), a phone number that works on tap", "Website"],
+            ["Close rate", "Speed of first response, a written quote within a day, qualifying questions on the form, follow-up after the quote", "Sales process"],
+            ["Client value", "Packaging, retainers and maintenance plans, repeat work", "Business model"],
+            ["Cost per click", "Search terms bought, match types, negative keywords, landing-page relevance", "Paid search"],
+          ],
+        },
+      },
+      {
+        heading: "A worked example",
+        body: [
+          "A London accountancy practice gets 1,200 website sessions a month and 12 enquiries — a 1% conversion rate — and wins 2 of those 12 as clients, a close rate of about 17%. At those rates it needs roughly 600 visitors per client.",
+          "Two changes — cutting the contact form from nine fields to four, and replying to every enquiry within the hour — lift conversion to 1.5% and close rate to 25%. Visitors per client falls to about 267. The same 1,200 monthly sessions now produce four to five clients instead of two, with no extra traffic bought.",
+        ],
+      },
+    ],
+    quote: "Traffic is an input. The number that pays the bills is visitors per client.",
+    closing:
+      "Copy the three formulas into a spreadsheet, fill in a quarter of your own data and you will know which lever is worth pulling first. If the answer is the website, that is the work we do — and we quote it at a fixed price before anything starts.",
+  }),
+
+  post({
+    slug: "landing-page-conversion-checklist",
+    metaTitle: "Landing Page Conversion Checklist: 25 Checks | Vyntrix",
+    title: "The landing page conversion checklist: 25 checks for pages that should win quote and demo requests",
+    category: "Web Development",
+    date: "25 September 2026",
+    excerpt:
+      "A 25-point audit checklist for service and B2B landing pages, grouped by what the visitor needs at each moment — from the first five seconds to the thank-you page.",
+    intro:
+      "A landing page for a service business has one job: turn a qualified visitor into a quote or demo request. This checklist is the one we run before a page goes live and when a client's page is getting traffic but not enquiries. It is grouped by the order in which a visitor experiences the page, and every item is something you can check yourself in a few minutes on your phone.",
+    sections: [
+      {
+        heading: "The first five seconds",
+        body: "Before a visitor scrolls, they decide whether they are in the right place. These checks cover what is visible without scrolling on a phone.",
+        list: [
+          "1. The headline names the service and who it is for — not a slogan.",
+          "2. The headline matches the search or ad that brought the visitor, word for word where possible.",
+          "3. One primary call to action is visible without scrolling, with a verb that describes what happens next (\"Get a written quote\", not \"Submit\").",
+          "4. A location or service-area signal is visible if you serve a region.",
+          "5. The page loads its main content in under about 2.5 seconds on a mid-range phone on 4G.",
+        ],
+      },
+      {
+        heading: "Proof and trust",
+        body: "Service buyers are buying a promise. These items give them evidence before they have to ask for it.",
+        list: [
+          "6. At least one named client result, case study or review appears above the halfway point.",
+          "7. Reviews link to or quote a third-party source (Google, Clutch, Trustpilot) rather than floating anonymously.",
+          "8. A real person — name, role, photo — is visible somewhere on the page.",
+          "9. Company details are present: registered company name, company number and a physical address.",
+          "10. Any accreditation or partner badge links to its verification page.",
+        ],
+      },
+      {
+        heading: "Offer and pricing clarity",
+        body: "Uncertainty about cost is the most common reason a qualified visitor leaves without enquiring.",
+        list: [
+          "11. The page gives a price, a starting price or a realistic range — or explains exactly how pricing is set.",
+          "12. What is included is listed plainly, and so is what is not.",
+          "13. The timeline from enquiry to delivery is stated.",
+          "14. The next step after enquiring is described (\"we reply within one working day with a written quote\").",
+          "15. Objections from sales calls are answered in a short FAQ on the page itself.",
+        ],
+      },
+      {
+        heading: "The form",
+        body: "The form is where most enquiries are lost. Test it by submitting it yourself, on a phone.",
+        list: [
+          "16. The form asks for four to six fields; anything else is asked after first contact.",
+          "17. Field labels stay visible while typing (placeholders alone disappear).",
+          "18. The phone field accepts spaces, brackets and a +44 prefix without an error.",
+          "19. Errors are explained next to the field, in words, and entered data is not wiped.",
+          "20. A successful submission shows a clear confirmation and sends an email receipt.",
+        ],
+      },
+      {
+        heading: "Measurement and follow-up",
+        body: "A page you cannot measure cannot be improved, and an enquiry that waits a day is often already lost.",
+        list: [
+          "21. Each form submission and phone-number tap is recorded as a conversion in analytics.",
+          "22. The source of each enquiry (search, ads, referral) is captured with the lead.",
+          "23. Enquiries are routed to a monitored inbox with a named owner.",
+          "24. First response happens within one working hour during business hours.",
+          "25. The page is re-tested on a phone after every change to the site.",
+        ],
+      },
+      {
+        heading: "How to score your page",
+        body: "Score one point for each check your page passes. The bands below are a practical triage guide rather than a statistical benchmark.",
+        table: {
+          caption: "Triage bands for the 25-point checklist",
+          head: ["Score", "What it usually means", "Where to start"],
+          rows: [
+            ["21–25", "The page is not the bottleneck", "Look at traffic quality and sales follow-up"],
+            ["15–20", "Some leaks, fixable in days", "Fix the form and pricing-clarity items first"],
+            ["8–14", "The page is costing you enquiries", "Rewrite the first screen, then add proof"],
+            ["0–7", "Rebuild before buying more traffic", "Start with a single-purpose page and a four-field form"],
+          ],
+        },
+      },
+    ],
+    quote: "Test the form on a phone before you spend another pound sending people to it.",
+    closing:
+      "Run the checklist on your own page this week. If more than five items fail and you would rather hand it over, we build and fix landing pages at a fixed, quoted price.",
   }),
 
   /* ---------------- Web Development ---------------- */

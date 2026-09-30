@@ -5,6 +5,10 @@ export default function AuroraHero({ ground, blobs = [], children, className = "
   return (
     <div className={"aurora " + className}>
       <div className="aurora-ground" style={{ background: ground }} />
+      {/* Blobs sit in a fixed-height layer so their %-based position never
+          depends on the hero's content height — otherwise a web-font swap
+          that reflows the text moves them and counts as layout shift. */}
+      <div className="aurora-layer" aria-hidden="true">
       {blobs.map((b, i) => (
         <div
           key={i}
@@ -22,6 +26,7 @@ export default function AuroraHero({ ground, blobs = [], children, className = "
           }}
         />
       ))}
+      </div>
       <div style={{ position: "relative" }}>{children}</div>
     </div>
   );

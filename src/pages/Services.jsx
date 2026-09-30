@@ -66,7 +66,7 @@ export default function Services() {
           {services.map((s) => {
             const Icon = iconMap[s.icon];
             return (
-              <Link to={`/services/${s.slug}`} key={s.slug} className="card card--accent services-grid__item">
+              <Link to={`/services/${s.slug}/`} key={s.slug} className="card card--accent services-grid__item">
                 <ServiceArt type={s.icon} height={150} />
                 <div className="services-grid__head">
                   <div className="icon-box">
@@ -101,7 +101,7 @@ export default function Services() {
               </div>
               <h3>{c.problem}</h3>
               <p>{c.answer}</p>
-              <Link to={`/services/${c.slug}`} className="service-link">
+              <Link to={`/services/${c.slug}/`} className="service-link">
                 {services.find((s) => s.slug === c.slug).name} <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -113,7 +113,7 @@ export default function Services() {
         <div className="glass-cta">
           <h2>Have a project in mind? Let's talk.</h2>
           <div className="actions">
-            <Link to="/contact" className="btn btn-primary">
+            <Link to="/contact/" className="btn btn-primary">
               Get a Free Quote
             </Link>
           </div>

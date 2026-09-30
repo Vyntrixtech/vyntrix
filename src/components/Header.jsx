@@ -5,14 +5,14 @@ import "./Header.css";
 
 // Served straight from /public, so the URL is identical in the pre-rendered
 // HTML and in the hydrated app. A bundled import would be content-hashed.
-const logo = "/vyntrix-technologies-logo.png";
+const logo = "/vyntrix-technologies-logo.webp";
 
 const navItems = [
   { to: "/", label: "Home", end: true },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/blog", label: "Blog" },
+  { to: "/about/", label: "About" },
+  { to: "/services/", label: "Services" },
+  { to: "/pricing/", label: "Pricing" },
+  { to: "/blog/", label: "Blog" },
 ];
 
 export default function Header() {
@@ -41,7 +41,7 @@ export default function Header() {
             setOpen(false);
           }}
         >
-          <img src={logo} alt="Vyntrix Technologies" height={32} />
+          <img src={logo} alt="Vyntrix Technologies" width={88} height={32} fetchPriority="high" />
         </div>
 
         <nav className="site-header__nav">
@@ -58,7 +58,7 @@ export default function Header() {
         </nav>
 
         <div className="site-header__actions">
-          <button className="btn btn-primary btn-sm site-header__cta" onClick={() => navigate("/contact")}>
+          <button className="btn btn-primary btn-sm site-header__cta" onClick={() => navigate("/contact/")}>
             Book a Call
             <ArrowRightIcon size={15} color="#04140c" />
           </button>
@@ -89,7 +89,7 @@ export default function Header() {
           <button
             className="btn btn-primary btn-block"
             onClick={() => {
-              navigate("/contact");
+              navigate("/contact/");
               setOpen(false);
             }}
           >

@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 
-# Internal admin area — no public value, keeps it out of the index.
-Disallow: /admin
+# Internal admin area — no public value.
+# /admin is noindex via its meta robots tag; it is deliberately NOT disallowed
+# here, because a disallowed page can never be crawled to see that noindex.
 
 Sitemap: https://vyntrixtechnologies.co.uk/sitemap.xml

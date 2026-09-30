@@ -21,18 +21,18 @@ export default function BlogIndex() {
         jsonLd={graph(
           {
             "@type": "Blog",
-            "@id": `${SITE_URL}/blog#blog`,
+            "@id": `${SITE_URL}/blog/#blog`,
             name: `${SITE_NAME} Insights`,
             description:
               "Practical guidance on websites, apps, branding and e-commerce for UK businesses.",
-            url: `${SITE_URL}/blog`,
+            url: `${SITE_URL}/blog/`,
             publisher: { "@id": `${SITE_URL}/#organization` },
             blogPost: posts.map((p) => ({
               "@type": "BlogPosting",
               headline: p.title,
               description: p.excerpt,
               datePublished: p.isoDate,
-              url: `${SITE_URL}/blog/${p.slug}`,
+              url: `${SITE_URL}/blog/${p.slug}/`,
             })),
           },
           organisation,
@@ -60,7 +60,7 @@ export default function BlogIndex() {
       </AuroraHero>
 
       <div className="section">
-        <Link to={`/blog/${featured.slug}`} className="card featured-post">
+        <Link to={`/blog/${featured.slug}/`} className="card featured-post">
           <div className="featured-post__art">
               <PostArt post={featured} showCategory />
             </div>
@@ -80,7 +80,7 @@ export default function BlogIndex() {
       <div className="section section--end">
         <div className="blog-grid">
           {filtered.map((p) => (
-            <Link to={`/blog/${p.slug}`} key={p.slug} className="card blog-card">
+            <Link to={`/blog/${p.slug}/`} key={p.slug} className="card blog-card">
               <div className="blog-card__art">
                 <PostArt post={p} />
               </div>

@@ -142,7 +142,7 @@ function PricingCard({ tier }) {
         ))}
       </div>
       <Link
-        to="/contact"
+        to="/contact/"
         className={"btn btn-block " + (tier.variant === "accent" ? "btn-primary" : "btn-secondary")}
       >
         {tier.cta}
@@ -161,7 +161,7 @@ export default function Pricing() {
           {
             "@type": "OfferCatalog",
             name: "Website and application packages",
-            url: `${SITE_URL}/pricing`,
+            url: `${SITE_URL}/pricing/`,
             provider: { "@id": `${SITE_URL}/#organization` },
             itemListElement: tiers.map((t) => ({
               "@type": "Offer",
@@ -220,7 +220,7 @@ export default function Pricing() {
           <h2>Not sure which package fits?</h2>
           <p style={{ maxWidth: "42ch" }}>Book a free demo and we'll recommend the smallest package that does the job properly.</p>
           <div className="actions">
-            <Link to="/contact" className="btn btn-primary">
+            <Link to="/contact/" className="btn btn-primary">
               Book a Consultation
             </Link>
           </div>

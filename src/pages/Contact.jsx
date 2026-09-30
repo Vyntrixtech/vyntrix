@@ -230,19 +230,19 @@ export default function Contact() {
               />
               <div className="contact-fields">
                 <div className="field">
-                  <label>Full name *</label>
-                  <input required value={form.name} onChange={(e) => update("name", e.target.value)} />
+                  <label htmlFor="cf-name">Full name *</label>
+                  <input id="cf-name" name="name" autoComplete="name" required value={form.name} onChange={(e) => update("name", e.target.value)} />
                 </div>
                 <div className="field">
-                  <label>Company name</label>
-                  <input value={form.company} onChange={(e) => update("company", e.target.value)} />
+                  <label htmlFor="cf-company">Company name</label>
+                  <input id="cf-company" name="company" autoComplete="organization" value={form.company} onChange={(e) => update("company", e.target.value)} />
                 </div>
                 <div className="field">
-                  <label>Email address *</label>
-                  <input required type="email" value={form.email} onChange={(e) => update("email", e.target.value)} />
+                  <label htmlFor="cf-email">Email address *</label>
+                  <input id="cf-email" name="email" autoComplete="email" required type="email" value={form.email} onChange={(e) => update("email", e.target.value)} />
                 </div>
                 <div className="field">
-                  <label>Phone number</label>
+                  <label htmlFor="cf-phone">Phone number</label>
                   <div className="phone-field">
                     <div className="field-select-wrap phone-field__country">
                       <select
@@ -259,6 +259,9 @@ export default function Contact() {
                       <ChevronDownIcon size={13} color="#7c9689" />
                     </div>
                     <input
+                      id="cf-phone"
+                      name="phone"
+                      autoComplete="tel-national"
                       className="phone-field__number"
                       type="tel"
                       inputMode="tel"
@@ -269,9 +272,11 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="field">
-                  <label>Service required *</label>
+                  <label htmlFor="cf-service">Service required *</label>
                   <div className="field-select-wrap">
                     <select
+                      id="cf-service"
+                      name="service"
                       required
                       data-empty={form.service === ""}
                       value={form.service}
@@ -291,9 +296,11 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="field">
-                  <label>Estimated budget</label>
+                  <label htmlFor="cf-budget">Estimated budget</label>
                   <div className="field-select-wrap">
                     <select
+                      id="cf-budget"
+                      name="budget"
                       data-empty={form.budget === ""}
                       value={form.budget}
                       onChange={(e) => update("budget", e.target.value)}
@@ -311,8 +318,10 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="field" style={{ gridColumn: "span 2" }}>
-                  <label>Project description *</label>
+                  <label htmlFor="cf-description">Project description *</label>
                   <textarea
+                    id="cf-description"
+                    name="description"
                     required
                     value={form.description}
                     onChange={(e) => update("description", e.target.value)}
@@ -328,7 +337,7 @@ export default function Contact() {
                   onChange={(e) => update("consent", e.target.checked)}
                 />
                 <span>
-                  I agree to Vyntrix Technologies contacting me about this enquiry. See our <Link to="/privacy">Privacy Policy</Link>.
+                  I agree to Vyntrix Technologies contacting me about this enquiry. See our <Link to="/privacy/">Privacy Policy</Link>.
                 </span>
               </label>
 

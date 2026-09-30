@@ -48,7 +48,14 @@ export function buildTags({ title, description, canonical, noindex, image, jsonL
 }
 
 export function canonicalFor(pathname) {
-  return SITE_URL + (pathname === "/" ? "/" : pathname.replace(/\/$/, ""));
+  // GitHub Pages serves /about from about/index.html and 301s the slashless
+  // form to /about/, so the trailing-slash URL is the only one that answers
+  // 200. Canonicals, sitemap and internal links all use it.
+  return SITE_URL + withSlash(pathname);
+}
+
+export function withSlash(path) {
+  return path.endsWith("/") ? path : `${path}/`;
 }
 
 function upsertMeta({ attr, key, content }) {
@@ -113,8 +120,15 @@ export const organisation = {
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
   legalName: "Vyntrix Technologies Limited",
-  url: SITE_URL,
-  logo: `${SITE_URL}/og-cover.png`,
+  url: `${SITE_URL}/`,
+  logo: `${SITE_URL}/vyntrix-technologies-logo.png`,
+  image: `${SITE_URL}/og-cover.png`,
+  description:
+    "London-based web design, mobile app development, branding and e-commerce company serving UK businesses.",
+  // Add the company's real profiles here as they go live (LinkedIn, Clutch,
+  // Google Business Profile, Companies House). sameAs is how search engines
+  // tell this Vyntrix apart from the other companies sharing the name.
+  sameAs: [],
   email: "info@vyntrixtechnologies.co.uk",
   telephone: "0207877897",
   address: {
@@ -124,7 +138,10 @@ export const organisation = {
     postalCode: "E7 9HZ",
     addressCountry: "GB",
   },
-  areaServed: "Worldwide",
+  areaServed: [
+    { "@type": "City", name: "London" },
+    { "@type": "Country", name: "United Kingdom" },
+  ],
 };
 
 /**
@@ -149,7 +166,7 @@ export const localBusiness = {
   "@id": `${SITE_URL}/#localbusiness`,
   name: SITE_NAME,
   parentOrganization: { "@id": `${SITE_URL}/#organization` },
-  url: `${SITE_URL}/contact`,
+  url: `${SITE_URL}/contact/`,
   email: "info@vyntrixtechnologies.co.uk",
   telephone: "0207877897",
   address: {
@@ -160,9 +177,11 @@ export const localBusiness = {
     postalCode: "E7 9HZ",
     addressCountry: "GB",
   },
+  image: `${SITE_URL}/og-cover.png`,
+  logo: `${SITE_URL}/vyntrix-technologies-logo.png`,
   areaServed: [
+    { "@type": "City", name: "London" },
     { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Place", name: "Worldwide" },
   ],
   // No priceRange: the site deliberately publishes no prices, and asserting a
   // band here would be a claim the page does not make.
@@ -181,7 +200,7 @@ export function breadcrumbs(trail) {
       "@type": "ListItem",
       position: i + 1,
       name: t.name,
-      item: SITE_URL + t.path,
+      item: SITE_URL + withSlash(t.path),
     })),
   };
 }

@@ -27,7 +27,7 @@ export default function Legal() {
             "@type": "WebPage",
             name: page.name,
             description: page.description,
-            url: `${SITE_URL}/${page.slug}`,
+            url: `${SITE_URL}/${page.slug}/`,
             publisher: { "@id": `${SITE_URL}/#organization` },
             dateModified: "2026-09-08",
           },
@@ -69,11 +69,11 @@ export default function Legal() {
         <div className="legal-more">
           <span>See also</span>
           {others.map((o) => (
-            <Link key={o.slug} to={`/${o.slug}`}>
+            <Link key={o.slug} to={`/${o.slug}/`}>
               {o.name}
             </Link>
           ))}
-          <Link to="/contact">Contact us</Link>
+          <Link to="/contact/">Contact us</Link>
         </div>
       </div>
     </div>
