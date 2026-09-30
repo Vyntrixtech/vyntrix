@@ -1,0 +1,47 @@
+/* Location landing pages – reuse ServiceDetail styles, plus a few extras. */
+.location-hero {
+  padding: 36px 28px 64px;
+}
+.location-hero > * {
+  max-width: 860px;
+}
+.service-included.location-points {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .service-included.location-points {
+    grid-template-columns: 1fr;
+  }
+}
+.location-hero__tag {
+  background: rgba(79, 232, 154, 0.1);
+  border: 1px solid rgba(79, 232, 154, 0.35);
+  color: var(--ac2);
+  padding: 8px 14px;
+}
+.location-intro {
+  max-width: 72ch;
+}
+.location-intro p {
+  font: 400 16.5px/1.8 var(--font-body);
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.location-more {
+  margin-top: 20px;
+  font: 400 15px/1.7 var(--font-body);
+}
+.location-list {
+  margin: 0 0 8px;
+  padding-left: 1.2rem;
+  line-height: 1.8;
+}
+.location-areas__heading {
+  margin-top: 28px;
+}
+.location-areas {
+  line-height: 1.8;
+}
+.location-sibling {
+  margin-top: 16px;
+}

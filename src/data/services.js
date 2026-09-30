@@ -4,6 +4,9 @@
 export const services = [
   {
     slug: "website-development",
+    seoTitle: "Website Development Services: WordPress & Custom | Vyntrix",
+    h1: "Website development services",
+    metaDescription: "Fixed-price website design and development for London and UK businesses. Fast, mobile-first sites built to rank and win enquiries. Written quote in 1 day.",
     number: "01",
     icon: "website",
     name: "Website Development",
@@ -28,6 +31,9 @@ export const services = [
   },
   {
     slug: "mobile-app-development",
+    seoTitle: "App Development Company in London | iOS & Android",
+    h1: "Mobile app development in London",
+    metaDescription: "iOS, Android and cross-platform app development for London and UK businesses — MVPs, customer portals and business apps at a fixed, quoted price.",
     number: "02",
     icon: "app",
     name: "Mobile App Development",
@@ -52,6 +58,9 @@ export const services = [
   },
   {
     slug: "graphic-design-branding",
+    seoTitle: "Logo Design & Branding Agency in London | Vyntrix",
+    h1: "Logo design and branding in London",
+    metaDescription: "Logo design, brand identity, print and social templates for London and UK small businesses. Fixed scope, clear usage rules, files you own outright.",
     number: "03",
     icon: "brand",
     name: "Graphic Design & Branding",
@@ -76,6 +85,9 @@ export const services = [
   },
   {
     slug: "ui-ux-design",
+    seoTitle: "UI/UX Design Agency London | Web & App Design",
+    h1: "UI/UX design for websites and apps, London",
+    metaDescription: "Wireframes, UI design, clickable prototypes and usability reviews for websites and mobile apps. London-based UI/UX design with developer-ready handoff.",
     number: "04",
     icon: "design",
     name: "UI/UX Design",
@@ -100,6 +112,9 @@ export const services = [
   },
   {
     slug: "ecommerce-development",
+    seoTitle: "E-commerce Website Development London | Vyntrix",
+    h1: "E-commerce website development in London",
+    metaDescription: "Shopify, WooCommerce and custom e-commerce stores for London and UK retailers — payments, product setup and order management at a fixed price.",
     number: "05",
     icon: "ecommerce",
     name: "E-commerce Development",
@@ -124,6 +139,9 @@ export const services = [
   },
   {
     slug: "it-digital-solutions",
+    seoTitle: "Business Email, Domains & Hosting Setup London | Vyntrix",
+    h1: "Business IT and digital solutions in London",
+    metaDescription: "Business email, domain management, hosting, cloud setup and technical consultancy for London and UK small businesses — set up properly and in your name.",
     number: "06",
     icon: "it",
     name: "IT & Digital Solutions",

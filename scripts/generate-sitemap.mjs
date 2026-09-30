@@ -10,7 +10,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 ${publicRoutes
   .map(
     (u) => `  <url>
-    <loc>${SITE}${u.path}</loc>
+    <loc>${SITE}${u.path.endsWith("/") ? u.path : u.path + "/"}</loc>
     <lastmod>${u.lastmod}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>

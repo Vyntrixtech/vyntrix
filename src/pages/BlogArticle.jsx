@@ -8,6 +8,15 @@ import PostArt from "../components/PostArt";
 import NotFound from "./NotFound";
 import "./BlogArticle.css";
 
+/** "Speed is a business number" -> "speed-is-a-business-number", for jump links. */
+function anchor(text) {
+  return text
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export default function BlogArticle() {
   const { slug } = useParams();
   const post = getPost(slug);
@@ -31,10 +40,13 @@ export default function BlogArticle() {
             description: post.excerpt,
             articleSection: post.category,
             datePublished: post.isoDate,
-            dateModified: post.isoDate,
-            author: { "@type": "Organization", name: post.author },
+            dateModified: post.isoModified || post.isoDate,
+            wordCount: post.wordCount,
+            author: { "@type": "Organization", name: post.author, url: `${SITE_URL}/about/` },
+            image: `${SITE_URL}/og-cover.png`,
+            inLanguage: "en-GB",
             publisher: { "@id": `${SITE_URL}/#organization` },
-            mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+            mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
           },
           organisation,
           breadcrumbs([
@@ -49,7 +61,7 @@ export default function BlogArticle() {
         blobs={[{ left: "50%", top: "-55%", width: "70%", height: "130%", color: "rgba(79,232,154,.24)", duration: "20s", center: true }]}
       >
         <div className="container article-crumb">
-          <Link to="/">Home</Link> / <Link to="/blog">Blog</Link> / <span>{post.category}</span>
+          <Link to="/">Home</Link> / <Link to="/blog/">Blog</Link> / <span>{post.category}</span>
         </div>
         <div className="container article-hero">
           <span className="pill-tag">{post.category}</span>
@@ -74,38 +86,71 @@ export default function BlogArticle() {
         <div className="article-toc">
           <div className="article-toc__label">ON THIS PAGE</div>
           <div className="article-toc__list">
-            <span className="is-active">Introduction</span>
+            <a href="#intro" className="is-active">Introduction</a>
             {post.sections.map((s) => (
-              <span key={s.heading}>{s.heading}</span>
+              <a key={s.heading} href={`#${anchor(s.heading)}`}>
+                {s.heading}
+              </a>
             ))}
-            <span>What this means for you</span>
+            <a href="#what-this-means">What this means for you</a>
           </div>
         </div>
 
         <div className="article-body">
-          <p className="article-body__lede">{post.intro}</p>
+          <p className="article-body__lede" id="intro">{post.intro}</p>
           {post.sections.map((s) => (
-            <div key={s.heading}>
+            <section key={s.heading} id={anchor(s.heading)}>
               <h2>{s.heading}</h2>
-              <p>{s.body}</p>
-            </div>
+              {[].concat(s.body || []).map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+              {s.list && (
+                <ul className="article-list">
+                  {s.list.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              )}
+              {s.table && (
+                <div className="article-table-wrap">
+                  <table className="article-table">
+                    {s.table.caption && <caption>{s.table.caption}</caption>}
+                    <thead>
+                      <tr>
+                        {s.table.head.map((h) => (
+                          <th key={h} scope="col">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {s.table.rows.map((r, i) => (
+                        <tr key={i}>
+                          {r.map((c, j) => (j === 0 ? <th key={j} scope="row">{c}</th> : <td key={j}>{c}</td>))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {s.after && <p>{s.after}</p>}
+            </section>
           ))}
           {post.quote && (
             <div className="article-quote">
               <p>{post.quote}</p>
             </div>
           )}
-          <h3>What this means for you</h3>
+          <h2 id="what-this-means">What this means for you</h2>
           <p>{post.closing}</p>
 
           {relatedService && (
             <p className="article-service-link">
               Related service:{" "}
-              <Link to={`/services/${relatedService.slug}`}>{relatedService.name}</Link>
+              <Link to={`/services/${relatedService.slug}/`}>{relatedService.name}</Link>
             </p>
           )}
 
-          <Link to="/contact" className="article-cta">
+          <Link to="/contact/" className="article-cta">
             <div>
               <div className="article-cta__title">Have a project in mind? Let's talk.</div>
               <div className="article-cta__sub">Free quotation, no obligation.</div>
@@ -118,7 +163,7 @@ export default function BlogArticle() {
           <div className="article-toc__label">RELATED</div>
           <div className="article-related">
             {related.map((r) => (
-              <Link to={`/blog/${r.slug}`} key={r.slug} className="article-related__item">
+              <Link to={`/blog/${r.slug}/`} key={r.slug} className="article-related__item">
                 <div className="article-related__art">
                   <PostArt post={r} />
                 </div>
@@ -133,7 +178,7 @@ export default function BlogArticle() {
         <div className="glass-cta">
           <h2>Want more like this?</h2>
           <div className="actions">
-            <Link to="/blog" className="btn btn-primary">
+            <Link to="/blog/" className="btn btn-primary">
               Browse All Articles <ArrowRightIcon size={16} color="#04140c" />
             </Link>
           </div>

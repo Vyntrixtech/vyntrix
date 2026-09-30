@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Seo, { graph, organisation, SITE_URL, SITE_NAME } from "../components/Seo";
+import Seo, { graph, organisation, localBusiness, SITE_URL, SITE_NAME } from "../components/Seo";
 import AuroraHero from "../components/AuroraHero";
 import ServiceArt from "../components/ServiceArt";
 import { services } from "../data/services";
@@ -77,7 +77,7 @@ const STAGES = [
 function ServiceBentoCard({ service }) {
   const Icon = serviceIconMap[service.icon];
   return (
-    <Link to={`/services/${service.slug}`} className="card bento-card">
+    <Link to={`/services/${service.slug}/`} className="card bento-card">
       <div className="bento-card__face bento-card__face--default">
         <div className="icon-box">
           <Icon size={19} />
@@ -113,12 +113,12 @@ export default function Home() {
   return (
     <div>
       <Seo
-        title="IT & Digital Solutions for Growing Businesses | Vyntrix"
-        description="UK web design, mobile app development, branding and e-commerce. Fixed scope, fixed price and a written quotation before work starts. Book a free 30-minute call."
-        jsonLd={graph(organisation, {
+        title="Vyntrix Technologies | Web & App Development Company, London"
+        description="London web design, mobile app development, branding and e-commerce for UK businesses. Fixed scope, fixed price, written quote before work starts."
+        jsonLd={graph(organisation, localBusiness, {
           "@type": "WebSite",
           "@id": SITE_URL + "/#website",
-          url: SITE_URL,
+          url: `${SITE_URL}/`,
           name: SITE_NAME,
           publisher: { "@id": SITE_URL + "/#organization" },
         })}
@@ -132,20 +132,21 @@ export default function Home() {
       >
         <div className="container hero">
           <div className="hero__badge">
-            <span className="hero__badge-flag">UK</span>Digital solutions partner · working globally
+            <span className="hero__badge-flag">UK</span>London-based digital partner · working UK-wide
           </div>
           <h1 className="hero__title">
-            Turning ideas into <span className="gradient-text">powerful digital</span> solutions
+            London web & app development that turns ideas into{" "}
+            <span className="gradient-text">powerful digital</span> solutions
           </h1>
           <p className="hero__lede">
             We design and develop websites, mobile applications and digital experiences that help businesses stand
             out, attract customers and grow.
           </p>
           <div className="hero__actions">
-            <Link to="/contact" className="btn btn-primary">
+            <Link to="/contact/" className="btn btn-primary">
               Get a Free Quote <ArrowRightIcon size={16} color="#04140c" />
             </Link>
-            <Link to="/services" className="btn btn-secondary">
+            <Link to="/services/" className="btn btn-secondary">
               <GridIcon size={16} color="#eefff6" /> Explore Services
             </Link>
           </div>
@@ -221,7 +222,11 @@ export default function Home() {
           <div className="section-head">
             <div className="eyebrow">Services</div>
             <h2>Everything your business needs to succeed online</h2>
-            <p>Six service lines, one team, and a single point of contact from discovery to launch.</p>
+            <p>
+              Six service lines, one team, and a single point of contact from discovery to launch. Based in{" "}
+              <Link to="/web-design-east-london/">East London</Link>, building websites for businesses{" "}
+              <Link to="/web-design-london/">across London</Link> and the UK.
+            </p>
           </div>
 
           <div className="home-services-bento">
@@ -291,7 +296,7 @@ export default function Home() {
           </div>
           <div className="home-posts">
             {featuredPosts.map((post) => (
-              <Link to={`/blog/${post.slug}`} key={post.slug} className="card home-post">
+              <Link to={`/blog/${post.slug}/`} key={post.slug} className="card home-post">
                 <div className="home-post__art">
                   <PostArt post={post} />
                 </div>
@@ -310,7 +315,7 @@ export default function Home() {
             ))}
           </div>
           <div className="home-posts__more">
-            <Link to="/blog" className="btn btn-secondary">
+            <Link to="/blog/" className="btn btn-secondary">
               Read all articles
             </Link>
           </div>
@@ -322,10 +327,10 @@ export default function Home() {
             <h2>Have an idea? Let's build it.</h2>
             <p>Book a free 30-minute demo call. You'll leave with a scope, a timeline and a fixed price, no obligation.</p>
             <div className="actions">
-              <Link to="/contact" className="btn btn-primary">
+              <Link to="/contact/" className="btn btn-primary">
                 Book a Call <ArrowRightIcon size={16} color="#04140c" />
               </Link>
-              <Link to="/services" className="btn btn-onglass">
+              <Link to="/services/" className="btn btn-onglass">
                 Explore Services
               </Link>
             </div>

@@ -180,7 +180,7 @@ export default function About() {
         <div className="glass-cta">
           <h2>Talk to our team about your project</h2>
           <div className="actions">
-            <Link to="/contact" className="btn btn-primary">
+            <Link to="/contact/" className="btn btn-primary">
               Book a Call
             </Link>
           </div>

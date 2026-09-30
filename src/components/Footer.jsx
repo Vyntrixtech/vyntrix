@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { services } from "../data/services";
 import "./Footer.css";
 
-const logo = "/vyntrix-technologies-logo.png";
+const logo = "/vyntrix-technologies-logo.webp";
 
 export default function Footer() {
   return (
@@ -10,11 +10,10 @@ export default function Footer() {
       <div className="site-footer__grid">
         <div>
           <Link to="/">
-            <img src={logo} alt="Vyntrix Technologies" height={30} loading="lazy" decoding="async" />
+            <img src={logo} alt="Vyntrix Technologies" width={82} height={30} loading="lazy" decoding="async" />
           </Link>
           <p className="site-footer__blurb">
-            UK-based IT and digital solutions company building websites, applications and brands for businesses
-            worldwide.
+            London-based web design, app development and branding studio, building for businesses across the UK.
           </p>
         </div>
 
@@ -22,7 +21,7 @@ export default function Footer() {
           <div className="site-footer__heading">Services</div>
           <div className="site-footer__links">
             {services.map((s) => (
-              <Link key={s.slug} to={`/services/${s.slug}`}>
+              <Link key={s.slug} to={`/services/${s.slug}/`}>
                 {s.name}
               </Link>
             ))}
@@ -32,11 +31,13 @@ export default function Footer() {
         <div>
           <div className="site-footer__heading">Company</div>
           <div className="site-footer__links">
-            <Link to="/about">About Us</Link>
-            <Link to="/services">Services</Link>
-            <Link to="/pricing">Pricing</Link>
-            <Link to="/blog">Blog</Link>
-            <Link to="/contact">Contact Us</Link>
+            <Link to="/about/">About Us</Link>
+            <Link to="/services/">Services</Link>
+            <Link to="/pricing/">Pricing</Link>
+            <Link to="/blog/">Blog</Link>
+            <Link to="/contact/">Contact Us</Link>
+            <Link to="/web-design-london/">Web Design London</Link>
+            <Link to="/web-design-east-london/">Web Design East London</Link>
           </div>
         </div>
 
@@ -51,11 +52,11 @@ export default function Footer() {
               London, England, E7 9HZ
             </span>
             <div className="site-footer__legal">
-              <Link to="/privacy">Privacy</Link>
+              <Link to="/privacy/">Privacy</Link>
               <span>·</span>
-              <Link to="/cookies">Cookies</Link>
+              <Link to="/cookies/">Cookies</Link>
               <span>·</span>
-              <Link to="/terms">Terms</Link>
+              <Link to="/terms/">Terms</Link>
             </div>
           </div>
         </div>

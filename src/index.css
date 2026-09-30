@@ -1,3 +1,21 @@
+/* The two faces that paint the first screen (hero headings and body text)
+   are served from /fonts with stable names so index.html can preload them;
+   the rest come from @fontsource via main.jsx. */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/dm-sans-latin-400-normal.woff2") format("woff2");
+}
+
 /* ==========================================================================
    Vyntrix Technologies — Aurora design system
    Dark, translucent-glass surfaces over a drifting green→blue gradient
@@ -322,6 +340,24 @@ a.card:hover .service-link svg,
 .aurora-ground {
   position: absolute;
   inset: 0;
+}
+.aurora-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 640px;
+  pointer-events: none;
+}
+/* Inline links inside running text must be distinguishable without colour. */
+.section-head p a,
+.service-hero__lede a,
+.location-more a,
+.location-sibling a,
+.location-intro a,
+.contact-consent a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 .aurora-blob {
   position: absolute;

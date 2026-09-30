@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -12,8 +13,11 @@ import Contact from "./pages/Contact";
 import BlogIndex from "./pages/BlogIndex";
 import BlogArticle from "./pages/BlogArticle";
 import Legal from "./pages/Legal";
+import Location from "./pages/Location";
 import NotFound from "./pages/NotFound";
-import AdminDashboard from "./pages/admin/AdminDashboard";
+// The admin mock is split into its own chunk so public visitors never
+// download it. It is not pre-rendered (see scripts/routes.mjs).
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 
 function SiteLayout({ children }) {
   return (
@@ -30,7 +34,14 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+          path="/admin"
+          element={
+            <Suspense fallback={null}>
+              <AdminDashboard />
+            </Suspense>
+          }
+        />
         <Route
           path="/*"
           element={
@@ -47,6 +58,8 @@ export default function App() {
                 {/* Listed one by one rather than as `/:slug` — a wildcard here
                     would swallow every unknown top-level path and render an
                     empty policy page instead of the 404. */}
+                <Route path="/web-design-london" element={<Location />} />
+                <Route path="/web-design-east-london" element={<Location />} />
                 <Route path="/privacy" element={<Legal />} />
                 <Route path="/cookies" element={<Legal />} />
                 <Route path="/terms" element={<Legal />} />

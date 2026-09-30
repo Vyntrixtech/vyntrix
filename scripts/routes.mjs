@@ -12,6 +12,7 @@ import { execFileSync } from "node:child_process";
 const { services } = await import(`${root}/src/data/services.js`);
 const { posts } = await import(`${root}/src/data/posts.js`);
 const { legalList } = await import(`${root}/src/data/legal.js`);
+const { locations } = await import(`${root}/src/data/locations.js`);
 
 // lastmod has to be true or it is worse than useless — stamping every page
 // with today's date on every build tells crawlers the whole site changed each
@@ -47,6 +48,7 @@ const pricingDate = dateFor(`${SRC}/pages/Pricing.jsx`);
 const contactDate = dateFor(`${SRC}/pages/Contact.jsx`);
 const aboutDate = dateFor(`${SRC}/pages/About.jsx`);
 const blogDate = dateFor(`${SRC}/pages/BlogIndex.jsx`, `${SRC}/data/posts.js`);
+const locationDate = dateFor(`${SRC}/data/locations.js`, `${SRC}/pages/Location.jsx`);
 const legalDate = dateFor(`${SRC}/data/legal.js`, `${SRC}/pages/Legal.jsx`);
 
 // priority is a hint, not a ranking lever — commercial pages first.
@@ -58,6 +60,12 @@ export const publicRoutes = [
     changefreq: "monthly",
     priority: "0.9",
     lastmod: serviceDetailDate,
+  })),
+  ...locations.map((l) => ({
+    path: `/${l.slug}`,
+    changefreq: "monthly",
+    priority: "0.9",
+    lastmod: locationDate,
   })),
   { path: "/pricing", changefreq: "monthly", priority: "0.8", lastmod: pricingDate },
   { path: "/contact", changefreq: "yearly", priority: "0.8", lastmod: contactDate },
@@ -77,6 +85,6 @@ export const publicRoutes = [
   })),
 ];
 
-// Worth pre-rendering so it loads as one file, but noindex and deliberately
-// absent from the sitemap.
-export const prerenderRoutes = [...publicRoutes.map((r) => r.path), "/admin"];
+// /admin is a noindex internal mock, lazy-loaded in the browser; it is not
+// pre-rendered, so its code never ships in the public pages.
+export const prerenderRoutes = publicRoutes.map((r) => r.path);

@@ -72,6 +72,7 @@
 }
 
 .article-body {
+  min-width: 0; /* lets wide tables scroll inside the grid cell instead of widening the page */
   max-width: 66ch;
 }
 .article-body__lede {
@@ -208,4 +209,51 @@
     grid-template-columns: 1fr;
     text-align: center;
   }
+}
+
+/* Link-bait assets: checklists and reference tables inside articles. */
+.article-toc__list a {
+  color: inherit;
+  text-decoration: none;
+}
+.article-toc__list a:hover {
+  text-decoration: underline;
+}
+.article-body section {
+  scroll-margin-top: 96px;
+}
+.article-list {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  line-height: 1.7;
+}
+.article-list li + li {
+  margin-top: 0.4rem;
+}
+.article-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  min-width: 520px;
+}
+.article-table caption {
+  text-align: left;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+}
+.article-table th,
+.article-table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.25);
+  vertical-align: top;
+}
+.article-table thead th {
+  font-weight: 700;
+  border-bottom-width: 2px;
 }

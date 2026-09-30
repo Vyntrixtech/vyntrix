@@ -2,15 +2,16 @@
 //
 // Written to describe what this site actually does, not from a template: it is
 // a static site with no analytics, no tracking pixels and no cookies of its
-// own. The only third-party request a visitor's browser makes is to Google
-// Fonts. Keep this file honest — if the site later gains analytics, a chat
-// widget or a form backend, these pages must change with it.
+// own. Fonts are self-hosted; the only third-party request a visitor's
+// browser makes is to Web3Forms, and only when the enquiry form is sent. Keep
+// this file honest — if the site later gains analytics or a chat widget,
+// these pages must change with it.
 
 export const COMPANY = "Vyntrix Technologies Limited";
 export const EMAIL = "info@vyntrixtechnologies.co.uk";
 export const PHONE = "0207877897";
 export const ADDRESS = "Business centre 246-250 Romford Road, London, England, E7 9HZ";
-export const LAST_UPDATED = "8 September 2026";
+export const LAST_UPDATED = "25 September 2026";
 
 export const legalPages = {
   privacy: {
@@ -87,7 +88,7 @@ export const legalPages = {
     name: "Cookie Policy",
     title: "Cookie Policy | Vyntrix Technologies",
     description:
-      "This website sets no cookies and runs no analytics or advertising trackers. What that means in practice, and the two third-party requests it does make.",
+      "This website sets no cookies and runs no analytics or advertising trackers. What that means in practice, and the one third-party request it can make.",
     lede: "The short version: this website sets no cookies at all, so there is no cookie banner to dismiss and nothing for you to opt out of.",
     sections: [
       {
@@ -98,9 +99,9 @@ export const legalPages = {
         ],
       },
       {
-        heading: "The two third-party requests",
+        heading: "The one third-party request",
         body: [
-          "Our typefaces are served by Google Fonts. When you open any page, your browser requests those font files from fonts.googleapis.com and fonts.gstatic.com. Google does not set a cookie on this request, but it does receive your IP address and browser details as part of delivering the files, and processes them under its own privacy policy.",
+          "Our typefaces are hosted on this website itself, so opening a page does not contact Google Fonts or any other font service.",
           "If you submit the enquiry form, your browser sends what you typed to Web3Forms, which passes it on to our inbox by email and does not set a cookie either. This request only happens if you press send — nothing is sent while you are simply reading the page.",
           "Nothing else on the site contacts a third party: there are no embedded videos, maps, chat widgets or advertising scripts.",
         ],

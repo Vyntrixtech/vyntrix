@@ -6,6 +6,7 @@ import { getService } from "../data/services";
 import { postsForService } from "../data/posts";
 import PostArt from "../components/PostArt";
 import { ArrowRightIcon } from "../components/Icons";
+import FaqRow from "../components/FaqRow";
 import { itemIconMap } from "../data/serviceIcons";
 import NotFound from "./NotFound";
 import "./ServiceDetail.css";
@@ -15,28 +16,6 @@ import "./ServiceDetail.css";
 // collapsed, and the page carries FAQPage schema — marking up an answer the
 // document does not contain would be claiming content that isn't there.
 // The head is a real <button> so the accordion works from the keyboard.
-function FaqRow({ q, a, id }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className={"faq-row" + (open ? " is-open" : "")}>
-      <button
-        type="button"
-        className="faq-row__head"
-        aria-expanded={open}
-        aria-controls={id}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span>{q}</span>
-        <span className="faq-row__toggle" aria-hidden="true">
-          {open ? "−" : "+"}
-        </span>
-      </button>
-      <p className="faq-row__body" id={id} hidden={!open}>
-        {a}
-      </p>
-    </div>
-  );
-}
 
 const PROJECT_STEPS = [
   {
@@ -83,16 +62,20 @@ export default function ServiceDetail() {
   return (
     <div>
       <Seo
-        title={`${service.name} | Vyntrix Technologies`}
-        description={service.lede.length > 155 ? service.short : service.lede}
+        title={service.seoTitle || `${service.name} | Vyntrix Technologies`}
+        description={service.metaDescription || (service.lede.length > 155 ? service.short : service.lede)}
         jsonLd={graph(
           {
             "@type": "Service",
             name: service.name,
             description: service.short,
-            url: `${SITE_URL}/services/${service.slug}`,
+            url: `${SITE_URL}/services/${service.slug}/`,
             provider: { "@id": `${SITE_URL}/#organization` },
-            areaServed: "Worldwide",
+            serviceType: service.name,
+            areaServed: [
+              { "@type": "City", name: "London" },
+              { "@type": "Country", name: "United Kingdom" },
+            ],
             hasOfferCatalog: {
               "@type": "OfferCatalog",
               name: `${service.name} — what's included`,
@@ -116,20 +99,26 @@ export default function ServiceDetail() {
         blobs={[{ right: "-10%", top: "-50%", width: "65%", height: "150%", color: "rgba(79,232,154,.32)", duration: "19s" }]}
       >
         <div className="container service-crumb">
-          <Link to="/">Home</Link> / <Link to="/services">Services</Link> / <span>{service.name}</span>
+          <Link to="/">Home</Link> / <Link to="/services/">Services</Link> / <span>{service.name}</span>
         </div>
         <div className="container service-hero">
           <div>
             <div className="pill-tag" style={{ background: "rgba(79,232,154,.10)", border: "1px solid rgba(79,232,154,.35)", color: "var(--ac2)", padding: "8px 14px" }}>
               Service {service.number}
             </div>
-            <h1 className="service-hero__title">{service.name}</h1>
+            <h1 className="service-hero__title">{service.h1 || service.name}</h1>
             <p className="service-hero__lede">{service.lede}</p>
+            {service.slug === "website-development" && (
+              <p className="service-hero__lede">
+                Based in London? See <Link to="/web-design-london/">web design in London</Link> or our{" "}
+                <Link to="/web-design-east-london/">East London studio</Link>.
+              </p>
+            )}
             <div className="hero__actions" style={{ justifyContent: "flex-start" }}>
-              <Link to="/contact" className="btn btn-primary">
+              <Link to="/contact/" className="btn btn-primary">
                 Get a Free Quote
               </Link>
-              <Link to="/services" className="btn btn-secondary">
+              <Link to="/services/" className="btn btn-secondary">
                 See Other Services
               </Link>
             </div>
@@ -214,7 +203,7 @@ export default function ServiceDetail() {
           </div>
           <div className="service-insights">
             {insights.map((post) => (
-              <Link to={`/blog/${post.slug}`} key={post.slug} className="card service-insight">
+              <Link to={`/blog/${post.slug}/`} key={post.slug} className="card service-insight">
                 <div className="service-insight__art">
                   <PostArt post={post} />
                 </div>
@@ -234,7 +223,7 @@ export default function ServiceDetail() {
           <h2>Ready to talk about {service.name.toLowerCase()}?</h2>
           <p>Book a free demo and we'll map the first steps with you — scope, timeline and a fixed price.</p>
           <div className="actions">
-            <Link to="/contact" className="btn btn-primary">
+            <Link to="/contact/" className="btn btn-primary">
               Book a Call <ArrowRightIcon size={16} color="#04140c" />
             </Link>
           </div>
